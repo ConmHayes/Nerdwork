@@ -1,1 +1,5 @@
 pipenv requirements > requirements.txt
+
+Haven't really looked at this but its another friends list data base 
+so might be worth looking at, at some point:
+https://stackoverflow.com/questions/18807322/sqlalchemy-foreign-key-relationship-attributes

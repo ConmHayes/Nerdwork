@@ -4,7 +4,7 @@ body {
 }
 
 body.login-page{
-    background-color: aqua;
+    background-color: lavender;
 }
 
 .flexbox-container{
@@ -23,8 +23,9 @@ body.login-page{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: blue;
     text-align: center;
+    border: black solid 3px;
+
 }
 
 .login-button{
@@ -36,6 +37,20 @@ body.login-page{
     border-bottom: 1px solid white;
     margin-bottom: 20px;
     justify-content: left;
+}
+
+.Input,
+.passwordInput {
+  font-weight: bold;
+  font-size: 1.2rem;
+  padding: 10px;
+  border: none;
+  background-color: transparent;
+  text-align: center;
+  width: 100%;
+  border-bottom: 1px solid #3c7f72;
+  margin-bottom: 20px;
+  color: #3c7f72;
 }
 
 .input-label {

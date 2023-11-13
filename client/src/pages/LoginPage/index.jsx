@@ -10,9 +10,11 @@ export default function LoginPage(){
     document.body.classList.add("login-page")
 
     return (
-        <div className="flexbox-container login-container" style = {{backgroundColor: "red"}}>
-           <div className="login-array">
+        <div className="flexbox-container login-container" >
+            <div className="flexbox-item"></div>
+           <div className="flexbox-item login-array">
                 <h2>Welcome to the NerdWork</h2><br />
+                <vh />
                 <p>Please log in below</p>
                 <UsernameForm 
                     inputUn={inputUn}

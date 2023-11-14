@@ -20,12 +20,21 @@ export default function UsernameForm({
   const navigate = useNavigate()
   const [loginStatus, setLoginStatus] = useState('')
   const [showPassword, setShowPassword] = useState(false);
+  const [inputEmail, setinputEmail] = useState("Email")
+  const [inputDob, setInputDob] = useState("")
 
   function handleInputUN(e) {
     setInputUn(e.target.value);
   }
   function handleInputPW(e) {
     setInputPw(e.target.value);
+  }
+  function handleInputEmail(e) {
+    setinputEmail(e.target.value);
+  }
+  function handleInputDob(e) {
+    const dob = document.getElementById("date-of-birth")
+    setInputDob(dob.value);
   }
   
   async function handleSubmit(e) {
@@ -98,8 +107,8 @@ export default function UsernameForm({
             type="text"
             id="email"
             name="email"
-            placeholder={inputUn}
-            onChange={handleInputUN}
+            placeholder={inputEmail}
+            onChange={handleInputEmail}
           />
         </label>
         <br />
@@ -109,8 +118,7 @@ export default function UsernameForm({
             type="date"
             id="date-of-birth"
             name="date-of-birth"
-            placeholder={inputUn}
-            onChange={handleInputUN}
+            onChange={handleInputDob}
           />
         </label>
         <br />

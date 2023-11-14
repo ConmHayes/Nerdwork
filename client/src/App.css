@@ -141,3 +141,70 @@ font-size: 20px;
   width: 600px;
   max-width: 600px;
 }
+
+.profile-sidebar-extended{
+    width: 30%;
+    height: 95vh;
+    background-color: rebeccapurple;
+    align-items: flex-start;
+}
+.carousel-item{
+    width: 60%;
+    height: 350px;
+    background-color: blueviolet;
+    position: relative;
+    left: 20px
+}
+
+.profile-container{
+    justify-content: flex-start;
+
+}
+
+.profile-header{
+    align-items: center;
+    justify-content: flex-start;
+    background-color: tran;
+    width: 90%;
+    position: relative;
+    top: 20px;
+}
+
+.dot{
+    height: 60px;
+    width: 60px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: flex;
+
+    border: black solid 3px;
+}
+
+.dot i{
+    font-size: 50px;
+    position: relative;
+    left: 2px;
+}
+
+.dot:hover{
+    background-color: blue;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.dot i:hover{
+    color:white;
+    cursor: pointer;
+    transition: 0.5s
+}
+
+.bell{
+    position: relative;
+    left: 50px;
+    background-color: red;
+    align-items: center;
+}
+
+h3{
+    font-size: large;
+}

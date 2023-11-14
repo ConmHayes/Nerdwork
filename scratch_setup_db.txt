@@ -1,0 +1,8 @@
+within server folder, pipenv shell
+
+run python 
+from application import db
+from application.database.models import User, Friend, Item, Token, Swap
+db.create_all()
+
+then go check your database :)

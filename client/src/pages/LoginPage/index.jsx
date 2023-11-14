@@ -15,9 +15,9 @@ export default function LoginPage(){
         <div className="flexbox-container login-container" >
             <div className="flexbox-item"></div>
            <div className="flexbox-item login-array" style={{width: "600px"}}>
-                <h2>Welcome to the NerdWork</h2>
+                <h2 data-testid = "welcome">Welcome to the NerdWork</h2>
                 <hr />
-                <p>Please log in below</p>
+                <p data-testid = "login-request">Please log in below</p>
                 <UsernameForm 
                     inputUn={inputUn}
                     setInputUn={setInputUn}
@@ -26,7 +26,7 @@ export default function LoginPage(){
                     button_Text={button_Text}
                     setButtonText={setButtonText}
                 />
-                <p>Not have an account yet? <Link to="/signup" className = "inline">Create one here!</Link></p>
+                <p data-testid="no-account">Not have an account yet? <Link to="/signup" className = "inline">Create one here!</Link></p>
            </div>
            <div className="flexboxItem"></div>
         </div>

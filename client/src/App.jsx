@@ -21,6 +21,9 @@ function App() {  function LayoutWithHeader({ children }) {
         <Route element={<LayoutWithHeader />} >
           <Route path="/request" element={<Pages.RequestPage />} />
           <Route path="/books" element={<Bookshelf />} />
+          <Route path="/profile" element={<Pages.ProfilePage />}/>
+        <Route element={<LayoutWithHeader />}>
+
         </Route>
       </Routes>
     </div>

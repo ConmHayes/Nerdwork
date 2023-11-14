@@ -17,11 +17,17 @@ export default function Header() {
             {" "}
             Home{" "}
           </NavLink>
-          <NavLink to="/books" style={styles} className="white">
-            Profile{" "}
+          <NavLink to="/Books" style={styles} className="white">
+            Books{" "}
           </NavLink>
-          <NavLink className="white" to="/games" style={styles}>
-            Games
+          <NavLink to="/Games" style={styles} className="white">
+            Games{" "}
+          </NavLink>
+          <NavLink to="/Comics" style={styles} className="white">
+            Comics{" "}
+          </NavLink>
+          <NavLink className="white" to="/Profile" style={styles}>
+            Profile
           </NavLink>
           <NavLink
             className="yellow"

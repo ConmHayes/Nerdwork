@@ -18,7 +18,7 @@ const BookCard = ({ book }) => {
         <Card.Text className="text-secondary">{author}</Card.Text>
         <Card.Text>
           {genres.map((genre, index) => (
-            <Badge key={index} pill className="mr-1" bg="secondary">
+            <Badge key={index} pill className="mr-1" bg="secondary" style={{color: 'white'}}>
               {genre}
             </Badge>
           ))}

@@ -1,6 +1,6 @@
 import React,  {useState, useEffect } from "react";
 import SearchForm from "../SearchForm";
-import BookCard from "../BookCard";
+import BookCard from "../BookSearchCard";
 import "./bookSearchWidget.css"
 
 export default function BookSearchWidget () {

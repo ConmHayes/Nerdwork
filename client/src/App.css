@@ -102,6 +102,7 @@ font-size: 20px;
     color: blue
 }
 
+.bell-ikon
 .ikon {
     color: black;
     width: 30px;
@@ -146,8 +147,15 @@ font-size: 20px;
     width: 30%;
     height: 95vh;
     background-color: rebeccapurple;
-    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
 }
+
+.profile-bar{
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
 .carousel-item{
     width: 60%;
     height: 350px;
@@ -201,15 +209,51 @@ font-size: 20px;
 .bell{
     position: relative;
     left: 50px;
-    background-color: red;
+    background-color: transparent;
     align-items: center;
 }
+.bell-ikon{
+    font-size: 30px;
+}
 
-.bell:hover{
+.bell-ikon:hover{
     color:aqua;
-    transition: 0.5s;
+    transition: 0.3s;
+    cursor: pointer;
 }
 
 h3{
     font-size: large;
+}
+
+.option-row{
+    margin-top: 50px;
+    width: 80%;
+    flex-direction: column;
+    background-color: transparent;
+}
+
+.profile-option{
+    width: 100%;
+    margin-top: 30px;
+}
+
+.profile-option i{
+    position: inherit;  
+    right: 10px;
+    top: 35%;
+    line-height: 0;
+    color: black;
+    font-size: 20px;
+}
+
+.profile-option:hover{
+    cursor: pointer;
+}
+
+.odd{
+    background-color: aqua;
+}
+.even{
+    background-color: lightgreen;
 }

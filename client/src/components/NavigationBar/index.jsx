@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Outlet } from 'react-router-dom';
 import { Navbar, Nav } from 'react-bootstrap';
 
 
@@ -23,7 +23,7 @@ const NavigationBar = () => {
               Books
             </Nav.Link>
             <Nav.Link as={NavLink} to="/comic_books" className={({ isActive }) => isActive ? "nav-link-active" : "nav-link"}>
-              Comic Books
+              Comics
             </Nav.Link>
             <Nav.Link as={NavLink} to="/games" className={({ isActive }) => isActive ? "nav-link-active" : "nav-link"}>
               Games
@@ -31,13 +31,14 @@ const NavigationBar = () => {
             <Nav.Link as={NavLink} to="/profile" className={({ isActive }) => isActive ? "nav-link-active" : "nav-link"}>
               Profile
             </Nav.Link>
-            <Nav.Link as={NavLink} to="/" className={({ isActive }) => isActive ? "nav-link-active" : "nav-link"} onclick={clearStorage}>
+            <Nav.Link as={NavLink} to="/" className={({ isActive }) => isActive ? "nav-link-active" : "nav-link"} onClick={clearStorage}>
               Logout
             </Nav.Link>
             {/* Additional navigation links as needed */}
           </Nav>
         </Navbar.Collapse>
       </Navbar>
+      <Outlet />
     </div>
   );
 };

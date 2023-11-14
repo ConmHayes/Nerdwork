@@ -13,8 +13,8 @@ function App() {  function LayoutWithHeader({ children }) {
       </div>
     );
   }
+
   return (
-    <div>
       <Routes>
         <Route path="/" element={<Pages.LoginPage />} />
         <Route path="/signup" element={<Pages.SignupPage />} />
@@ -25,7 +25,6 @@ function App() {  function LayoutWithHeader({ children }) {
 
         </Route>
       </Routes>
-    </div>
   );
 }
 

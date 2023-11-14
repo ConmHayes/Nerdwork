@@ -4,7 +4,10 @@ body {
 }
 
 body.login-page{
-    background-color: aqua;
+    background-color: lavender;
+}
+hr{
+    color: black
 }
 
 .flexbox-container{
@@ -23,25 +26,57 @@ body.login-page{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: blue;
     text-align: center;
+    border: black solid 3px;
+
 }
 
+.flexbox-item-login {
+    width: 600px;
+    height: 600px;
+    margin: 100px;
+    background-color: transparent;
+    max-width: 600px;
+    max-height: 600px;
+    justify-content: center;
+    align-items: center;
+  }
+
 .login-button{
-    border-radius: 8px;
     height: 40px;
-    width: 25%;
     background-color: #fffbed;
-    color: #3c7f72;
-    border-bottom: 1px solid white;
+    color: black;
     margin-bottom: 20px;
     justify-content: left;
+    border: black solid 3px
+}
+
+.login-button.login-page{
+    width: 25%;
+}
+
+.login-button.signup-page{
+    width: 40%
+}
+
+.Input,
+.passwordInput {
+  font-weight: bold;
+  font-size: 1.2rem;
+  padding: 10px;
+  border: none;
+  background-color: transparent;
+  text-align: center;
+  width: 100%;
+  border-bottom: 1px solid black;
+  margin-bottom: 20px;
+  color: black;
 }
 
 .input-label {
     position: relative;
     width: 100%;
-    color: #3c7f72;
+    color: black;
   }
   
 
@@ -50,7 +85,7 @@ position: absolute;
 left: 10px;
 top: 35%;
 line-height: 0;
-color: #3c7f72;
+color: black;
 font-size: 20px;
 }
 
@@ -59,7 +94,50 @@ position: absolute;
 right: 10px;
 top: 35%;
 line-height: 0;
-color: #3c7f72;
+color: black;
 font-size: 20px;
 }
-  
+
+.inline{
+    color: blue
+}
+
+.ikon {
+    color: black;
+    width: 30px;
+    height: 30px
+  }
+
+  .flexbox-image-login,
+.flexbox-login-array,
+.flexbox-container,
+.flexbox-item,
+.login-array,
+.flexbox-form,
+.flexbox-header,
+.flexbox-header-left,
+.flexbox-form-list,
+.flex-options,
+.button-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flexbox-image-login,
+.flexbox-login-array,
+.flexbox-login-array,
+.login-array,
+.flexbox-form,
+.flexbox-header,
+.flexbox-header-left,
+.flexbox-form-list,
+.flex-options {
+  position: relative;
+}
+
+.flexbox-login-array {
+  flex-direction: column;
+  width: 600px;
+  max-width: 600px;
+}

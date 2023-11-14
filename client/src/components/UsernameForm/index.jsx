@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import { useNavigate } from 'react-router-dom'
 
+
 /*
 const apiURL = "https://time-table-server.onrender.com"
 const siteURL = "https://time-table-app.onrender.com/"
@@ -84,8 +85,13 @@ export default function UsernameForm({
     }
   }
 
+  function pageRender(){
+    if (button_Text == "Login"){
+      return 
+    }else if (button_Text == "Create Account"){}
+  }
+
   return (
-    <div className="flexbox-container" style = {{flexdirection: "row", backgroundColor: "yellow"}}>
       <form id="login" onSubmit={handleSubmit}>
         <label htmlFor="username" className="input-label">
           <i className="material-icons ikon left" style = {{color: "#3C7F72"}}>person</i>
@@ -112,19 +118,17 @@ export default function UsernameForm({
     onChange={handleInputPW}
   />
   <i
-    className={`material-icons ikon toggle-password ${showPassword ? "visible" : ""}`}
+    className={`material-icons ikon right toggle-password ${showPassword ? "visible" : ""}`}
     onClick={togglePasswordVisibility}
   >
     {showPassword ? "visibility" : "visibility_off"}
   </i>
 </label>
 <br />
-Show Password
         <button className="login-button" type="submit">
         {button_Text}
         </button>
         <p>{loginStatus}</p>
       </form>
-    </div>
   );
 }

@@ -1,4 +1,4 @@
-"""create db """
+"""create db"""
 
 from application import db, app
 

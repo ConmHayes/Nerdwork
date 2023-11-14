@@ -4,6 +4,8 @@ from application import db, app
 
 app.app_context().push()
 
+# db.metadata.drop_all(db.engine, checkfirst=True)
+
 #User Table
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -50,7 +52,7 @@ class Item(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     product_type = db.Column(db.String(20), nullable=False)
     name = db.Column(db.String(255), nullable=False)
-    user_id = db.Column(db.date, db.ForeignKey('user.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     category = db.Column(db.String(255), nullable=False)
     platform = db.Column(db.String(255))
 

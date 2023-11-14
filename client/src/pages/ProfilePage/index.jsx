@@ -3,7 +3,7 @@ import React from "react"
 
 
 export default function ProfilePage(){
-    const [sidebarExtended, setSidebarExtended] = useState(true)
+    //const [sidebarExtended, setSidebarExtended] = useState(true)
 
     return(
         <div className="flexbox-container profile-container">

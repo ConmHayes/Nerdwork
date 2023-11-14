@@ -205,6 +205,11 @@ font-size: 20px;
     align-items: center;
 }
 
+.bell:hover{
+    color:aqua;
+    transition: 0.5s;
+}
+
 h3{
     font-size: large;
 }

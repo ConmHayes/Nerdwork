@@ -13,7 +13,6 @@ export default function Header() {
     <>
       <header>
         <nav className="navbar">
-          <img src="../../../logo.png" alt="logo" />
           <NavLink className="white" to="/Home" style={styles}>
             {" "}
             Home{" "}
@@ -26,7 +25,7 @@ export default function Header() {
           </NavLink>
           <NavLink
             className="yellow"
-            to="/search"
+            to="/"
             style={styles}
             onClick={handleClick}
           >

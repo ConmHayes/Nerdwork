@@ -18,7 +18,7 @@ function App() {  function LayoutWithHeader({ children }) {
         <Route path="/" element={<Pages.LoginPage />} />
         <Route path="/signup" element={<Pages.SignupPage />} />
         <Route element={<LayoutWithHeader />}>
-            
+            <Route path="/profile" element={<Pages.ProfilePage />}/>
         </Route>
       </Routes>
     </div>

@@ -4,11 +4,11 @@
     justify-content: center; 
     gap: 10px;
     padding-top: 40px;
-     
+    padding-bottom: 20px;
 }
 
 .search-form input[type="text"] {
-    width: 200px; /* Adjust as needed */
+    width: 200px; 
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;

@@ -60,7 +60,7 @@ const TradeRequest = ({ onTradeRequest }) => {
               <Form.Control type="date" name="trade-date" value={selectedDate} onChange={handleDateChange} />
             </Form.Group>
 
-            <div className="d-grid gap-2">
+            <div className="d-grid gap-2 text-center">
               <Button variant="primary" type="submit" className="mt-4">
                 Make Request
               </Button>

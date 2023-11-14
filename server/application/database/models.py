@@ -1,8 +1,9 @@
 """create db"""
+from flask_sqlalchemy import SQLAlchemy
+# from application import db, app
 
-from application import db, app
-
-app.app_context().push()
+db = SQLAlchemy()
+# app.app_context().push()
 
 # db.metadata.drop_all(db.engine, checkfirst=True)
 

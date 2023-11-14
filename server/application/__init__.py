@@ -4,7 +4,10 @@ from dotenv import load_dotenv
 
 from flask import Flask
 from flask_cors import CORS
-from flask_sqlalchemy import SQLAlchemy
+from .database.models import db
+
+# from application import routes
+from application.routes import auth
 
 # Loading dotenv
 load_dotenv()
@@ -13,7 +16,7 @@ load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
-
+app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
 db_url = os.environ.get("DB_URL")
 
 if not db_url:
@@ -22,6 +25,8 @@ if not db_url:
 app.config["SQLALCHEMY_DATABASE_URI"] = db_url
 
 # Create DB instance
-db = SQLAlchemy(app)
+db.init_app(app)
 
-# from application import routes
+#this is where the blueprints will live
+## auth bp
+app.register_blueprint(auth.auth_bp)

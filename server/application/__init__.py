@@ -1,7 +1,6 @@
 # Imports
 import os
 from dotenv import load_dotenv
-import os
 
 from flask import Flask
 from flask_cors import CORS
@@ -15,7 +14,12 @@ load_dotenv()
 app = Flask(__name__)
 CORS(app)
 
-app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DB_URL")
+db_url = os.environ.get("DB_URL")
+
+if not db_url:
+    raise ValueError("DB_URL env variable is not set")
+
+app.config["SQLALCHEMY_DATABASE_URI"] = db_url
 
 # Create DB instance
 db = SQLAlchemy(app)

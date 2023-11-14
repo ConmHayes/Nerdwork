@@ -1,8 +1,9 @@
 import "./App.css";
 import * as Pages from "./pages";
 import { Routes, Route } from "react-router-dom";
-import { Header } from "./components";
+import { Header, Bookshelf } from "./components";
 import React from "react";
+
 
 function App() {  function LayoutWithHeader({ children }) {
     return (
@@ -23,6 +24,8 @@ function App() {  function LayoutWithHeader({ children }) {
               <Route path="/ComicSearch" element={<Pages.ComicSearchPage/>} /> 
               <Route path="/GameSearch" element={<Pages.GameSearchPage/>} /> 
               <Route path="/Profile" element={<Pages.ProfilePage/>} /> 
+          <Route path="/request" element={<Pages.RequestPage />} />
+          <Route path="/books" element={<Bookshelf />} />
         </Route>
       </Routes>
     </div>

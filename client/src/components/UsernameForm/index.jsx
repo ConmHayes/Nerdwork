@@ -87,9 +87,42 @@ export default function UsernameForm({
 
   function pageRender(){
     if (button_Text == "Login"){
-      return 
-    }else if (button_Text == "Create Account"){}
+      return <br />
+    }else if (button_Text == "Create Account"){
+      return (
+        <>
+                <label htmlFor="email" className="input-label">
+          <i className="material-icons ikon left" style = {{color: "#3C7F72"}}>envelope</i>
+          <input
+            className="Input"
+            type="text"
+            id="email"
+            name="email"
+            placeholder={inputUn}
+            onChange={handleInputUN}
+          />
+        </label>
+        <br />
+        <label htmlFor="date-of-birth" className="input-label">
+          <input
+            className="Input"
+            type="date"
+            id="date-of-birth"
+            name="date-of-birth"
+            placeholder={inputUn}
+            onChange={handleInputUN}
+          />
+        </label>
+        <br />
+
+        </>
+      )
+    }
   }
+
+  useEffect(() => {
+    pageRender()
+  }, [button_Text])
 
   return (
       <form id="login" onSubmit={handleSubmit}>
@@ -124,7 +157,7 @@ export default function UsernameForm({
     {showPassword ? "visibility" : "visibility_off"}
   </i>
 </label>
-<br />
+{pageRender()}
         <button className="login-button" type="submit">
         {button_Text}
         </button>

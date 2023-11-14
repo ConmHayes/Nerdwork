@@ -15,10 +15,8 @@ function App() {  function LayoutWithHeader({ children }) {
   return (
     <div>
       <Routes>
-        <Route path="/Login" element={<Pages.LoginPage />} />
-        <Route path="/" element={<Header/>}> 
-          <Route path="/Home" element={<Pages.HomePage/>}/>
-        </Route>
+        <Route path="/" element={<Pages.LoginPage />} />
+        <Route path="/signup" element={<Pages.SignupPage />} />
       </Routes>
     </div>
   );

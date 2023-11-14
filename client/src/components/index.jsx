@@ -1,2 +1,6 @@
 export { default as Header } from "./Header"
 export { default as UsernameForm } from "./UsernameForm"
+export { default as Bookshelf } from "./Bookshelf"
+export { default as BookCard } from "./BookCard"
+export { default as NavigationBar } from "./NavigationBar"
+export { default as TradeRequest } from "./TradeRequest"

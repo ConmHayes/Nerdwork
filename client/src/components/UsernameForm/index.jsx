@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import { useNavigate } from 'react-router-dom'
 
+
 /*
 const apiURL = "https://time-table-server.onrender.com"
 const siteURL = "https://time-table-app.onrender.com/"
@@ -82,6 +83,12 @@ export default function UsernameForm({
     } else {
       x.type = "password";
     }
+  }
+
+  function pageRender(){
+    if (button_Text == "Login"){
+      return 
+    }else if (button_Text == "Create Account"){}
   }
 
   return (

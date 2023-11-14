@@ -1,7 +1,7 @@
 import React,  {useState, useEffect } from "react";
 import SearchForm from "../SearchForm";
-import BookCard from "../BookSearchCard";
 import "./bookSearchWidget.css"
+import BookSearchCard from "../BookSearchCard";
 
 export default function BookSearchWidget () {
     const [searchString, setSearchString] = useState("");
@@ -47,7 +47,7 @@ export default function BookSearchWidget () {
             <SearchForm handleSearch={handleSearch} lastSearch={searchString}/>
             <div className="cards-container">
                 {filteredBooks.map(book => (
-                    <BookCard key={book.primary_isbn10} book={book} />
+                    <BookSearchCard key={book.primary_isbn10} book={book} />
                 ))}
             </div>
         </div>

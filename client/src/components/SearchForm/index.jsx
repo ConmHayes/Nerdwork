@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './SearchForm.css';
 
-export default function SearchForm ({ handleSearch, lastSearch }) {
+export default function SearchForm({ handleSearch, lastSearch }) {
 
     const [inputValue, setInputValue] = useState("");
 

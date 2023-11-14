@@ -2,7 +2,11 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { Navbar, Nav } from 'react-bootstrap';
 
+
 const NavigationBar = () => {
+  function clearStorage(){
+    localStorage.clear()
+  }
   return (
     <Navbar bg="light" expand="lg" className="mb-3">
       <Navbar.Brand as={NavLink} to="/">
@@ -26,7 +30,7 @@ const NavigationBar = () => {
           <Nav.Link as={NavLink} to="/profile" activeclassname="nav-link-active">
             Profile
           </Nav.Link>
-          <Nav.Link as={NavLink} to="/" activeclassname="nav-link-active">
+          <Nav.Link as={NavLink} to="/" activeclassname="nav-link-active" onClick={clearStorage}>
             Logout
           </Nav.Link>
           {/* Additional navigation links as needed */}

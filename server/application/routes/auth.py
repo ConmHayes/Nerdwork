@@ -70,10 +70,10 @@ def login():
                 }, 
                 current_app.config['SECRET_KEY'], algorithm="HS256")
                 return jsonify({'token': token})
-            except jwt.exceptions.ExpiredSignatureError:
-                return jsonify(error='Token has expired', message=str(e)), 401
-            except jwt.exceptions.InvalidTokenError:
-                return jsonify(error='Invalid token', message=str(e)), 401
+            # except jwt.exceptions.ExpiredSignatureError:
+            #     return jsonify(error='Token has expired', message=str(e)), 401
+            # except jwt.exceptions.InvalidTokenError:
+            #     return jsonify(error='Invalid token', message=str(e)), 401
             except Exception as e:
                 return jsonify(error='Something went wrong with tokens', message=str(e), token=token), 500
         else:

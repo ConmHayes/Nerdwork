@@ -13,7 +13,6 @@ from application.routes import auth
 #from routes import item
 from application.routes import user
 
-
 app = Flask(__name__)
 CORS(app)
 app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")

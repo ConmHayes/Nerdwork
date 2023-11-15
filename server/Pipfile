@@ -11,6 +11,7 @@ psycopg2 = "*"
 gunicorn = "*"
 python-dotenv = "*"
 flask-jwt-extended = "*"
+pyjwt = "*"
 
 [dev-packages]
 

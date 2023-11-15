@@ -56,19 +56,23 @@ def register():
 def login():
     try:
         data = request.get_json()
+        token = None
         if not data:
             return jsonify(message='user details not reached the function'), 400
         
         ## validate user that should return true:
         is_valid = validate_username_password(data['username'], data['password'])
         if is_valid:
-            session['logged_in'] = True
+            # session['logged_in'] = True
             try: 
+                print(current_app.config['SECRET_KEY'])
                 token = jwt.encode({
                 'username': data['username'], 
                 'expiration': str(datetime.utcnow() + timedelta(seconds=14400))
                 }, 
                 current_app.config['SECRET_KEY'], algorithm="HS256")
+                print(token)
+                print(str(datetime.utcnow() + timedelta(seconds=14400)))
                 return jsonify({'token': token})
             # except jwt.exceptions.ExpiredSignatureError:
             #     return jsonify(error='Token has expired', message=str(e)), 401

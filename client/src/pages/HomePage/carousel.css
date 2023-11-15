@@ -15,7 +15,8 @@
 .grid-item {
   flex: 1 0 18%;
   flex: 0 0 auto;
-  width: 15%; /* Adjust based on your design */
+  width: 15%;
+  height: 200px; /* Adjust based on your design */
   margin: 10px;
   padding: 20px;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);

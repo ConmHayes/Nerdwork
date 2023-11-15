@@ -19,13 +19,13 @@ const NavigationBar = () => {
             <Nav.Link as={NavLink} to="/home" className={({ isActive }) => isActive ? "nav-link-active" : "nav-link"}>
               Home
             </Nav.Link>
-            <Nav.Link as={NavLink} to="/books" className={({ isActive }) => isActive ? "nav-link-active" : "nav-link"}>
+            <Nav.Link as={NavLink} to="/booksearch" className={({ isActive }) => isActive ? "nav-link-active" : "nav-link"}>
               Books
             </Nav.Link>
-            <Nav.Link as={NavLink} to="/comic_books" className={({ isActive }) => isActive ? "nav-link-active" : "nav-link"}>
+            <Nav.Link as={NavLink} to="/comicsearch" className={({ isActive }) => isActive ? "nav-link-active" : "nav-link"}>
               Comics
             </Nav.Link>
-            <Nav.Link as={NavLink} to="/games" className={({ isActive }) => isActive ? "nav-link-active" : "nav-link"}>
+            <Nav.Link as={NavLink} to="/gamesearch" className={({ isActive }) => isActive ? "nav-link-active" : "nav-link"}>
               Games
             </Nav.Link>
             <Nav.Link as={NavLink} to="/profile" className={({ isActive }) => isActive ? "nav-link-active" : "nav-link"}>

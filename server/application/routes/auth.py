@@ -11,9 +11,12 @@ from auth_middleware import token_required
 
 auth_bp = Blueprint('auth_bp', __name__, url_prefix='/auth')
 
-def validate_email_password(email, password):
-    #not sure yet how
-    return True
+def validate_username_password(username_entered, password_entered):
+    user_matched=  models.User.query.filter_by(username=username_entered).first()
+    if user_matched and check_password_hash(user_matched.password, password_entered):
+        return True
+    else:
+        return False
 
 
 @auth_bp.route('/')
@@ -58,25 +61,29 @@ def login():
         if not data:
             return jsonify(message='user details not reached the function'), 400
         
-        ## validate user:
-        is_valid = validate_email_password(data.get('email'), data.get('password'))
+        ## validate user that should return true:
+        is_valid = validate_username_password(data['username'], data['password'])
         if is_valid:
             session['logged_in'] = True
             try:
                 token = jwt.encode({
-                'user': data.get('email'), 
+                'user': data['username'], 
                 'expiration': str(datetime.utcnow() + timedelta(seconds=14400)) #4 hours 
                 }, 
                 current_app.config['SECRET_KEY'])
-                return jsonify({'token': token.decode('utf-8')})
+                return jsonify({'token': token})
             except jwt.ExpiredSignatureError:
                 return jsonify(error='Token has expired', message=str(e)), 401
             except jwt.InvalidTokenError:
                 return jsonify(error='Invalid token', message=str(e)), 401
             except Exception as e:
-                return jsonify(error='Something went wrong with tokens', message=str(e)), 500
+                return jsonify(error='Something went wrong with tokens', message=str(e), token=token), 500
         else:
             return jsonify(message='User not found, not authorized'), 405
     except Exception as e:
         return jsonify(message='login function failed', error=str(e)), 500
 
+@token_required
+@auth_bp.route('/test', methods=['GET'])
+def test_function():
+    return "hi"

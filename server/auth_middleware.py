@@ -4,7 +4,6 @@ from flask import request, abort
 from flask import current_app
 import application.database.models as models
 
-
 def token_required(func):
     @wraps(func)
     def decorated(*args, **kwargs):

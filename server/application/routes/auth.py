@@ -1,5 +1,5 @@
 from flask import Flask, Blueprint, session, make_response, request, current_app
-from jwt import encode
+import jwt
 from flask import request, jsonify
 from datetime import datetime, timedelta
 from  werkzeug.security import generate_password_hash, check_password_hash
@@ -66,7 +66,7 @@ def login():
             # session['logged_in'] = True
             try: 
                 print(current_app.config['SECRET_KEY'])
-                token = encode({
+                token = jwt.encode({
                 'username': data['username'], 
                 'expiration': str(datetime.utcnow() + timedelta(seconds=14400))
                 }, 

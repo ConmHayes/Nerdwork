@@ -4,6 +4,8 @@ import os
 from flask import Flask
 from flask_cors import CORS
 from .database.models import db
+from dotenv import load_dotenv
+load_dotenv()
 
 # from application import routes
 from application.routes import auth

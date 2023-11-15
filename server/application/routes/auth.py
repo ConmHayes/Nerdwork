@@ -66,11 +66,12 @@ def login():
         if is_valid:
             session['logged_in'] = True
             try:
+                #encode user_id? username? 
                 token = jwt.encode({
-                'user': data['username'], 
-                'expiration': str(datetime.utcnow() + timedelta(seconds=14400)) #4 hours 
+                'username': data['username'], 
+                'expiration': str(datetime.utcnow() + timedelta(seconds=14400))
                 }, 
-                current_app.config['SECRET_KEY'])
+                current_app.config['SECRET_KEY'], algorithm="HS256")
                 return jsonify({'token': token})
             except jwt.ExpiredSignatureError:
                 return jsonify(error='Token has expired', message=str(e)), 401
@@ -83,7 +84,8 @@ def login():
     except Exception as e:
         return jsonify(message='login function failed', error=str(e)), 500
 
-@token_required
+
 @auth_bp.route('/test', methods=['GET'])
-def test_function():
+@token_required
+def test_function(user):
     return "hi"

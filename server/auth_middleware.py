@@ -17,20 +17,18 @@ def token_required(func):
                 "error": "Unauthorized"
             }, 401
         try:
-            data=jwt.decode(token, current_app.config["SECRET_KEY"])
-            current_user=models.User().get_by_id(data["user_id"])
+            data=jwt.decode(token, key=current_app.config["SECRET_KEY"], verify=True, algorithms=["HS256"] )
+            current_user=models.User.query.filter_by(username=data["username"]).first()
             if current_user is None:
                 return {
                 "message": "Invalid Authentication token!",
                 "data": None,
                 "error": "Unauthorized"
             }, 401
-            if not current_user["active"]:
-                abort(401)
         except Exception as e:
             return {
                 "message": "Something went wrong",
-                "data": None,
+                "data": data,
                 "error": str(e)
             }, 500
 

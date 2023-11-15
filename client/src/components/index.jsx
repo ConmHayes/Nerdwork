@@ -7,3 +7,8 @@ export { default as Bookshelf } from "./Bookshelf"
 export { default as BookCard } from "./BookCard"
 export { default as NavigationBar } from "./NavigationBar"
 export { default as TradeRequest } from "./TradeRequest"
+export { default as FormInput } from "./FormInput"
+export { default as FormSelect } from "./FormSelect"
+export { default as FormMultiSelect } from "./FormMultiSelect"
+export { default as FormRating } from "./FormRating"
+

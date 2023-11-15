@@ -20,7 +20,7 @@ def get_users():
         user_list.append(format_user(user))
     return{'User': user_list}
 
-@user_bp.route('/<id>', methods=['GET'])
-def get_user(id):
-    user = User.query.filter_by(id=id).first()
+@user_bp.route('/<user_id>', methods=['GET'])
+def get_user(user_id):
+    user = User.query.filter_by(user_id=user_id).first()
     return jsonify(id=user.user_id, username=user.username, address=user.address, email=user.email, password=user.password)

@@ -28,24 +28,27 @@ def register():
     data = request.get_json()
     if request.method == 'POST':
         # gets name, email and password from request
-        name, email = data['name'], data['email']
+        username, email, address = data['username'], data['email'], data['address']
         password = data['password']
+        
 
         #check if user exists -- will need to figure out how
         user = models.User.query.filter_by(email=email).first()
+        print(user)
 
         if not user:
             user = models.User(
-                name= name,
+                username= username,
                 email= email,
+                address= address,
                 password= generate_password_hash(password)
             )
-        # add to db
-        db.session.add(user)
-        db.session.commit()
-        return jsonify(message='Registered'), 201
-    else:
-        return jsonify(message='already existing user'), 202
+            # add to db
+            db.session.add(user)
+            db.session.commit()
+            return jsonify(message='Registered'), 201
+        else:
+            return jsonify(message='already existing user'), 202
         
 
 @auth_bp.route('/login', methods=['POST'])

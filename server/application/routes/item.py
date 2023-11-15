@@ -69,5 +69,18 @@ def get_by_category(product_type):
         matching_items = [format_item(item) for item in items_by_product]
         return jsonify(items=matching_items)
 
-    
+@item_bp.route('/<product_type>/<name>', methods=['GET'])
+def get_by_name(product_type, name):
+
+    #we probably will need to pass name in in the body as otherwise I won't be
+    #able to match with that exactly in the database
+    data = request.get_json()
+    data_name = data.get('name', '')
+
+    data_filtered = Item.query.filter_by(product_type =product_type, name=data_name).all()
+    if not data_filtered:
+         return jsonify(message=f'No items found with the name: {data_name}'), 404
+    else:
+        matching_items = [format_item(item) for item in data_filtered]
+        return jsonify(items=matching_items)
 

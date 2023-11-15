@@ -25,11 +25,11 @@ const booksData = [
   // ... more books
 ];
 
-const Bookshelf = () => {
+const Bookshelf = ({ items }) => {
   return (
     <Container>
       <Row className="justify-content-center">
-        {booksData.map((book) => (
+        {items.map((book) => (
           <Col key={book.id} xs={12} sm={6} md={4} lg={3} className="mb-4">
             <BookCard book={book} />
           </Col>

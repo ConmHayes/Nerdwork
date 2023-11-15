@@ -1,11 +1,14 @@
+import { useState } from "react";
 import "./App.css";
 import * as Pages from "./pages";
-import { Routes, Route } from "react-router-dom";
-import { Header, Bookshelf } from "./components";
+import { Routes, Route, useNavigate } from "react-router-dom";
+import { Header } from "./components";
 import React from "react";
 
 
-function App() {  function LayoutWithHeader({ children }) {
+function App() {  
+  const [books, setBooks] = useState([]);
+  function LayoutWithHeader({ children }) {
     return (
       <div>
         <Header />
@@ -13,6 +16,11 @@ function App() {  function LayoutWithHeader({ children }) {
       </div>
     );
   }
+
+  const handleAddBook = (newBook) => {
+    setBooks((prevBooks) => [...prevBooks, newBook]);
+  };
+
   return (
     <div>
       <Routes>
@@ -20,7 +28,8 @@ function App() {  function LayoutWithHeader({ children }) {
         <Route path="/signup" element={<Pages.SignupPage />} />
         <Route element={<LayoutWithHeader />} >
           <Route path="/request" element={<Pages.RequestPage />} />
-          <Route path="/books" element={<Bookshelf />} />
+          <Route path="/forms" element={<Pages.FormsPage onAddBook={handleAddBook} />} />
+        <Route path="/books" element={<Pages.BookshelfPage books={books} />} />
         </Route>
       </Routes>
     </div>

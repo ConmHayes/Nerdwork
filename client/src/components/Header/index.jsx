@@ -13,20 +13,25 @@ export default function Header() {
     <>
       <header>
         <nav className="navbar">
-          <img src="../../../logo.png" alt="logo" />
           <NavLink className="white" to="/Home" style={styles}>
             {" "}
             Home{" "}
           </NavLink>
-          <NavLink to="/books" style={styles} className="white">
-            Profile{" "}
+          <NavLink to="/BookSearch" style={styles} className="white">
+            Books{" "}
           </NavLink>
-          <NavLink className="white" to="/games" style={styles}>
-            Games
+          <NavLink to="/GameSearch" style={styles} className="white">
+            Games{" "}
+          </NavLink>
+          <NavLink to="/ComicSearch" style={styles} className="white">
+            Comics{" "}
+          </NavLink>
+          <NavLink className="white" to="/Profile" style={styles}>
+            Profile
           </NavLink>
           <NavLink
             className="yellow"
-            to="/search"
+            to="/"
             style={styles}
             onClick={handleClick}
           >

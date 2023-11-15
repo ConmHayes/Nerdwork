@@ -1,11 +1,7 @@
-"""create db"""
 from flask_sqlalchemy import SQLAlchemy
-# from application import db, app
 
 db = SQLAlchemy()
-# app.app_context().push()
-
-# db.metadata.drop_all(db.engine, checkfirst=True)
+#db.metadata.drop_all(db.engine, checkfirst=True)
 
 #User Table
 class User(db.Model):

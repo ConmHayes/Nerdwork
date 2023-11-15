@@ -21,7 +21,6 @@ function App() {  function LayoutWithHeader({ children }) {
         <Route element={<LayoutWithHeader />}>
           <Route path="/Home" element={<Pages.HomePage/>} /> 
           <Route path="/BookSearch" element={<Pages.BookSearchPage/>} /> 
-          <Route path="/BookSearch/:title" element={<Pages.BookOwnersPage/>}/>
           <Route path="/ComicSearch" element={<Pages.ComicSearchPage/>} /> 
           <Route path="/GameSearch" element={<Pages.GameSearchPage/>} /> 
           <Route path="/Profile" element={<Pages.ProfilePage/>} /> 

@@ -1,0 +1,297 @@
+body {
+    background-color: aliceblue;
+    font-family: 'Press Start 2P', cursive;
+}
+
+body.login-page{
+    background-color: lavender;
+}
+hr{
+    color: black
+}
+
+.flexbox-container{
+    display: flex;
+
+}
+
+.login-container{
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+    
+}
+
+.login-array{
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: black solid 3px;
+
+}
+
+.flexbox-item-login {
+    width: 600px;
+    height: 600px;
+    margin: 100px;
+    background-color: transparent;
+    max-width: 600px;
+    max-height: 600px;
+    justify-content: center;
+    align-items: center;
+  }
+
+.login-button{
+    height: 40px;
+    background-color: #fffbed;
+    color: black;
+    margin-bottom: 20px;
+    justify-content: left;
+    border: black solid 3px
+}
+
+.login-button.login-page{
+    width: 25%;
+}
+
+.login-button.signup-page{
+    width: 40%
+}
+
+.Input,
+.passwordInput {
+  font-weight: bold;
+  font-size: 1.2rem;
+  padding: 10px;
+  border: none;
+  background-color: transparent;
+  text-align: center;
+  width: 100%;
+  border-bottom: 1px solid black;
+  margin-bottom: 20px;
+  color: black;
+}
+
+.input-label {
+    position: relative;
+    width: 100%;
+    color: black;
+  }
+  
+
+.input-label i.left {
+position: absolute;
+left: 10px;
+top: 35%;
+line-height: 0;
+color: black;
+font-size: 20px;
+}
+
+.input-label i.right {
+position: absolute;
+right: 10px;
+top: 35%;
+line-height: 0;
+color: black;
+font-size: 20px;
+}
+
+.inline{
+    color: blue
+}
+
+.bell-ikon
+.ikon {
+    color: black;
+    width: 30px;
+    height: 30px
+  }
+
+  .flexbox-image-login,
+.flexbox-login-array,
+.flexbox-container,
+.flexbox-item,
+.login-array,
+.flexbox-form,
+.flexbox-header,
+.flexbox-header-left,
+.flexbox-form-list,
+.flex-options,
+.button-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flexbox-image-login,
+.flexbox-login-array,
+.flexbox-login-array,
+.login-array,
+.flexbox-form,
+.flexbox-header,
+.flexbox-header-left,
+.flexbox-form-list,
+.flex-options {
+  position: relative;
+}
+
+.flexbox-login-array {
+  flex-direction: column;
+  width: 600px;
+  max-width: 600px;
+}
+
+.profile-sidebar-extended{
+    width: 30%;
+    height: 95vh;
+    margin-left: 7px;
+    margin-top: 25px;
+    background-color: rebeccapurple;
+    justify-content: flex-start;
+    flex-direction: column;
+    border: black solid 3px
+}
+
+.profile-bar{
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.carousel-item{
+    width: 100px;
+    max-width: 100px;
+    height: 350px;
+    background-color: red;
+}
+
+.profile-container{
+    justify-content: flex-start;
+
+}
+
+.profile-header{
+    align-items: center;
+    justify-content: flex-start;
+    background-color: tran;
+    width: 90%;
+    position: relative;
+    top: 20px;
+}
+
+.dot{
+    height: 60px;
+    width: 60px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: flex;
+
+    border: black solid 3px;
+}
+
+.dot i{
+    font-size: 50px;
+    position: relative;
+    left: 2px;
+}
+
+.dot:hover{
+    background-color: blue;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.dot i:hover{
+    color:white;
+    cursor: pointer;
+    transition: 0.5s
+}
+
+.bell{
+    position: relative;
+    left: 50px;
+    background-color: transparent;
+    align-items: center;
+}
+.bell-ikon{
+    font-size: 30px;
+}
+
+.bell-ikon:hover{
+    color:aqua;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+h3{
+    font-size: large;
+}
+
+.option-row{
+    margin-top: 50px;
+    width: 80%;
+    flex-direction: column;
+    background-color: transparent;
+}
+
+.profile-option{
+    width: 100%;
+    margin-top: 20px;
+    height: 50px;
+    border: black solid 3px;
+}
+
+.profile-option i{
+    position: absolute;  
+    left: 10vh;
+    line-height: 0;
+    color: black;
+    font-size: 25px;
+}
+
+.profile-option:hover{
+    cursor: pointer;
+    filter: hue-rotate(120deg);
+    transition: 0.5s
+}
+
+.profile-option:hover i{
+    cursor: pointer;
+    position: absolute;
+    left:11vh;
+    transition: 0.3s
+}
+
+.profile-option:not(:hover) i {
+    position: absolute;  
+    left: 10vh;
+    line-height: 0;
+    color: black;
+    font-size: 20px;
+    transition: 0.3s;
+}
+
+
+.odd{
+    background-color: aqua;
+}
+.even{
+    background-color: lightgreen;
+}
+
+.placeholder{
+    height: 250px;
+    width: 250px;
+    margin-top: 50px;
+    border: black solid 3px;
+}
+.lower{
+    width: 450px;
+}
+.flexbox-carousel{
+    flex-direction: column;
+    padding-left: 50px;
+    width: 60%;
+    align-items: flex-start;
+}

@@ -1,9 +1,12 @@
 import React from 'react';
-import { Bookshelf } from '../../components';
+import { Bookshelf, NavigationBar } from '../../components';
 
 const BookshelfPage = ({ books }) => {
   return (
-    <Bookshelf items={books} />
+    <div>
+      <NavigationBar />
+      <Bookshelf items={books} />
+    </div>
   );
 };
 

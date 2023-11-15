@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Button, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import { FormInput, FormMultiSelect, FormRating, FormSelect, Bookshelf } from '../../components';``
+import { NavigationBar, FormInput, FormMultiSelect, FormRating, FormSelect, Bookshelf } from '../../components';``
 
 const FormsPage = ({ onAddBook }) => {
   const [items, setItems] = useState([]);
@@ -53,6 +53,7 @@ const FormsPage = ({ onAddBook }) => {
 
   return (
     <Container>
+      <NavigationBar />
       <Row className="justify-content-md-center">
         <Col md={6}>
           <h2>Add New Item</h2>

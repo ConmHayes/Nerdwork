@@ -1,5 +1,8 @@
 export { default as Header } from "./Header"
 export { default as UsernameForm } from "./UsernameForm"
+export { default as ComicSearchWidget} from "./ComicSearchWidget"
+export { default as BookSearchWidget} from "./BookSearchWidget"
+export { default as GameSearchWidget} from "./GameSearchWidget"
 export { default as Bookshelf } from "./Bookshelf"
 export { default as BookCard } from "./BookCard"
 export { default as NavigationBar } from "./NavigationBar"

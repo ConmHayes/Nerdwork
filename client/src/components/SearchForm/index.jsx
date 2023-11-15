@@ -1,28 +1,17 @@
 import React, { useState } from 'react';
 import './SearchForm.css';
 
-export default function SearchForm({ handleSearch, lastSearch }) {
+export default function SearchForm({ searchString, setSearchString }) {
 
-    const [inputValue, setInputValue] = useState("");
-
-    function handleInput(e) {
-        const newInput = e.target.value;
-        setInputValue(newInput);
-    }
-
-    function handleSubmit(e) {
-        e.preventDefault();
-        handleSearch(inputValue);
-        setInputValue("");
+    
+    function updateTextFilter (e) {
+        setSearchString(e.target.value);
     }
 
     return (
      
-        <form onSubmit={handleSubmit} className='search-form'>
-            <input type="text" onChange={handleInput}
-             placeholder={lastSearch}
-             value={inputValue} required/>
-            <input type="submit" value="Search"/>
+        <form className='search-form'>
+             <label>Search:<input type="text" value={searchString} onChange={updateTextFilter} /></label>
         </form>
 
     )   

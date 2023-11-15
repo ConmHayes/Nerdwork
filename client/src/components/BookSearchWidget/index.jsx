@@ -6,49 +6,38 @@ import BookSearchCard from "../BookSearchCard";
 export default function BookSearchWidget () {
     const [searchString, setSearchString] = useState("");
     const [books, setBooks] = useState([]);
-    const [filteredBooks, setFilteredBooks] = useState([]);
+   
 
     useEffect(() => {
         fetchBooks();
     }, []);
 
-    useEffect(() => {
-        filterBooks();
-    }, [searchString, books]);
+   
 
     const fetchBooks = async () => {
         try {
-            const response = await fetch('https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key=UxtGZxXz9zBBaz9Bbsha7jdBmqqQVMLH'); // Replace with your API endpoint
+            const response = await fetch('https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key=UxtGZxXz9zBBaz9Bbsha7jdBmqqQVMLH'); 
             const data = await response.json();
             console.log(data.results.books)
             const books = data.results.books
             setBooks(books);
-            setFilteredBooks(books); // Initially display all books
+            // Initially display all books
         } catch (error) {
             console.error('Error fetching books:', error);
         }
     };
-    const filterBooks = () => {
-        const filtered = books.filter(book =>
-            book.title.toLowerCase().includes(searchString.toLowerCase())
-           
-        );
-        setFilteredBooks(filtered);
-        console.log("filtered :", filteredBooks)
-        
-    };
     
-    function handleSearch(userInput){
-        setSearchString(userInput);
+    function displayBooks() {
+        return books
+                .filter(book => searchString.length == 0 || book.title.toLowerCase().includes(searchString.toLowerCase()))
+                .map(book => <BookSearchCard key={book.primary_isbn10} book={book} />)
     }
 
     return(
         <div>
-            <SearchForm handleSearch={handleSearch} lastSearch={searchString}/>
+            <SearchForm searchString={searchString} setSearchString={setSearchString}/>
             <div className="cards-container">
-                {filteredBooks.map(book => (
-                    <BookSearchCard key={book.primary_isbn10} book={book} />
-                ))}
+                {displayBooks()}
             </div>
         </div>
 

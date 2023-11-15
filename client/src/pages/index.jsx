@@ -6,4 +6,4 @@ export { default as ProfilePage } from "./ProfilePage"
 export { default as BookSearchPage } from  "./BookSearchPage"
 export { default as GameSearchPage} from "./GameSearchPage"
 export {default as ComicSearchPage} from "./ComicSearchPage"
-
+export {default as BookOwnersPage} from "./BookOwnersPage"

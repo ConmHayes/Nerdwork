@@ -6,4 +6,4 @@ from application.database.models import User, Friend, Item, Token, Swap
 app.app_context().push()
 db.create_all()
 
-then go check your database :)
+then go check your database :)  :'D it woooorks yay

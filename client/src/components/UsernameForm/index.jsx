@@ -39,6 +39,7 @@ export default function UsernameForm({
   
   async function handleSubmit(e) {
     e.preventDefault();
+    /*
     let response; let data;
     
     if (button_Text === "Create Account"){
@@ -71,13 +72,14 @@ export default function UsernameForm({
       response = await fetch(`${apiURL}/login`, options)
       data = await response.json()
     }
-
+    
     if (response.status == 200 || response.status == 201){
       localStorage.setItem("token", data.token)
-      navigate('/profile')
+      navigate('/home')
     }else{
       setLoginStatus('Username and/or password is invalid')
-    }
+    }*/
+    navigate("/home")
   }
 
   const togglePasswordVisibility = () => {

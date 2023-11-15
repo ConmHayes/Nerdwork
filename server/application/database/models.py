@@ -1,14 +1,11 @@
-"""create db"""
+from flask_sqlalchemy import SQLAlchemy
 
-from application import db, app
-
-app.app_context().push()
-
-# db.metadata.drop_all(db.engine, checkfirst=True)
+db = SQLAlchemy()
+#db.metadata.drop_all(db.engine, checkfirst=True)
 
 #User Table
 class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(255), nullable=False)
     address = db.Column(db.String(255))
@@ -22,7 +19,7 @@ class User(db.Model):
 
 #Token Table  
 class Token(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    token_id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     token = db.Column(db.String(255), nullable=False)
 
@@ -35,7 +32,7 @@ class Token(db.Model):
 
 #Friends Table  
 class Friend(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    friend_id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     friend_user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
@@ -49,7 +46,7 @@ class Friend(db.Model):
 
 #Item Table
 class Item(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    item_id = db.Column(db.Integer, primary_key=True)
     product_type = db.Column(db.String(20), nullable=False)
     name = db.Column(db.String(255), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
@@ -68,7 +65,7 @@ class Item(db.Model):
 
 #Swap Table
 class Swap(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    swap_id = db.Column(db.Integer, primary_key=True)
     user_id_gives = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     user_id_taker = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     date = db.Column(db.Date, nullable=False)

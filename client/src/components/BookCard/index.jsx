@@ -24,7 +24,9 @@ const BookCard = ({ book }) => {
       <Card.Body className="d-flex flex-column">
         <Card.Title className="mb-0 font-weight-bold">{title}</Card.Title>
         <Card.Text className="text-secondary">{author}</Card.Text>
+
         <Card.Text>{genreBadges}</Card.Text>
+
         <div className="mt-auto">
           <div className="small text-muted">Owner: {owner}</div>
           <div>{stars}</div>

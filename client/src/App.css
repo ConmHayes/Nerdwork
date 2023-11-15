@@ -160,11 +160,10 @@ font-size: 20px;
 }
 
 .carousel-item{
-    width: 60%;
+    width: 100px;
+    max-width: 100px;
     height: 350px;
-    background-color: blueviolet;
-    position: relative;
-    left: 20px
+    background-color: red;
 }
 
 .profile-container{
@@ -248,18 +247,51 @@ h3{
     left: 10vh;
     line-height: 0;
     color: black;
-    font-size: 20px;
+    font-size: 25px;
 }
 
 .profile-option:hover{
     cursor: pointer;
     filter: hue-rotate(120deg);
+    transition: 0.5s
+}
+
+.profile-option:hover i{
+    cursor: pointer;
+    position: absolute;
+    left:11vh;
     transition: 0.3s
 }
+
+.profile-option:not(:hover) i {
+    position: absolute;  
+    left: 10vh;
+    line-height: 0;
+    color: black;
+    font-size: 20px;
+    transition: 0.3s;
+}
+
 
 .odd{
     background-color: aqua;
 }
 .even{
     background-color: lightgreen;
+}
+
+.placeholder{
+    height: 250px;
+    width: 250px;
+    margin-top: 50px;
+    border: black solid 3px;
+}
+.lower{
+    width: 450px;
+}
+.flexbox-carousel{
+    flex-direction: column;
+    padding-left: 50px;
+    width: 60%;
+    align-items: flex-start;
 }

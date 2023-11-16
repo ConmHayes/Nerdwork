@@ -8,10 +8,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # from application import routes
-from application.routes import auth
+from application.routes import auth, user, item
 
-#from routes import item
-from application.routes import user
 
 app = Flask(__name__)
 CORS(app)
@@ -26,3 +24,4 @@ db.init_app(app)
 # from application import routes
 app.register_blueprint(auth.auth_bp)
 app.register_blueprint(user.user_bp)
+app.register_blueprint(item.item_bp)

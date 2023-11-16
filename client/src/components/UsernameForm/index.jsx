@@ -138,17 +138,6 @@ export default function UsernameForm({
           />
         </label>
         <br />
-        <label htmlFor="date-of-birth" className="input-label">
-          <input
-            className="Input"
-            type="date"
-            id="date-of-birth"
-            name="date-of-birth"
-            onChange={handleInputDob}
-            data-testid="date-of-birth"
-          />
-        </label>
-        <br />
 
         </>
       )
@@ -203,3 +192,19 @@ export default function UsernameForm({
       </form>
   );
 }
+
+
+/*
+        <br />
+        <label htmlFor="date-of-birth" className="input-label">
+          <input
+            className="Input"
+            type="date"
+            id="date-of-birth"
+            name="date-of-birth"
+            onChange={handleInputDob}
+            data-testid="date-of-birth"
+          />
+        </label>
+
+*/

@@ -64,6 +64,7 @@ def login():
         is_valid = validate_username_password(data['username'], data['password'])
         if is_valid:
             try: 
+                #CHANGE TO EMAIL
                 print(current_app.config['SECRET_KEY'])
                 token = jwt.encode({
                 'username': data['username'], 

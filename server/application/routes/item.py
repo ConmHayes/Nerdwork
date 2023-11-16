@@ -30,11 +30,10 @@ def get_all():
 
     """" Create an Item """
     if request.method == 'POST':
+        
         data = request.get_json()
         if data:
             genre, title, user_id, category, author, img, rating, issue_num = data['genre'], data['title'], data['user_id'], data['category'], data['author'], data['img'], data['rating'], data["issue_num"]
-
-            # TESTS
 
             if category and title and user_id and author:
                 try:
@@ -58,7 +57,6 @@ def get_all():
         else:
             return jsonify(message='No data passed in'), 400
 
-# USER STORY: Selects a tab (book, comic or games)
 @item_bp.route('/<category>', methods=['GET'])
 def get_by_category(category):
     items_by_product = Item.query.filter(Item.category == str(category)).all()
@@ -67,22 +65,6 @@ def get_by_category(category):
     else:
         matching_items = [format_item(item) for item in items_by_product]
         return jsonify(items=matching_items)
-
-# USER STORY: Select category > Search a title
-# @item_bp.route('/<category>/<title>', methods=['GET'])
-# def get_by_name(category, title):
-
-#     #we probably will need to pass name in in the body as otherwise I won't be
-#     #able to match with that exactly in the database
-#     data = request.get_json()
-#     data_title = data.get('title', '')
-
-#     data_filtered = Item.query.filter_by(category=category, title=data_title).all()
-#     if not data_filtered:
-#          return jsonify(message=f'No items found with the name: {data_title}'), 404
-#     else:
-#         matching_items = [format_item(item) for item in data_filtered]
-#         return jsonify(items=matching_items)
 
 # we need to check this, as it is possible that an item id exists but it's not a 
 # certain product type. is that okay? 

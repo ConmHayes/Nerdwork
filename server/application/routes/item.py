@@ -84,3 +84,13 @@ def get_by_name(product_type, name):
         matching_items = [format_item(item) for item in data_filtered]
         return jsonify(items=matching_items)
 
+# we need to check this, as it is possible that an item id exists but it's not a 
+# certain product type. is that okay? 
+@item_bp.route('/<product_type>/<product_id>', methods=['GET'])
+def get_items_by_user(product_type, product_id):
+    item = Item.query.filter_by(product_type ==str(product_type), item_id= product_id).first()
+    if not item:
+        return jsonify(message=f'No items found with the item_id: {product_id} and the type as: {product_type}'), 404
+
+    else:
+        return jsonify(item= item)

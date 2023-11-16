@@ -73,7 +73,7 @@ export default function UsernameForm({
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          username: inputUn,
+          email: inputEmail,
           password: inputPw
         }),
       }
@@ -85,9 +85,10 @@ export default function UsernameForm({
     
     if (response.status == 200 || response.status == 201){
       localStorage.setItem("token", data.token)
+      localStorage.setItem("email", inputEmail)
       navigate('/home')
     }else{
-      setLoginStatus('Username and/or password is invalid')
+      setLoginStatus('Email and/or password is invalid')
     }
   }
 
@@ -111,18 +112,18 @@ export default function UsernameForm({
     }else if (button_Text == "Create Account"){
       return (
         <>
-                <label htmlFor="email" className="input-label">
-          <i className="material-icons ikon left">mail</i>
+        <label htmlFor="username" className="input-label">
+          <i className="material-icons ikon left" >person</i>
           <input
             className="Input"
             type="text"
-            id="email"
-            name="email"
-            placeholder={inputEmail}
-            onChange={handleInputEmail}
-            data-testid="email"
+            id="username"
+            name="username"
+            placeholder={inputUn}
+            onChange={handleInputUN}
+            data-testid="username"
           />
-        </label>
+        </label>                
         <br />
         <label htmlFor="address" className="input-label">
           <i className="material-icons ikon left">house</i>
@@ -160,16 +161,16 @@ export default function UsernameForm({
 
   return (
       <form id="login" onSubmit={handleSubmit} role="form" data-testid="login-form">
-        <label htmlFor="username" className="input-label">
-          <i className="material-icons ikon left" >person</i>
+        <label htmlFor="email" className="input-label">
+          <i className="material-icons ikon left">mail</i>
           <input
             className="Input"
             type="text"
-            id="username"
-            name="username"
-            placeholder={inputUn}
-            onChange={handleInputUN}
-            data-testid="username"
+            id="email"
+            name="email"
+            placeholder={inputEmail}
+            onChange={handleInputEmail}
+            data-testid="email"
           />
         </label>
         <br />

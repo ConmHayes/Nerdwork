@@ -9,15 +9,15 @@ class User(db.Model):
     username = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(255), unique=True, nullable=False)
     address = db.Column(db.String(255))
+    date_of_birth = db.Column(db.Date, nullable=False)
     password = db.Column(db.String(255), nullable=False)
     dateofbirth = db.Column(db.DateTime) ####
     
-    def __init__(self, username, email, address, password, dateofbirth):
+    def __init__(self, username, email, address, password):
         self.username = username
         self.email = email
         self.address = address
         self.password = password
-        self.dateofbirth = dateofbirth
 
 # #Token Table  
 # class Token(db.Model):
@@ -57,8 +57,10 @@ class Item(db.Model):
     issue_num = db.Column(db.Integer)
     img = db.Column(db.String(255))
     rating = db.Column(db.Integer, nullable=False)
+
     #Foreign Keys
     user = db.relationship('User', foreign_keys=[user_id])
+
     def __init__(self, genre, title, user_id, category, author, issue_num, img, rating):
         self.category = category
         self.title = title
@@ -69,7 +71,7 @@ class Item(db.Model):
         self.issue_num = issue_num
         self.img = img
         self.rating = rating
-        
+
 #Swap Table
 class Swap(db.Model):
     swap_id = db.Column(db.Integer, primary_key=True)

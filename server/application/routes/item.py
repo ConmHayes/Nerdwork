@@ -13,20 +13,16 @@ def format_item(item):
         "genre": item.genre, 
         "author": item.author, 
         "rating": item.rating,
-        "img": item.img if item.img else None,
-        "issue_num": item.issue_num if item.issue_num else None 
+        "img": item.img,
+        "issue_num": item.issue_num
     }
 
 # Display all books or games or comics
 @item_bp.route("/", methods=['GET', 'POST'])
 def get_all():
-    """"Return All Items """
+    """"Return All Items"""
     if request.method == 'GET':
         data = request.json
-        # Querying the Item table by category
-        # this route was going to return all items according to trello 
-        # items = Item.query.filter_by(category=data)
-
         items = Item.query.all()
         item_list = []
         for item in items:
@@ -39,6 +35,8 @@ def get_all():
         data = request.get_json()
         if data:
             genre, title, user_id, category, author, img, rating, issue_num = data['genre'], data['title'], data['user_id'], data['category'], data['author'], data['img'], data['rating'], data["issue_num"]
+
+            # TESTS
 
             if category and title and user_id and author:
                 try:
@@ -119,10 +117,3 @@ def update_item(item_id):
             item_to_update.user_id = new_user_id
             db.session.commit()
             return jsonify(message=f'Item {item_id} updated successfully ')
-
-
-
-
-        # for key, value in data.items():
-        #     if not value:
-        #         data[key] = None 

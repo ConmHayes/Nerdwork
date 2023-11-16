@@ -38,10 +38,15 @@ def get_all():
     if request.method == 'POST':
         data = request.get_json()
         if data:
-            if data["img"]:
+            # If an img and issue_num is provided deconstruct to find the corresponding variables
+            if data["img"] and data["issue_num"]:
                 genres, title, username, category, author, img, rating, issue_num = data['genres'], data['title'], data['username'], data['category'], data['author'], data['img'], data['rating'], data["issue_num"]
-            else:
-                genres, title, username, category, author,rating  = data['genres'], data['title'], data['username'], data['category'], data['author'], data['rating']
+            elif data["img"] and not data["issue_num"]:
+                genres, title, username, category, author, rating, img = data['genres'], data['title'], data['username'], data['category'], data['author'], data['rating'], data["img"]
+            else: 
+                genres, title, username, category, author, rating, issue_num = data['genres'], data['title'], data['username'], data['category'], data['author'], data['rating'], data["issue_num"]
+
+
             if category and title and username and author:
                 try:
                     item_to_add = Item(

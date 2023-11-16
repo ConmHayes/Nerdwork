@@ -94,3 +94,27 @@ def get_items_by_user(product_type, product_id):
 
     else:
         return jsonify(item= item)
+ 
+@item_bp.route('/<item_id>', methods=['PATCH'])
+def update_item(item_id):
+    if request.method == 'PATCH':
+        new_user_data = request.get_json()
+        #find new user id request body 
+        new_user_id_str = new_user_data.get('user_id', '')
+        try:
+            new_user_id = int(new_user_id_str)
+        except ValueError:
+            return jsonify(error= 'Invalid user_id format. Must be an integer'), 400
+        #find which item needs updating
+        item_to_update = Item.query.filter_by(item_id=item_id).first()
+        #if not found
+        if not item_to_update:
+            return jsonify(message=f'No items found with the item_id: {item_id}'), 404
+        else:
+            item_to_update.user_id = new_user_id
+            db.session.commit()
+            return jsonify(message=f'Item {item_id} updated successfully ')
+
+
+
+    

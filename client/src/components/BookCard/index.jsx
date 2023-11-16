@@ -20,7 +20,7 @@ const BookCard = ({ book }) => {
   )) : null;
 
   return (
-    <Card className="h-100 shadow-sm bg-white rounded">
+    <Card className="h-100 w-60 shadow-sm bg-white rounded" style={{maxHeight:"300px", maxWidth: "250px"}}>
       <Card.Img variant="top" src={img} alt={`Cover of the book ${title}`} className="p-3" />
       <Card.Body className="d-flex flex-column">
         <Card.Title className="mb-0 font-weight-bold">{title}</Card.Title>

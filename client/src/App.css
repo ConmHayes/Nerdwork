@@ -331,7 +331,7 @@ h3{
 .profile-bookshelf{
     flex-direction: column;
     padding-left: 50px;
-    width: 80%;
+    width: 90%;
     align-items: flex-start;
 }
 
@@ -343,4 +343,5 @@ h3{
 
 .carousel-container{
     overflow-x: hidden;
+    
 }

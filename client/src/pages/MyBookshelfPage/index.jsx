@@ -13,7 +13,7 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended }
     const bottom_icons = ["settings", "call"]
 
 
-    const top_links = [`${siteURL}profile`, "/", "/", "/"]
+    const top_links = [`${localURL}profile`, "/", "/", "/"]
     const bottom_links = ["/", "/"]
 
     const initialBooks = [
@@ -21,7 +21,7 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended }
         {
           id: 1,
           title: 'The Hobbit',
-          img: '',
+          img: '../../images/x500_bbb7d1ed-aba7-4eb8-a464-b1d64350a1c1_500x.jpg',
           author: 'J.R.R. Tolkien',
           genres: ['Fantasy'],
           owner: 'John Doe',

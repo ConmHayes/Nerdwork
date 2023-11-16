@@ -7,7 +7,7 @@ item_bp = Blueprint("item_bp", __name__, url_prefix='/item')
 def format_item(item): 
     return {
         "item_id": item.item_id,
-        "genres": item.genres, 
+        "genre": item.genre, 
         "title": item.title, 
         "username": item.username, 
         "category": item.category,
@@ -35,39 +35,38 @@ def get_all():
         return {"Items": item_list}
     
     """" Create an Item """
-    if request.method == 'POST':
-        data = request.get_json()
-        if data:
-            # If an img and issue_num is provided deconstruct to find the corresponding variables
-            if data["img"] and data["issue_num"]:
-                genres, title, username, category, author, img, rating, issue_num = data['genres'], data['title'], data['username'], data['category'], data['author'], data['img'], data['rating'], data["issue_num"]
-            elif data["img"] and not data["issue_num"]:
-                genres, title, username, category, author, rating, img = data['genres'], data['title'], data['username'], data['category'], data['author'], data['rating'], data["img"]
-            else: 
-                genres, title, username, category, author, rating, issue_num = data['genres'], data['title'], data['username'], data['category'], data['author'], data['rating'], data["issue_num"]
+        if request.method == 'POST':
+            data = request.get_json()
+            if data:
+                # If an img and issue_num is provided deconstruct to find the corresponding variables
+                if data["img"] and data["issue_num"]:
+                    genre, title, username, category, author, img, rating, issue_num = data['genre'], data['title'], data['username'], data['category'], data['author'], data['img'], data['rating'], data["issue_num"]
+                elif data["img"] and not data["issue_num"]:
+                    genre, title, username, category, author, rating, img = data['genre'], data['title'], data['username'], data['category'], data['author'], data['rating'], data["img"]
+                else: 
+                    genre, title, username, category, author, rating, issue_num = data['genre'], data['title'], data['username'], data['category'], data['author'], data['rating'], data["issue_num"]
 
-
-            if category and title and username and author:
-                try:
-                    item_to_add = Item(
-                        genres=genres,
-                        title=title,
-                        username=username,
-                        category=category, 
-                        author=author,
-                        img=img,
-                        rating=rating,
-                        issue_num=issue_num
-                    )
-                    db.session.add(item_to_add)
-                    db.session.commit()
-                    return jsonify(message='Item Successfully Added To Database'), 201
-                except Exception as e:
-                    return jsonify(message='An error occurred during posting an item', error=str(e)), 400
+                if category and title and username and author:
+                    try:
+                        item_to_add = Item(
+                            genre=genre,
+                            title=title,
+                            username=username,
+                            category=category, 
+                            author=author,
+                            img=img,
+                            rating=rating,
+                            issue_num=issue_num
+                        )
+                        db.session.add(item_to_add)
+                        db.session.commit()
+                        return jsonify(message='Item Successfully Added To Database'), 201
+                    except Exception as e:
+                        return jsonify(message='An error occurred during posting an item', error=str(e)), 400
+                else:
+                    return jsonify(message='Posting item failed, possibly missing mandatory arguments'), 400
             else:
-                return jsonify(message='Posting item failed, possibly missing mandatory arguments'), 400
-        else:
-            return jsonify(message='No data passed in'), 400
+                return jsonify(message='No data passed in'), 400
 
 # USER STORY: Selects a tab (book, comic or games)
 @item_bp.route('/<category>', methods=['GET'])

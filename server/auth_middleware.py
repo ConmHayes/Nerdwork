@@ -17,9 +17,8 @@ def token_required(func):
                 "error": "Unauthorized"
             }, 401
         try:
-            #CHANGE TO EMAIL!! 
             data=jwt.decode(token, key=current_app.config["SECRET_KEY"], verify=True, algorithms=["HS256"] )
-            current_user=models.User.query.filter_by(username=data["username"]).first()
+            current_user=models.User.query.filter_by(email=data["email"]).first()
             if current_user is None:
                 return {
                 "message": "Invalid Authentication token!",

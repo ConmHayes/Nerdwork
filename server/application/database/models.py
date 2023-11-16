@@ -54,10 +54,10 @@ class Item(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'), nullable=False)
     username = db.Column(db.String(255), db.ForeignKey('user.username'), nullable=False)
     genre = db.Column(db.String(255), nullable=False)
-    author = db.Column(db.String(255))
+    author = db.Column(db.String(255), nullable=False)
     issue_num = db.Column(db.Integer)
     img = db.Column(db.String(255))
-    rating = db.Column(db.Integer)
+    rating = db.Column(db.Integer, nullable=False)
 
     #Foreign Keys
     user = db.relationship('User', foreign_keys=[user_id])

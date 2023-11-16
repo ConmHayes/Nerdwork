@@ -14,7 +14,7 @@ def format_item(item):
         "author": item.author, 
         "rating": item.rating,
         "img": item.img, # nullable
-        "issue_nr": item.issue_nr #nullable   
+        "issue_num": item.issue_num #nullable   
     }
 
 # Display all books or games or comics
@@ -39,7 +39,7 @@ def get_all():
         data = request.get_json()
         if data:
             if data["img"]:
-                genres, title, username, category, author, img, rating  = data['genres'], data['title'], data['username'], data['category'], data['author'], data['img'], data['rating']
+                genres, title, username, category, author, img, rating, issue_num = data['genres'], data['title'], data['username'], data['category'], data['author'], data['img'], data['rating'], data["issue_num"]
             else:
                 genres, title, username, category, author,rating  = data['genres'], data['title'], data['username'], data['category'], data['author'], data['rating']
             if category and title and username and author:
@@ -51,7 +51,8 @@ def get_all():
                         category=category, 
                         author=author,
                         img=img,
-                        rating=rating
+                        rating=rating,
+                        issue_num=issue_num
                     )
                     db.session.add(item_to_add)
                     db.session.commit()

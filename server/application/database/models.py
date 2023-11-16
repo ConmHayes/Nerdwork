@@ -63,7 +63,6 @@ class Item(db.Model):
         self.category = category
         self.title = title
         self.user_id = user_id
-        self.username = username
         self.genre = genre
         self.author = author
         self.issue_num = issue_num

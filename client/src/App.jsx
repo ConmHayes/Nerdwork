@@ -35,6 +35,7 @@ function App() {
           <Route path="/ComicSearch" element={<Pages.ComicSearchPage/>} /> 
           <Route path="/GameSearch" element={<Pages.GameSearchPage/>} /> 
           <Route path="/Profile" element={<Pages.ProfilePage/>} /> 
+          <Route path ="/profile/bookshelf" element={<Pages.MyBookshelfPage />} />
           <Route path="/request" element={<Pages.RequestPage />} />
 
           <Route path="/forms" element={<Pages.FormsPage onAddBook={handleAddBook} />} />

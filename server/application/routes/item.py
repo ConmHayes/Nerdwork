@@ -10,27 +10,27 @@ def format_item(item):
         "genre": item.genre, 
         "title": item.title, 
         "username": item.username, 
-        "category": item.category,
+        "category": item.category, 
+        "user_id": item.user_id, 
         "author": item.author, 
         "rating": item.rating,
-        "img": item.img, # nullable
-        "issue_num": item.issue_num #nullable   
+        "img": item.img,
+        "issue_num": item.issue_num
     }
 
 # Display all books or games or comics
 @item_bp.route("/", methods=['GET', 'POST'])
 def get_all():
-    """"Return All Items """
     if request.method == 'GET':
         items = Item.query.all()
         item_list = []
         for item in items:
             item_list.append(format_item(item))
-        # Returning the data for the specified category
         return {"Items": item_list}
 
     """" Create an Item """
     if request.method == 'POST':
+        
         data = request.get_json()
 
         if not data:
@@ -122,7 +122,3 @@ def update_item(item_id):
             item_to_update.user_id = new_user_id
             db.session.commit()
             return jsonify(message=f'Item {item_id} updated successfully ')
-
-
-
-    

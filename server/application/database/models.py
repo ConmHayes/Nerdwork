@@ -53,21 +53,21 @@ class Item(db.Model):
     genre = db.Column(db.String(255), nullable=False)
     author = db.Column(db.String(255), nullable=False)
     issue_num = db.Column(db.Integer)
-    img = db.Column(db.String(255))
+    img = db.Column(db.String(255), nullable=True)
     rating = db.Column(db.Integer, nullable=False)
 
     #Foreign Keys
     user = db.relationship('User', foreign_keys=[user_id])
 
-    def __init__(self, genre, title, user_id, category, author, issue_num, img, rating):
+    def __init__(self, genre, title, user_id, category, author, issue_num, rating, img=None):
         self.category = category
         self.title = title
         self.user_id = user_id
         self.genre = genre
         self.author = author
         self.issue_num = issue_num
-        self.img = img
         self.rating = rating
+        self.img = img
 
 #Swap Table
 class Swap(db.Model):

@@ -30,10 +30,9 @@ def get_all():
 
     """" Create an Item """
     if request.method == 'POST':
-        
+        # {genre: , item: , img: null, }
         data = request.get_json()
         if data:
-            # If we pass null as in {"img": null}
             genre, title, user_id, category, author, img, rating, issue_num = data['genre'], data['title'], data['user_id'], data['category'], data['author'], data['img'], data['rating'], data["issue_num"]
 
             if category and title and user_id and author:

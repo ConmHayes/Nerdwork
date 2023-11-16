@@ -1,0 +1,21 @@
+.book-card {
+    background-color: #f7f1e3; 
+    border: 1px solid #d1ccc0;
+    box-shadow: 5px 5px 10px #ccc; 
+    border-radius: 8px; 
+    padding: 20px;
+    margin-bottom: 20px;
+    width: 400px;
+    height: 700px;
+}
+
+.book-card h3 {
+    color: #34ace0; 
+    margin-top: 20px;
+}
+
+.book-card p {
+    color: #555; 
+    margin-bottom: 8px;
+    line-height: 1.4; 
+}

@@ -1,14 +1,11 @@
-"""create db"""
+from flask_sqlalchemy import SQLAlchemy
 
-from application import db, app
-
-app.app_context().push()
-
-# db.metadata.drop_all(db.engine, checkfirst=True)
+db = SQLAlchemy()
+#db.metadata.drop_all(db.engine, checkfirst=True)
 
 #User Table
 class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(255), nullable=False)
     address = db.Column(db.String(255))
@@ -22,8 +19,8 @@ class User(db.Model):
 
 #Token Table  
 class Token(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    token_id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'), nullable=False)
     token = db.Column(db.String(255), nullable=False)
 
     #Foreign Keys
@@ -35,9 +32,9 @@ class Token(db.Model):
 
 #Friends Table  
 class Friend(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    friend_user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    friend_id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'), nullable=False)
+    friend_user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'), nullable=False)
 
     #Foreign Keys
     user = db.relationship('User', foreign_keys=[user_id])
@@ -49,10 +46,10 @@ class Friend(db.Model):
 
 #Item Table
 class Item(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    item_id = db.Column(db.Integer, primary_key=True)
     product_type = db.Column(db.String(20), nullable=False)
     name = db.Column(db.String(255), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'), nullable=False)
     category = db.Column(db.String(255), nullable=False)
     platform = db.Column(db.String(255))
 
@@ -68,11 +65,11 @@ class Item(db.Model):
 
 #Swap Table
 class Swap(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    user_id_gives = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    user_id_taker = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    swap_id = db.Column(db.Integer, primary_key=True)
+    user_id_gives = db.Column(db.Integer, db.ForeignKey('user.user_id'), nullable=False)
+    user_id_taker = db.Column(db.Integer, db.ForeignKey('user.user_id'), nullable=False)
     date = db.Column(db.Date, nullable=False)
-    item_id = db.Column(db.Integer, db.ForeignKey('item.id'), nullable=False)
+    item_id = db.Column(db.Integer, db.ForeignKey('item.item_id'), nullable=False)
 
     #Foreign Keys
     user_giver = db.relationship('User', foreign_keys=[user_id_gives])

@@ -10,11 +10,10 @@ flask-sqlalchemy = "*"
 psycopg2 = "*"
 gunicorn = "*"
 python-dotenv = "*"
+flask-jwt-extended = "*"
+pyjwt = "*"
 
 [dev-packages]
 
 [requires]
 python_version = "3.11"
-
-[script]
-setup_db = "python ./application/database/setup_db.py"

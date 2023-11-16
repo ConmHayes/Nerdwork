@@ -1,27 +1,49 @@
+import { useState } from "react";
 import "./App.css";
 import * as Pages from "./pages";
-import { Routes, Route } from "react-router-dom";
-import { Header } from "./components";
+
+import { Routes, Route, useNavigate } from "react-router-dom";
+
+import { NavigationBar, Bookshelf } from "./components";
+
 import React from "react";
 
-function App() {  function LayoutWithHeader({ children }) {
+
+function App() {  
+  const [books, setBooks] = useState([]);
+  function LayoutWithHeader({ children }) {
     return (
       <div>
-        <Header />
+        <NavigationBar />
         {children}
       </div>
     );
   }
+
+
+  const handleAddBook = (newBook) => {
+    setBooks((prevBooks) => [...prevBooks, newBook]);
+  };
+
   return (
-    <div>
       <Routes>
         <Route path="/" element={<Pages.LoginPage />} />
         <Route path="/signup" element={<Pages.SignupPage />} />
         <Route element={<LayoutWithHeader />}>
-            
+          <Route path="/Home" element={<Pages.HomePage/>} /> 
+          <Route path="/BookSearch" element={<Pages.BookSearchPage/>} /> 
+          <Route path="/ComicSearch" element={<Pages.ComicSearchPage/>} /> 
+          <Route path="/GameSearch" element={<Pages.GameSearchPage/>} /> 
+          <Route path="/Profile" element={<Pages.ProfilePage/>} /> 
+          <Route path="/request" element={<Pages.RequestPage />} />
+
+          <Route path="/forms" element={<Pages.FormsPage onAddBook={handleAddBook} />} />
+        <Route path="/books" element={<Pages.BookshelfPage books={books} />} />
+
+          <Route path="/books" element={<Bookshelf />} />
+
         </Route>
       </Routes>
-    </div>
   );
 }
 

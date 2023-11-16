@@ -2,12 +2,12 @@ import React, {useState, useEffect} from "react";
 import { useNavigate } from 'react-router-dom'
 
 
-/*
-const apiURL = "https://time-table-server.onrender.com"
+
+const apiURL = "https://nerdwork-server.onrender.com"
 const siteURL = "https://nerdwork.onrender.com/"
 const localURL = "http://localhost:5173/"
 const localapi = "http://localhost:3003"
-*/
+
 
 export default function UsernameForm({
   inputUn,
@@ -22,6 +22,7 @@ export default function UsernameForm({
   const [showPassword, setShowPassword] = useState(false);
   const [inputEmail, setinputEmail] = useState("Email")
   const [inputDob, setInputDob] = useState("")
+  const [inputAddress, setInputAddress] = useState("Address")
 
   function handleInputUN(e) {
     setInputUn(e.target.value);
@@ -31,6 +32,10 @@ export default function UsernameForm({
   }
   function handleInputEmail(e) {
     setinputEmail(e.target.value);
+  }
+
+  function handleInputAddress(e){
+    setInputAddress(e.target.value)
   }
   function handleInputDob(e) {
     const dob = document.getElementById("date-of-birth")
@@ -50,11 +55,15 @@ export default function UsernameForm({
         },
         body: JSON.stringify({
           username: inputUn,
-          password: inputPw
+          email: inputEmail,
+          password: inputPw,
+          address: inputAddress
+          
         }),
       }
-      response = await fetch(`${apiURL}/register`, options)
+      response = await fetch(`${apiURL}/auth/register`, options)
       data = await response.json()
+      console.log(response)
     }
     else if (button_Text === "Login"){
       const options = {
@@ -68,10 +77,12 @@ export default function UsernameForm({
           password: inputPw
         }),
       }
-      response = await fetch(`${apiURL}/login`, options)
+      console.log(options.body)
+      response = await fetch(`${apiURL}/auth/login`, options)
       data = await response.json()
+      console.log(response)
     }
-
+    
     if (response.status == 200 || response.status == 201){
       localStorage.setItem("token", data.token)
       navigate('/home')
@@ -101,7 +112,7 @@ export default function UsernameForm({
       return (
         <>
                 <label htmlFor="email" className="input-label">
-          <i className="material-icons ikon left" style = {{color: "#3C7F72"}}>envelope</i>
+          <i className="material-icons ikon left">mail</i>
           <input
             className="Input"
             type="text"
@@ -109,6 +120,20 @@ export default function UsernameForm({
             name="email"
             placeholder={inputEmail}
             onChange={handleInputEmail}
+            data-testid="email"
+          />
+        </label>
+        <br />
+        <label htmlFor="address" className="input-label">
+          <i className="material-icons ikon left">house</i>
+          <input
+            className="Input"
+            type="text"
+            id="address"
+            name="address"
+            placeholder={inputAddress}
+            onChange={handleInputAddress}
+            data-testid="address"
           />
         </label>
         <br />
@@ -119,6 +144,7 @@ export default function UsernameForm({
             id="date-of-birth"
             name="date-of-birth"
             onChange={handleInputDob}
+            data-testid="date-of-birth"
           />
         </label>
         <br />
@@ -133,9 +159,9 @@ export default function UsernameForm({
   }, [button_Text])
 
   return (
-      <form id="login" onSubmit={handleSubmit} data-testid="login-form">
+      <form id="login" onSubmit={handleSubmit} role="form" data-testid="login-form">
         <label htmlFor="username" className="input-label">
-          <i className="material-icons ikon left" style = {{color: "#3C7F72"}}>person</i>
+          <i className="material-icons ikon left" >person</i>
           <input
             className="Input"
             type="text"
@@ -143,11 +169,12 @@ export default function UsernameForm({
             name="username"
             placeholder={inputUn}
             onChange={handleInputUN}
+            data-testid="username"
           />
         </label>
         <br />
         <label htmlFor="password" className="input-label">
-  <i className="material-icons ikon left" style={{ color: "#3C7F72" }}>
+  <i className="material-icons ikon left">
     lock
   </i>
   <input
@@ -157,16 +184,18 @@ export default function UsernameForm({
     name="password"
     placeholder={inputPw}
     onChange={handleInputPW}
+    data-testid="password"
   />
   <i
     className={`material-icons ikon right toggle-password ${showPassword ? "visible" : ""}`}
     onClick={togglePasswordVisibility}
+    data-testid='toggle-password-button'
   >
     {showPassword ? "visibility" : "visibility_off"}
   </i>
 </label>
 {pageRender()}
-        <button className="login-button" type="submit">
+        <button className="login-button" type="submit" data-testid="submit">
         {button_Text}
         </button>
         <p>{loginStatus}</p>

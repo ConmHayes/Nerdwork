@@ -29,6 +29,6 @@ def get_users():
 ##this is /user/email
 @user_bp.route('/<email>', methods=['GET'])
 @token_required
-def get_user(email):
+def get_user(user, email):
     user = User.query.filter_by(email=email).first()
     return jsonify(user_id=user.user_id, username=user.username, address=user.address, email=user.email, password=user.password)

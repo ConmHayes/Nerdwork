@@ -7,11 +7,14 @@ item_bp = Blueprint("item_bp", __name__, url_prefix='/item')
 def format_item(item): 
     return {
         "item_id": item.item_id,
-        "product_type": item.product_type,
-        "name": item.name,
-        "user_id": item.user_id,
+        "genres": item.genres, 
+        "title": item.title, 
+        "username": item.username, 
         "category": item.category,
-        "platform": item.platform
+        "author": item.author, 
+        "rating": item.rating,
+        "img": item.img, # nullable
+        "issue_num": item.issue_num #nullable   
     }
 
 # Display all books or games or comics
@@ -19,7 +22,6 @@ def format_item(item):
 def get_all():
     """"Return All Items """
     if request.method == 'GET':
-        # Assuming that data comes in the form e.g. {category: "books"}
         data = request.json
         # Querying the Item table by category
         #this route was going to return all items according to trello 
@@ -36,18 +38,21 @@ def get_all():
     if request.method == 'POST':
         data = request.get_json()
         if data:
-            product_type, name, user_id, category, platform = data['product_type'], data['name'], data['user_id'], data['category'], data['platform']
-            # check for not nullable ones present
-            if product_type and name and user_id and  category:
-                #add to db
+            if data["img"]:
+                genres, title, username, category, author, img, rating, issue_num = data['genres'], data['title'], data['username'], data['category'], data['author'], data['img'], data['rating'], data["issue_num"]
+            else:
+                genres, title, username, category, author,rating  = data['genres'], data['title'], data['username'], data['category'], data['author'], data['rating']
+            if category and title and username and author:
                 try:
-                    #as it is now, platform missing gives an error becuase of this, but it works
                     item_to_add = Item(
-                        product_type=product_type, 
-                        name=name,
-                        user_id=user_id, 
-                        category=category,
-                        platform=platform
+                        genres=genres,
+                        title=title,
+                        username=username,
+                        category=category, 
+                        author=author,
+                        img=img,
+                        rating=rating,
+                        issue_num=issue_num
                     )
                     db.session.add(item_to_add)
                     db.session.commit()
@@ -59,42 +64,44 @@ def get_all():
         else:
             return jsonify(message='No data passed in'), 400
 
-@item_bp.route('/<product_type>', methods=['GET'])
-def get_by_category(product_type):
-    items_by_product = Item.query.filter(Item.product_type == str(product_type)).all()
+# USER STORY: Selects a tab (book, comic or games)
+@item_bp.route('/<category>', methods=['GET'])
+def get_by_category(category):
+    items_by_product = Item.query.filter(Item.category == str(category)).all()
     if not items_by_product:
-        return jsonify(message=f'No items found for the following type: {product_type}'), 404
-    
+        return jsonify(message=f'No items found for the following type: {category}'), 404
     else:
         matching_items = [format_item(item) for item in items_by_product]
         return jsonify(items=matching_items)
 
-@item_bp.route('/<product_type>/<name>', methods=['GET'])
-def get_by_name(product_type, name):
+# USER STORY: Select category > Search a title
+# @item_bp.route('/<category>/<title>', methods=['GET'])
+# def get_by_name(category, title):
 
-    #we probably will need to pass name in in the body as otherwise I won't be
-    #able to match with that exactly in the database
-    data = request.get_json()
-    data_name = data.get('name', '')
+#     #we probably will need to pass name in in the body as otherwise I won't be
+#     #able to match with that exactly in the database
+#     data = request.get_json()
+#     data_title = data.get('title', '')
 
-    data_filtered = Item.query.filter_by(product_type =product_type, name=data_name).all()
-    if not data_filtered:
-         return jsonify(message=f'No items found with the name: {data_name}'), 404
-    else:
-        matching_items = [format_item(item) for item in data_filtered]
-        return jsonify(items=matching_items)
+#     data_filtered = Item.query.filter_by(category=category, title=data_title).all()
+#     if not data_filtered:
+#          return jsonify(message=f'No items found with the name: {data_title}'), 404
+#     else:
+#         matching_items = [format_item(item) for item in data_filtered]
+#         return jsonify(items=matching_items)
 
 # we need to check this, as it is possible that an item id exists but it's not a 
 # certain product type. is that okay? 
-@item_bp.route('/<product_type>/<product_id>', methods=['GET'])
-def get_items_by_user(product_type, product_id):
-    item = Item.query.filter_by(product_type ==str(product_type), item_id= product_id).first()
+# USER STORY : Search category (book, comic, games) > Select an individual book
+@item_bp.route('/<category>/<item_id>', methods=['GET'])
+def get_items_by_user(category, item_id):
+    item = Item.query.filter_by(category ==str(category), item_id= item_id).first()
     if not item:
-        return jsonify(message=f'No items found with the item_id: {product_id} and the type as: {product_type}'), 404
-
+        return jsonify(message=f'No items found with the item_id: {item_id} and the type as: {category}'), 404
     else:
         return jsonify(item= item)
- 
+
+# USER STORY : Profile page > User updates a specific item in their collection
 @item_bp.route('/<item_id>', methods=['PATCH'])
 def update_item(item_id):
     if request.method == 'PATCH':

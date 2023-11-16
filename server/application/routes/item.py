@@ -7,14 +7,14 @@ item_bp = Blueprint("item_bp", __name__, url_prefix='/item')
 def format_item(item): 
     return {
         "item_id": item.item_id,
-        "genres": item.genres, 
-        "title": item.title, 
-        "username": item.username, 
         "category": item.category,
+        "title": item.title, 
+        "user_id": item.user_id, 
+        "genre": item.genre, 
         "author": item.author, 
         "rating": item.rating,
-        "img": item.img, # nullable
-        "issue_num": item.issue_num #nullable   
+        "img": item.img if item.img else None,
+        "issue_num": item.issue_num if item.issue_num else None 
     }
 
 # Display all books or games or comics
@@ -24,7 +24,7 @@ def get_all():
     if request.method == 'GET':
         data = request.json
         # Querying the Item table by category
-        #this route was going to return all items according to trello 
+        # this route was going to return all items according to trello 
         # items = Item.query.filter_by(category=data)
 
         items = Item.query.all()
@@ -33,21 +33,19 @@ def get_all():
             item_list.append(format_item(item))
         # Returning the data for the specified category
         return {"Items": item_list}
-    
+
     """" Create an Item """
     if request.method == 'POST':
         data = request.get_json()
         if data:
-            if data["img"]:
-                genres, title, username, category, author, img, rating, issue_num = data['genres'], data['title'], data['username'], data['category'], data['author'], data['img'], data['rating'], data["issue_num"]
-            else:
-                genres, title, username, category, author,rating  = data['genres'], data['title'], data['username'], data['category'], data['author'], data['rating']
-            if category and title and username and author:
+            genre, title, user_id, category, author, img, rating, issue_num = data['genre'], data['title'], data['user_id'], data['category'], data['author'], data['img'], data['rating'], data["issue_num"]
+
+            if category and title and user_id and author:
                 try:
                     item_to_add = Item(
-                        genres=genres,
+                        genre=genre,
                         title=title,
-                        username=username,
+                        user_id=user_id,
                         category=category, 
                         author=author,
                         img=img,
@@ -124,4 +122,7 @@ def update_item(item_id):
 
 
 
-    
+
+        # for key, value in data.items():
+        #     if not value:
+        #         data[key] = None 

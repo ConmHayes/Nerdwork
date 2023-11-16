@@ -2,8 +2,28 @@ import { useState, useEffect } from "react"
 import React from "react"
 import "./style.css"
 
+const apiURL = "https://nerdwork-server.onrender.com"
+const siteURL = "https://nerdwork.onrender.com/"
+
 export default function ProfilePage(){
     //const [sidebarExtended, setSidebarExtended] = useState(true)
+    const [username, setUsername] = useState("")
+
+    async function getUsername(){
+        const options = {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization : localStorage.token,
+          },
+        }
+        const response = await fetch(`${apiURL}/user/${localStorage.email}`, options)
+        const data = await response.json()
+        setUsername(data.username)
+      }
+      
+  
     
     const top_rows = ["My Bookshelf", "My Games", "My Comics", "My Friends"]
     const top_icons = ["book", "sports_esports", "import_contacts", "diversity_3"]
@@ -21,6 +41,10 @@ export default function ProfilePage(){
         return () => (carousel.style.animation = "none")
     }, [])
 
+    useEffect(() => {
+        getUsername()
+    }, [])
+
 
     return(
         <div className="flexbox-container profile-container">
@@ -33,8 +57,8 @@ export default function ProfilePage(){
                                 <i className="material-icons ikon">person</i>
                             </span>
                         </div>
-                        <div className="flexbox-item" style = {{position: "relative", left: "10px"}}>
-                            <h3> Welcome example user!</h3>
+                        <div className="flexbox-item" style = {{position: "relative", left: "10px", width: "400px"}}>
+                            <h3> Welcome, {username}!</h3>
                         </div>
                         <div className="flexbox-item bell">
                             <i className="material-icons bell-ikon">notifications</i>

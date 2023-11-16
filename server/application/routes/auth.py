@@ -11,8 +11,8 @@ from auth_middleware import token_required
 
 auth_bp = Blueprint('auth_bp', __name__, url_prefix='/auth')
 
-def validate_username_password(username_entered, password_entered):
-    user_matched=  models.User.query.filter_by(username=username_entered).first()
+def validate_email_password(useremail_entered, password_entered):
+    user_matched=  models.User.query.filter_by(email=useremail_entered).first()
     if user_matched and check_password_hash(user_matched.password, password_entered):
         return True
     else:
@@ -61,7 +61,7 @@ def login():
             return jsonify(message='user details not reached the function'), 400
         
         ## validate user that should return true:
-        is_valid = validate_username_password(data['email'], data['password'])
+        is_valid = validate_email_password(data['email'], data['password'])
         if is_valid:
             try:
                 print(current_app.config['SECRET_KEY'])

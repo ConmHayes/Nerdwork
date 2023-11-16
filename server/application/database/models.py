@@ -87,5 +87,55 @@ class Swap(db.Model):
         self.date = date
         self.item_id = item_id
 
+# Community Table 
+class Community(db.Model):
+    community_id = db.Column(db.Integer, primary_key=True)
+    community_name = db.Column(db.String(255), nullable=False)
+    description = db.Column(db.String(255))
+
+    # Initialization
+    def __init__(self, community_name, description):
+        self.community_name = community_name
+        self.description = description
+
+# Thread table
+class Thread(db.Model):
+    thread_id = db.Column(db.Integer, primary_key=True)
+    community_id = db.Column(db.Integer, db.ForeignKey('community.community_id'), nullable=False)
+    title = db.Column(db.String(255), nullable=False)
+    description = db.Column(db.String(255))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'), nullable=False)
+
+    # Foreign Key Constraints
+    community_id_FK = db.relationship('Community', foreign_keys=[community_id])
+    user_id_FK = db.relationship('User', foreign_keys=[user_id])
+
+    # Initialization
+    def __init__(self, community_id, title, description, user_id):
+        self.community_id = community_id
+        self.title = title
+        self.description = description
+        self.user_id = user_id
+
+# Post table 
+class Post(db.Model):
+    post_id = db.Column(db.Integer, primary_key=True)
+    post_title = db.Column(db.String(255), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'), nullable=False)
+    thread_id = db.Column(db.Integer, db.ForeignKey('thread.thread_id'),nullable=False)
+    body = db.Column(db.String(255), nullable=False)
+    votes = db.Column(db.Integer, nullable=True, default=0)
+
+    # Foreign Key Constraints
+    user_id_FK = db.relationship('User', foreign_keys=[user_id])
+    thread_id_FK = db.relationship('Thread', foreign_keys=[thread_id])
+
+    # Initialization 
+    def __init__(self, post_title, user_id, thread_id, body, votes=0):
+        self.post_title = post_title
+        self.user_id = user_id
+        self.thread_id = thread_id
+        self.body = body
+        self.votes = votes
 
     

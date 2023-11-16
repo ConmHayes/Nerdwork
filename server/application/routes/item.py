@@ -6,8 +6,7 @@ item_bp = Blueprint("item_bp", __name__, url_prefix='/item')
 # Formatting the items 
 def format_item(item): 
     return {
-        "item_id": item.item_id, 
-        "title": item.title,  
+        "item_id": item.item_id,
         "category": item.category,
         "title": item.title, 
         "user_id": item.user_id, 
@@ -21,14 +20,12 @@ def format_item(item):
 # Display all books or games or comics
 @item_bp.route("/", methods=['GET', 'POST'])
 def get_all():
-    """"Return All Items"""
     if request.method == 'GET':
         data = request.json
         items = Item.query.all()
         item_list = []
         for item in items:
             item_list.append(format_item(item))
-        # Returning the data for the specified category
         return {"Items": item_list}
 
     """" Create an Item """

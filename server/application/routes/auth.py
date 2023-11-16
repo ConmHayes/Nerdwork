@@ -31,7 +31,7 @@ def register():
     data = request.get_json()
     if request.method == 'POST':
         # gets name, email and password from request
-        username, email, address, date_of_birth = data['username'], data['email'], data['address'], data['date_of_birth']
+        username, email, address = data['username'], data['email'], data['address']
         password = data['password']
 
         #check if user exists
@@ -42,7 +42,6 @@ def register():
                 username= username,
                 email= email,
                 address= address,
-                date_of_birth = date_of_birth,
                 password= generate_password_hash(password)
             )
             # add to db

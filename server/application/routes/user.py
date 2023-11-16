@@ -10,7 +10,6 @@ def format_user(user):
         'username': user.username,
         'address': user.address,
         'email': user.email,
-        'date_of_birth' : user.date_of_birth,
         'password': user.password,
     }
 
@@ -32,4 +31,4 @@ def get_users():
 @token_required
 def get_user(email):
     user = User.query.filter_by(email=email).first()
-    return jsonify(user_id=user.user_id, username=user.username, address=user.address, email=user.email, date_of_birth=user.date_of_birth, password=user.password)
+    return jsonify(user_id=user.user_id, username=user.username, address=user.address, email=user.email, password=user.password)

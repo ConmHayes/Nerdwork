@@ -7,7 +7,7 @@ item_bp = Blueprint("item_bp", __name__, url_prefix='/item')
 def format_item(item): 
     return {
         "item_id": item.item_id,
-        "genres": item.genres, 
+        "genre": item.genre, 
         "title": item.title, 
         "username": item.username, 
         "category": item.category,
@@ -22,48 +22,49 @@ def format_item(item):
 def get_all():
     """"Return All Items """
     if request.method == 'GET':
-        data = request.json
-        # Querying the Item table by category
-        #this route was going to return all items according to trello 
-        # items = Item.query.filter_by(category=data)
-
         items = Item.query.all()
         item_list = []
         for item in items:
             item_list.append(format_item(item))
         # Returning the data for the specified category
         return {"Items": item_list}
-    
+
     """" Create an Item """
     if request.method == 'POST':
         data = request.get_json()
-        if data:
-            if data["img"]:
-                genres, title, username, category, author, img, rating, issue_num = data['genres'], data['title'], data['username'], data['category'], data['author'], data['img'], data['rating'], data["issue_num"]
-            else:
-                genres, title, username, category, author,rating  = data['genres'], data['title'], data['username'], data['category'], data['author'], data['rating']
-            if category and title and username and author:
-                try:
-                    item_to_add = Item(
-                        genres=genres,
-                        title=title,
-                        username=username,
-                        category=category, 
-                        author=author,
-                        img=img,
-                        rating=rating,
-                        issue_num=issue_num
-                    )
-                    db.session.add(item_to_add)
-                    db.session.commit()
-                    return jsonify(message='Item Successfully Added To Database'), 201
-                except Exception as e:
-                    return jsonify(message='An error occurred during posting an item', error=str(e)), 400
-            else:
-                return jsonify(message='Posting item failed, possibly missing mandatory arguments'), 400
-        else:
+
+        if not data:
             return jsonify(message='No data passed in'), 400
 
+        # Mandatory fields
+        mandatory_fields = ['category', 'genre', 'title', 'user_id', 'author']
+
+        missing_fields = [field for field in mandatory_fields if field not in data]
+
+        if missing_fields:
+            return jsonify(message=f'Missing mandatory fields: {", ".join(missing_fields)}'), 400
+
+        try:
+            img = data.get('img', None)
+            issue_num = data.get('issue_num', None)
+
+            item_to_add = Item(
+                category=data['category'],
+                genre=data['genre'],
+                title=data['title'],
+                user_id=data['user_id'],
+                author=data['author'],
+                img=img,
+                rating=data.get('rating'),
+                issue_num=issue_num
+            )
+
+            db.session.add(item_to_add)
+            db.session.commit()
+
+            return jsonify(message='Item Successfully Added To Database'), 201
+        except Exception as e:
+            return jsonify(message='An error occurred during posting an item', error=str(e)), 400
 # USER STORY: Selects a tab (book, comic or games)
 @item_bp.route('/<category>', methods=['GET'])
 def get_by_category(category):
@@ -74,7 +75,7 @@ def get_by_category(category):
         matching_items = [format_item(item) for item in items_by_product]
         return jsonify(items=matching_items)
 
-# USER STORY: Select category > Search a title
+
 # @item_bp.route('/<category>/<title>', methods=['GET'])
 # def get_by_name(category, title):
 
@@ -92,7 +93,8 @@ def get_by_category(category):
 
 # we need to check this, as it is possible that an item id exists but it's not a 
 # certain product type. is that okay? 
-# USER STORY : Search category (book, comic, games) > Select an individual book
+
+
 @item_bp.route('/<category>/<item_id>', methods=['GET'])
 def get_items_by_user(category, item_id):
     item = Item.query.filter_by(category ==str(category), item_id= item_id).first()
@@ -101,7 +103,6 @@ def get_items_by_user(category, item_id):
     else:
         return jsonify(item= item)
 
-# USER STORY : Profile page > User updates a specific item in their collection
 @item_bp.route('/<item_id>', methods=['PATCH'])
 def update_item(item_id):
     if request.method == 'PATCH':

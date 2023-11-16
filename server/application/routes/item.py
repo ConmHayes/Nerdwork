@@ -14,14 +14,11 @@
 #     if method == "post":
 #         ## do something
     
-
-"""
-
 from flask import Blueprint, request, jsonify
 from application import db
 from database import Item
 
-item = Blueprint("item", __name__) 
+item_bp = Blueprint("item", __name__, url_prefix='/item') 
 
 # Formatting the items 
 
@@ -35,7 +32,7 @@ def format_item(item):
     }
 
 # Display all books or games or comics
-@item.route("/", methods=["GET"])
+@item_bp.route("/", methods=["GET"])
 def get_category():
     if request.method == "GET":
         # Assuming that data comes in the form e.g. {category: "books"}
@@ -53,8 +50,3 @@ def get_category():
 
         return {"items": item_list
                 }
-
-"""
-
-
-

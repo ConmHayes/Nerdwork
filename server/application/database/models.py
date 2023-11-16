@@ -9,14 +9,12 @@ class User(db.Model):
     username = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(255), nullable=False)
     address = db.Column(db.String(255))
-    date_of_birth = db.Column(db.Date, nullable=False)
     password = db.Column(db.String(255), nullable=False)
     
     def __init__(self, username, email, address, date_of_birth, password):
         self.username = username
         self.email = email
         self.address = address
-        self.date_of_birth = date_of_birth
         self.password = password
 
 #Token Table  

@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Form, Button, Container, Row, Col, Alert } from 'react-bootstrap';
 
-const TradeRequest = ({ onTradeRequest }) => {
+const TradeRequest = ({ onTradeRequest, books }) => {
   // State to keep track of the form values
   const [selectedBook, setSelectedBook] = useState('');
   const [selectedDate, setSelectedDate] = useState('');
   const [showAlert, setShowAlert] = useState(false);
 
-  // This function would handle the form submission
+  // This function handles the form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     // Validate the form fields
@@ -17,9 +17,11 @@ const TradeRequest = ({ onTradeRequest }) => {
     } else {
       // Hide the alert and proceed with the trade request
       setShowAlert(false);
-      // Here you would handle the trade request logic, possibly calling onTradeRequest
-      console.log('Trade request submitted with:', selectedBook, selectedDate);
-      onTradeRequest && onTradeRequest(selectedBook, selectedDate);
+      // Call the onTradeRequest prop with the selected book and date
+      onTradeRequest(selectedBook, selectedDate);
+      // Reset the form fields
+      setSelectedBook('');
+      setSelectedDate('');
     }
   };
 
@@ -48,10 +50,9 @@ const TradeRequest = ({ onTradeRequest }) => {
               <Form.Label>Choose a book to trade:</Form.Label>
               <Form.Control as="select" name="book" value={selectedBook} onChange={handleBookChange} className="mb-3">
                 <option value="" disabled>Select here...</option>
-                {/* Options should be generated based on the user's bookshelf */}
-                <option value="book1">Legends and Lattes</option>
-                <option value="book2">Harry Potter and the Order of the Phoenix</option>
-                {/* ... other options */}
+                {books?.map((book) => (
+                  <option key={book.id} value={book.id}>{book.title}</option>
+                ))}
               </Form.Control>
             </Form.Group>
 
@@ -73,4 +74,3 @@ const TradeRequest = ({ onTradeRequest }) => {
 };
 
 export default TradeRequest;
-

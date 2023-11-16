@@ -1,29 +1,12 @@
-"""
- All routes related to items, get book, post, get by category 
-"""
-# create, update, delete
-# Search in search bar:
-#     get product by name 
-
-# Filter search by category/genre:
-#     get product by category 
-
-# Add item to their portfolio:
-# @app.route("/product/", methods=["get", "POST", "delete", "patch"])
-# def create():
-#     if method == "post":
-#         ## do something
-    
 from flask import Blueprint, request, jsonify
-from application import db
-from database import Item
+from application.database.models import Item, db
 
-item_bp = Blueprint("item", __name__, url_prefix='/item') 
+item_bp = Blueprint("item_bp", __name__, url_prefix='/item') 
 
 # Formatting the items 
-
 def format_item(item): 
     return {
+        "item_id": item.item_id,
         "product_type": item.product_type,
         "name": item.name,
         "user_id": item.user_id,
@@ -32,21 +15,106 @@ def format_item(item):
     }
 
 # Display all books or games or comics
-@item_bp.route("/", methods=["GET"])
-def get_category():
-    if request.method == "GET":
+@item_bp.route("/", methods=['GET', 'POST'])
+def get_all():
+    """"Return All Items """
+    if request.method == 'GET':
         # Assuming that data comes in the form e.g. {category: "books"}
         data = request.json
-
         # Querying the Item table by category
-        items = Item.query.filter_by(category=data)
+        #this route was going to return all items according to trello 
+        # items = Item.query.filter_by(category=data)
 
+        items = Item.query.all()
         item_list = []
-
         for item in items:
             item_list.append(format_item(item))
-
         # Returning the data for the specified category
+        return {"Items": item_list}
+    
+    """" Create an Item """
+    if request.method == 'POST':
+        data = request.get_json()
+        if data:
+            product_type, name, user_id, category, platform = data['product_type'], data['name'], data['user_id'], data['category'], data['platform']
+            # check for not nullable ones present
+            if product_type and name and user_id and  category:
+                #add to db
+                try:
+                    #as it is now, platform missing gives an error becuase of this, but it works
+                    item_to_add = Item(
+                        product_type=product_type, 
+                        name=name,
+                        user_id=user_id, 
+                        category=category,
+                        platform=platform
+                    )
+                    db.session.add(item_to_add)
+                    db.session.commit()
+                    return jsonify(message='Item Successfully Added To Database'), 201
+                except Exception as e:
+                    return jsonify(message='An error occurred during posting an item', error=str(e)), 400
+            else:
+                return jsonify(message='Posting item failed, possibly missing mandatory arguments'), 400
+        else:
+            return jsonify(message='No data passed in'), 400
 
-        return {"items": item_list
-                }
+@item_bp.route('/<product_type>', methods=['GET'])
+def get_by_category(product_type):
+    items_by_product = Item.query.filter(Item.product_type == str(product_type)).all()
+    if not items_by_product:
+        return jsonify(message=f'No items found for the following type: {product_type}'), 404
+    
+    else:
+        matching_items = [format_item(item) for item in items_by_product]
+        return jsonify(items=matching_items)
+
+@item_bp.route('/<product_type>/<name>', methods=['GET'])
+def get_by_name(product_type, name):
+
+    #we probably will need to pass name in in the body as otherwise I won't be
+    #able to match with that exactly in the database
+    data = request.get_json()
+    data_name = data.get('name', '')
+
+    data_filtered = Item.query.filter_by(product_type =product_type, name=data_name).all()
+    if not data_filtered:
+         return jsonify(message=f'No items found with the name: {data_name}'), 404
+    else:
+        matching_items = [format_item(item) for item in data_filtered]
+        return jsonify(items=matching_items)
+
+# we need to check this, as it is possible that an item id exists but it's not a 
+# certain product type. is that okay? 
+@item_bp.route('/<product_type>/<product_id>', methods=['GET'])
+def get_items_by_user(product_type, product_id):
+    item = Item.query.filter_by(product_type ==str(product_type), item_id= product_id).first()
+    if not item:
+        return jsonify(message=f'No items found with the item_id: {product_id} and the type as: {product_type}'), 404
+
+    else:
+        return jsonify(item= item)
+ 
+@item_bp.route('/<item_id>', methods=['PATCH'])
+def update_item(item_id):
+    if request.method == 'PATCH':
+        new_user_data = request.get_json()
+        #find new user id request body 
+        new_user_id_str = new_user_data.get('user_id', '')
+        try:
+            new_user_id = int(new_user_id_str)
+        except ValueError:
+            return jsonify(error= 'Invalid user_id format. Must be an integer'), 400
+        #find which item needs updating
+        item_to_update = Item.query.filter_by(item_id=item_id).first()
+        #if not found
+        if not item_to_update:
+            return jsonify(message=f'No items found with the item_id: {item_id}'), 404
+        else:
+            item_to_update.user_id = new_user_id
+            db.session.commit()
+            return jsonify(message=f'Item {item_id} updated successfully ')
+
+
+
+    

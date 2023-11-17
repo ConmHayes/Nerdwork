@@ -3,40 +3,40 @@ import { Container, Row, Col, Button, Form, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { FormInput, FormMultiSelect, FormRating, FormSelect, NavigationBar } from '../../components';
 
-const FormsPage = ({ onAddItem }) => {
+const FormsPage = ({ onAddBook }) => {
   const [formData, setFormData] = useState({
-    title: '',
-    img: '',
-    author: '',
-    genres: [],
-    owner: '',
+    title: "",
+    img: "",
+    author: "",
+    genre: "[]",
+    issue_num: "",
+    user_id: "",
     rating: 0,
-    category: ''
+    category: ""
   });
-  const [selectedGenres, setSelectedGenres] = useState([]);
+  const [selectedgenre, setSelectedgenre] = useState([]);
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const apiBaseURL = 'https://nerdwork-server.onrender.com/item';
-    const categoryPath = formData.category.toLowerCase().replace(' ', '%20');
 
+    // Basic fetch call for testing
     try {
-      const response = await fetch(`${apiBaseURL}/${categoryPath}`, {
+      const response = await fetch('https://nerdwork-server.onrender.com/item', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          // Include any other headers your API expects, like authorization tokens
         },
         body: JSON.stringify({
-          title: formData.title,
-          img: formData.img,
-          author: formData.author,
-          genres: selectedGenres,
-          owner: formData.owner,
-          rating: formData.rating,
-          // Include any other fields your API expects
+          title: "Test Title",
+          img: "test",
+          author: "Test Author",
+          genre: "[Test Genre]",
+          issue_num: 1,
+          user_id: 1,
+          rating: 5,
+          category: "book"
         }),
       });
 
@@ -45,36 +45,24 @@ const FormsPage = ({ onAddItem }) => {
       }
 
       const result = await response.json();
-      onAddItem(result); // Add the new item to the list of items
-      navigate(`/${categoryPath}`); // Navigate to the appropriate category page
-
-      // Reset form data
-      setFormData({
-        title: '',
-        img: '',
-        author: '',
-        genres: [],
-        owner: '',
-        rating: 0,
-        category: ''
-      });
-      setSelectedGenres([]);
-      setError(''); // Clear any errors
+      console.log(result);
+      // onAddBook(result);
+      // navigate("/booksearch");
     } catch (error) {
-      setError('There was a problem adding your item. Please try again.');
-      console.error('There was a problem with the fetch operation:', error);
+      setError(`There was a problem adding your item: ${error.message}`);
+      console.error('Error:', error);
     }
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prevData => ({ ...prevData, [name]: value }));
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
   const handleGenreChange = (e) => {
     const values = Array.from(e.target.selectedOptions, option => option.value);
-    setSelectedGenres(values);
-    setFormData(prevData => ({ ...prevData, genres: values }));
+    setSelectedgenre(values);
+    setFormData(prev => ({ ...prev, genre: values }));
   };
 
   return (
@@ -88,10 +76,10 @@ const FormsPage = ({ onAddItem }) => {
             <FormInput label="Title" type="text" placeholder="Enter title" name="title" value={formData.title} onChange={handleChange} />
             <FormInput label="Image URL" type="text" placeholder="Enter image URL" name="img" value={formData.img} onChange={handleChange} />
             <FormInput label="Author" type="text" placeholder="Enter author's name" name="author" value={formData.author} onChange={handleChange} />
-            <FormMultiSelect label="Genres" name="genres" selected={selectedGenres} options={['Fiction', 'Fantasy', 'Adventure']} onChange={handleGenreChange} />
-            <FormInput label="Owner" type="text" placeholder="Enter owner's username" name="owner" value={formData.owner} onChange={handleChange} />
+            <FormMultiSelect label="genre" name="genre" selected={selectedgenre} options={['Fiction', 'Fantasy', 'Adventure']} onChange={handleGenreChange} />
+            <FormInput label="Owner" type="text" placeholder="Enter owner's username" name="owner" value={formData.user_id} onChange={handleChange} />
             <FormRating label="Rating" name="rating" value={formData.rating} onChange={handleChange} min={0} max={5} step={0.1} />
-            <FormSelect label="Category" name="category" value={formData.category} options={[{ value: 'Book', label: 'Book' }, { value: 'Game', label: 'Game' }, { value: 'Comic Book', label: 'Comic Book' }]} onChange={handleChange} />
+            <FormSelect label="Category" name="category" value={formData.category} options={[{ value: 'Book', label: 'Book' }, { value: 'Comic Book', label: 'Comic Book' }, { value: 'Game', label: 'Game' }]} onChange={handleChange} />
             <Button variant="primary" type="submit">Submit</Button>
           </Form>
         </Col>

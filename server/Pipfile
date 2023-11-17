@@ -10,8 +10,8 @@ flask-sqlalchemy = "*"
 psycopg2 = "*"
 gunicorn = "*"
 python-dotenv = "*"
-jwt = "*"
 flask-jwt-extended = "*"
+pyjwt = "*"
 
 [dev-packages]
 

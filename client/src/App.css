@@ -345,3 +345,50 @@ h3{
     overflow-x: hidden;
     
 }
+
+/* Add your global styles here */
+
+.custom-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1800px;
+  transform: translate(-50%, -50%);
+  margin-top: 320px;
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.custom-overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.close-button {
+  background-color: #3498db;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+.close-button:hover {
+  background-color: #2980b9;
+}
+
+.modal-arrow {
+    position: absolute;
+    top: 10px; /* Adjust the position based on your design */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 15px solid #fff; /* Adjust the color based on your design */
+  }
+  
+  .selected-book{
+    border: rebeccapurple solid 5px;
+  }

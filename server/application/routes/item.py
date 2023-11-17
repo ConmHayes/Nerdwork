@@ -1,16 +1,17 @@
 from flask import Blueprint, request, jsonify
 from application.database.models import Item, db
+import json
 
 item_bp = Blueprint("item_bp", __name__, url_prefix='/item') 
 
 # Formatting the items 
-def format_item(item): 
+def format_item(item, genres_list): 
     return {
         "item_id": item.item_id,
         "category": item.category,
         "title": item.title, 
         "user_id": item.user_id, 
-        "genre": item.genre, 
+        "genre": genres_list, 
         "author": item.author, 
         "rating": item.rating,
         "img": item.img,
@@ -21,7 +22,6 @@ def format_item(item):
 @item_bp.route("/", methods=['GET', 'POST'])
 def get_all():
     if request.method == 'GET':
-        data = request.json
         items = Item.query.all()
         item_list = []
         for item in items:
@@ -60,11 +60,26 @@ def get_all():
 @item_bp.route('/<category>', methods=['GET'])
 def get_by_category(category):
     items_by_product = Item.query.filter(Item.category == str(category)).all()
+    
     if not items_by_product:
         return jsonify(message=f'No items found for the following type: {category}'), 404
-    else:
-        matching_items = [format_item(item) for item in items_by_product]
-        return jsonify(items=matching_items)
+    
+    matching_items = []
+    for item in items_by_product:
+        genres_list = []
+
+        try: 
+            # Attempt to parse the genre string into a list
+            genres_list = [genre.strip() for genre in item.genre.strip('[]').split(',')]
+        except Exception as e:
+            print("Exception occurred while formatting genres:", str(e))
+            # Handle the exception as needed
+
+        # Include the genres_list in the format_item 
+        formatted_item_list = format_item(item, genres_list)
+        matching_items.append(formatted_item_list)
+
+    return jsonify(items=matching_items)
 
 # we need to check this, as it is possible that an item id exists but it's not a 
 # certain product type. is that okay? 

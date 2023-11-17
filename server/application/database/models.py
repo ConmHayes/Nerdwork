@@ -47,21 +47,27 @@ class Friend(db.Model):
 #Item Table
 class Item(db.Model):
     item_id = db.Column(db.Integer, primary_key=True)
-    product_type = db.Column(db.String(20), nullable=False)
-    name = db.Column(db.String(255), nullable=False)
+    category = db.Column(db.String(20), nullable=False)
+    title = db.Column(db.String(255), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'), nullable=False)
-    category = db.Column(db.String(255), nullable=False)
-    platform = db.Column(db.String(255))
+    genre = db.Column(db.String(255), nullable=False)
+    author = db.Column(db.String(255), nullable=False)
+    issue_num = db.Column(db.Integer)
+    img = db.Column(db.String(255))
+    rating = db.Column(db.Integer, nullable=False)
 
     #Foreign Keys
     user = db.relationship('User', foreign_keys=[user_id])
 
-    def __init__(self, product_type, name, user_id, category, platform):
-        self.product_type = product_type
-        self.name = name
-        self.user_id = user_id
+    def __init__(self, genre, title, user_id, category, author, issue_num, img, rating):
         self.category = category
-        self.platform = platform
+        self.title = title
+        self.user_id = user_id
+        self.genre = genre
+        self.author = author
+        self.issue_num = issue_num
+        self.img = img
+        self.rating = rating
 
 #Swap Table
 class Swap(db.Model):

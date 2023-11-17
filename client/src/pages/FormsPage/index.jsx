@@ -47,7 +47,7 @@ const FormsPage = ({ onAddBook }) => {
       const result = await response.json();
       console.log(result);
       // onAddBook(result);
-      // navigate("/booksearch");
+      // navigate("/profile");
     } catch (error) {
       setError(`There was a problem adding your item: ${error.message}`);
       console.error('Error:', error);

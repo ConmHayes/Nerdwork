@@ -16,7 +16,7 @@ def format_post(post):
         "votes": post.votes
     }
 
-# ? USER STORY > User clicks on the post tab and can view all the communities
+# ? USER STORY > User selects community 
 
 @post_bp.route("/", methods=['GET', 'POST'])
 def get_all():
@@ -51,5 +51,57 @@ def get_all():
         else:
             return jsonify(message='No data passed in'), 400
 
-# @post_bp.route("/<post_id>", methods=['PATCH'])
-# def update_post_by_id(id):
+# ? USER STORY > User votes on a post 
+
+@post_bp.route("/<post_id>", methods=['PATCH', 'DELETE'])
+def post_by_id(post_id):
+    
+    if request.method == "PATCH":
+        # ? Retrieving the post that we want to update
+        post = Post.query.filter_by(post_id=post_id).first()
+        
+        # ? Check if the post exists
+        if post:
+            try:
+                # ? Incrementing the posts value 
+                post.votes += 1
+
+                # ? Committing the changes to the database
+                db.session.commit()
+
+                # ? Return the updated post
+                return jsonify(
+                    post_id=post.post_id,
+                    post_title=post.post_title,
+                    user_id=post.user_id,
+                    thread_id=post.thread_id,
+                    body=post.body,
+                    votes=post.votes
+                    )
+            
+            except Exception as e:
+                return jsonify(message='An error occurred during updating the post', error=str(e)), 500
+        else:
+            return jsonify(message=f'No post found with id {post_id}'), 400
+    
+    else:
+        
+        # ? Retrieve the entry we want to delete 
+        post = Post.query.filter_by(post_id=post_id).first()
+
+        if post: 
+
+            # ? Delete the entry from the database
+            db.session.delete(post)
+
+            # ? Commit changes to the database
+            db.session.commit()
+
+            return jsonify(message=f"Post with ID {post_id} has been successfully deleted")
+        
+        else: 
+            return jsonify(message=f"No posts were found with the ID {post_id}")
+
+
+
+

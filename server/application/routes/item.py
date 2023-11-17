@@ -18,7 +18,6 @@ def format_item(item, genres_list):
         "issue_num": item.issue_num
     }
 
-# Display all books or games or comics
 @item_bp.route("/", methods=['GET', 'POST'])
 def get_all():
     if request.method == 'GET':
@@ -73,7 +72,6 @@ def get_by_category(category):
             genres_list = [genre.strip() for genre in item.genre.strip('[]').split(',')]
         except Exception as e:
             print("Exception occurred while formatting genres:", str(e))
-            # Handle the exception as needed
 
         # Include the genres_list in the format_item 
         formatted_item_list = format_item(item, genres_list)
@@ -81,9 +79,6 @@ def get_by_category(category):
 
     return jsonify(items=matching_items)
 
-# we need to check this, as it is possible that an item id exists but it's not a 
-# certain product type. is that okay? 
-# USER STORY : Search category (book, comic, games) > Select an individual book
 @item_bp.route('/<category>/<item_id>', methods=['GET'])
 def get_items_by_user(category, item_id):
     item = Item.query.filter_by(category ==str(category), item_id= item_id).first()
@@ -92,7 +87,6 @@ def get_items_by_user(category, item_id):
     else:
         return jsonify(item= item)
 
-# USER STORY : Profile page > User updates a specific item in their collection
 @item_bp.route('/<item_id>', methods=['PATCH'])
 def update_item(item_id):
     if request.method == 'PATCH':

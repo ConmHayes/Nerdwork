@@ -8,11 +8,11 @@ export default function BookSearchCard ({ book }){
     const navigate = useNavigate();
 
     function displayUser(id){
-       navigate(`/request/${id}`)
+       navigate(`/BookDetail/${id}`)
     }
 
     return (
-        <div className="book-card" onClick={() => displayUser(book.id)}>
+        <div className="book-card" onClick={() => displayUser(1)}>
             <img src={book_image} alt={title}/> 
             
             <h3 style={{borderTop: "20px"}}>{title}</h3>

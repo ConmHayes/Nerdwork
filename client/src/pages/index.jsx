@@ -13,3 +13,5 @@ export { default as BookshelfPage } from "./BookshelfPage"
 export { default as BookSearchPage } from  "./BookSearchPage"
 export { default as GameSearchPage} from "./GameSearchPage"
 export {default as ComicSearchPage} from "./ComicSearchPage"
+
+export {default as BookDetailPage} from "./BookDetailPage"

@@ -2,6 +2,7 @@ import React,  {useState, useEffect } from "react";
 import SearchForm from "../SearchForm";
 import "./bookSearchWidget.css"
 import BookSearchCard from "../BookSearchCard";
+import BookCard from "../BookCard";
 
 export default function BookSearchWidget () {
     const [searchString, setSearchString] = useState("");

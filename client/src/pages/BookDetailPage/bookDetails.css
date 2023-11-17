@@ -1,0 +1,99 @@
+.book-detail-page {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #f5f5dc; /* Choose a beige or off-white color for a vintage look */
+    color: #333;
+    min-height: 100vh;
+    padding: 2rem 0;
+  }
+  
+  .container {
+    max-width: 900px; /* Adjust the width as needed */
+    margin: 0 auto;
+    background-color: #fffbe7;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 2rem;
+  }
+  
+  .page-title {
+    font-size: 2.5rem;
+    color: #333;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  
+  .image-container {
+    flex-basis: 40%; /* Adjust the size of the image container */
+    align-self: center;
+  }
+  
+  .book-image {
+    width: 100%;
+    max-width: 250px; /* Adjust the size of the image as needed */
+    height: auto;
+    margin-right: 2rem; /* Spacing between image and text */
+    border: 5px solid #d2b48c;
+  }
+  
+  .text-content {
+    flex-basis: 60%; /* Adjust the text container size */
+    align-self: center;
+  }
+  
+  .title {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .author {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .description {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+  
+  .genres {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  
+  .genre {
+    background-color: #ccc;
+    color: #333;
+    padding: 0.5rem 1rem;
+    margin: 0.25rem;
+    display: inline-block;
+    border-radius: 3px;
+  }
+  
+  .rating {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  /* Responsive behavior */
+  @media (max-width: 768px) {
+    .container {
+      flex-direction: column;
+    }
+  
+    .image-container,
+    .text-content {
+      flex-basis: 100%;
+      margin-right: 0;
+    }
+  
+    .book-image {
+      max-width: none;
+      margin-bottom: 1rem;
+    }
+  }
+  

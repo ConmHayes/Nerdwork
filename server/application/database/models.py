@@ -7,7 +7,7 @@ db = SQLAlchemy()
 class User(db.Model):
     user_id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(50), nullable=False)
-    email = db.Column(db.String(255), nullable=False)
+    email = db.Column(db.String(255), unique=True, nullable=False)
     address = db.Column(db.String(255))
     password = db.Column(db.String(255), nullable=False)
     
@@ -17,18 +17,18 @@ class User(db.Model):
         self.address = address
         self.password = password
 
-#Token Table  
-class Token(db.Model):
-    token_id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'), nullable=False)
-    token = db.Column(db.String(255), nullable=False)
+# #Token Table  
+# class Token(db.Model):
+#     token_id = db.Column(db.Integer, primary_key=True)
+#     user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'), nullable=False)
+#     token = db.Column(db.String(255), nullable=False)
 
-    #Foreign Keys
-    user = db.relationship('User', foreign_keys=[user_id])
+#     #Foreign Keys
+#     user = db.relationship('User', foreign_keys=[user_id])
 
-    def __init__(self, user_id, token):
-        self.user_id = user_id
-        self.token = token
+#     def __init__(self, user_id, token):
+#         self.user_id = user_id
+#         self.token = token
 
 #Friends Table  
 class Friend(db.Model):

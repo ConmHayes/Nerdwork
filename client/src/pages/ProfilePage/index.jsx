@@ -20,6 +20,7 @@ export default function ProfilePage(){
             Authorization : localStorage.token,
           },
         }
+        console.log(options)
         const response = await fetch(`${apiURL}/user/${localStorage.email}`, options)
         const data = await response.json()
         console.log(response)
@@ -30,7 +31,7 @@ export default function ProfilePage(){
     
     const top_rows = ["My Bookshelf", "My Games", "My Comics", "My Friends"]
     const top_icons = ["book", "sports_esports", "import_contacts", "diversity_3"]
-    const top_links = [`${siteURL}profile/bookshelf`, "/", "/", "/"]
+    const top_links = [`${localURL}profile/bookshelf`, "/", "/", "/"]
 
     const bottom_rows = ["Settings", "Contact Us"]
     const bottom_icons = ["settings", "call"]

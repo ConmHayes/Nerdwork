@@ -12,7 +12,7 @@ community_bp = Blueprint("community_bp", __name__, url_prefix='/community')
 def format_community(community): 
     return {
         "community_id": community.community_id,
-        "name": community.name,
+        "community_name": community.community_name,
         "description": community.description
     }
 
@@ -60,7 +60,3 @@ def community_id(community_id):
     # ? Return data for the specified id
 
     return jsonify(community_id=community.community_id, community_name=community.community_name, description=community.description)
-
-
-
-

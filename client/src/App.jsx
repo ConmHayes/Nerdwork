@@ -35,12 +35,14 @@ function App() {
           <Route path="/ComicSearch" element={<Pages.ComicSearchPage/>} /> 
           <Route path="/GameSearch" element={<Pages.GameSearchPage/>} /> 
           <Route path="/Profile" element={<Pages.ProfilePage/>} /> 
+          <Route path ="/profile/bookshelf" element={<Pages.MyBookshelfPage />} />
           <Route path="/request" element={<Pages.RequestPage />} />
+          <Route path="/BookDetail/:id" element={<Pages.BookDetailPage />} />
 
           <Route path="/forms" element={<Pages.FormsPage onAddBook={handleAddBook} />} />
-        <Route path="/books" element={<Pages.BookshelfPage books={books} />} />
+          <Route path="/books" element={<Pages.BookshelfPage books={books} />} />
 
-          <Route path="/books" element={<Bookshelf />} />
+          {/* <Route path="/books" element={<Bookshelf />} /> */}
 
           <Route path="/communities" element={<Pages.CommunityPage />} />
 

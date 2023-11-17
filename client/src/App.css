@@ -102,6 +102,10 @@ font-size: 20px;
     color: blue
 }
 
+.link{
+    color: black
+}
+
 .bell-ikon
 .ikon {
     color: black;
@@ -141,6 +145,17 @@ font-size: 20px;
   flex-direction: column;
   width: 600px;
   max-width: 600px;
+}
+
+.profile-sidebar{
+    width: 100px;
+    height: 95vh;
+    margin-left: 7px;
+    margin-top: 25px;
+    background-color: rebeccapurple;
+    justify-content: flex-start;
+    flex-direction: column;
+    border: black solid 3px
 }
 
 .profile-sidebar-extended{
@@ -234,22 +249,38 @@ h3{
     flex-direction: column;
     background-color: transparent;
 }
+.option-box{
+    margin-top: 50px;
+    width: 80%;
+    flex-direction: column;
+    background-color: transparent;
+}
 
 .profile-option{
-    width: 100%;
+    width: 500px;
     margin-top: 20px;
     height: 50px;
     border: black solid 3px;
 }
 
+.profile-box{
+    width: 50px;
+    margin-top: 20px;
+    height: 50px;
+    border: black solid 3px;
+}
+
+
+
 .profile-option i{
     position: absolute;  
     left: 10vh;
+    margin-top: 0px;
     line-height: 0;
     color: black;
     font-size: 25px;
 }
-
+.profile-box:hover,
 .profile-option:hover{
     cursor: pointer;
     filter: hue-rotate(120deg);
@@ -262,6 +293,7 @@ h3{
     left:11vh;
     transition: 0.3s
 }
+
 
 .profile-option:not(:hover) i {
     position: absolute;  
@@ -294,4 +326,21 @@ h3{
     padding-left: 50px;
     width: 60%;
     align-items: flex-start;
+}
+
+.profile-bookshelf{
+    flex-direction: column;
+    padding-left: 50px;
+    width: 80%;
+    align-items: flex-start;
+}
+
+.bookshelf{
+    background-color: blue;
+    width: 100px;
+    height:400px
+}
+
+.carousel-container{
+    overflow-x: hidden;
 }

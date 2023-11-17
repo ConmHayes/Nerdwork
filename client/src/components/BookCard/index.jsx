@@ -1,9 +1,10 @@
 import React from 'react';
 import { Card, Badge } from 'react-bootstrap';
-
+import "../BookSearchCard/bookCard.css"
 const BookCard = ({ book }) => {
   const { title, img, author, genres, owner, rating } = book;
-
+  console.log(book)
+  console.log("Hello")
   // Convert numerical rating to stars
   const stars = Array.from({ length: 5 }, (_, index) => (
     <span key={index} className={index < Math.floor(rating) ? 'text-warning' : 'text-secondary'}>
@@ -19,7 +20,7 @@ const BookCard = ({ book }) => {
   )) : null;
 
   return (
-    <Card className="h-100 shadow-sm bg-white rounded">
+    <Card className="h-100 shadow-sm bg-white rounded" id="book-card">
       <Card.Img variant="top" src={img} alt={`Cover of the book ${title}`} className="p-3" />
       <Card.Body className="d-flex flex-column">
         <Card.Title className="mb-0 font-weight-bold">{title}</Card.Title>

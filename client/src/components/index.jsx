@@ -12,3 +12,6 @@ export { default as FormSelect } from "./FormSelect"
 export { default as FormMultiSelect } from "./FormMultiSelect"
 export { default as FormRating } from "./FormRating"
 export { default as Communities} from "./Communities"
+export { default as Rating } from "./Rating"
+export { default as Genre } from "./Genre"
+

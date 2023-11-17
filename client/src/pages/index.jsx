@@ -12,3 +12,6 @@ export { default as FormsPage } from "./FormsPage"
 export { default as BookshelfPage } from "./BookshelfPage"
 export { default as CommunityPage } from "./CommunityPage"
 
+
+export {default as BookDetailPage} from "./BookDetailPage"
+export { default as MyBookshelfPage } from "./MyBookshelfPage"

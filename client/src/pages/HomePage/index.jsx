@@ -1,8 +1,11 @@
-import { useState } from "react";
-import React  from "react";
+
+import React , { useState } from "react";
 import "./carousel.css"
+import { useNavigate } from 'react-router-dom';
+
 
 export default function HomePage(){
+    const navigate = useNavigate()
     const mockBooks = [
         { id: 1, title: "Book One", owner: "Alice", author: "Author A" },
         { id: 2, title: "Book Two", owner: "Bob", author: "Author B" },
@@ -23,7 +26,9 @@ export default function HomePage(){
     const [books] = useState(mockBooks);
     const [forums] = useState(mockForums);
   
-   
+    function handleCardClick(id){
+        navigate(`/request/${id}`)
+      };
 
 
 
@@ -32,7 +37,7 @@ export default function HomePage(){
     <h2>Top 5 Books</h2>
     <div className="grid-container">
       {mockBooks.map(book => (
-        <div className="grid-item" key={book.id}>
+        <div className="grid-item" key={book.id} onClick={() => handleCardClick(book.id)}>
           <h3>{book.title}</h3>
           <p>Author: {book.author}</p>
           <p>Owner: {book.owner}</p>

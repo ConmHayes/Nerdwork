@@ -11,16 +11,18 @@ const initialBooks = [
     author: 'J.R.R. Tolkien',
     genres: ['Fantasy'],
     owner: 'John Doe',
-    rating: 4.5
+    rating: 4.5,
+    category: 'book'
   },
   {
     id: 2,
-    title: 'The Lord of the Rings',
+    title: 'Sonic the Hedgehog',
     img: '',
     author: 'J.R.R. Tolkien',
-    genres: ['Fantasy'],
+    genres: ['Adventure', 'Boss Fight'],
     owner: 'John Doe',
-    rating: 4.5
+    rating: 4.5,
+    category: 'game'
   },
   {
     id: 3,
@@ -29,7 +31,8 @@ const initialBooks = [
     author: 'J.K. Rowling',
     genres: ['Fantasy'],
     owner: 'John Doe',
-    rating: 4.5
+    rating: 4.5,
+    category: 'comic book'
   },
   {
     id: 4,

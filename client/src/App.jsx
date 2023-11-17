@@ -4,7 +4,7 @@ import * as Pages from "./pages";
 
 import { Routes, Route, useNavigate } from "react-router-dom";
 
-import { NavigationBar, Bookshelf } from "./components";
+import { NavigationBar, Bookshelf, Communities } from "./components";
 
 import React from "react";
 
@@ -41,6 +41,8 @@ function App() {
         <Route path="/books" element={<Pages.BookshelfPage books={books} />} />
 
           <Route path="/books" element={<Bookshelf />} />
+
+          <Route path="/communities" element={<Pages.CommunityPage />} />
 
         </Route>
       </Routes>

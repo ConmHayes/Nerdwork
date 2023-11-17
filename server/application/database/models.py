@@ -17,19 +17,6 @@ class User(db.Model):
         self.address = address
         self.password = password
 
-#Token Table  
-class Token(db.Model):
-    token_id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'), nullable=False)
-    token = db.Column(db.String(255), nullable=False)
-
-    #Foreign Keys
-    user = db.relationship('User', foreign_keys=[user_id])
-
-    def __init__(self, user_id, token):
-        self.user_id = user_id
-        self.token = token
-
 #Friends Table  
 class Friend(db.Model):
     friend_id = db.Column(db.Integer, primary_key=True)

@@ -21,7 +21,6 @@ def format_item(item):
 @item_bp.route("/", methods=['GET', 'POST'])
 def get_all():
     if request.method == 'GET':
-        data = request.json
         items = Item.query.all()
         item_list = []
         for item in items:

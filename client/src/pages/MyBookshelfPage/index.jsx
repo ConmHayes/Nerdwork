@@ -170,7 +170,7 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended }
                         <div>{starRating}</div>
                         {/* Add other book details as needed */}
                         <button className="close-button" onClick={closeModal}>
-                        Close Modal
+                        Close
                         </button>
                     </>
                     )}

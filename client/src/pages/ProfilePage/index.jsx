@@ -20,6 +20,7 @@ export default function ProfilePage(){
             Authorization : localStorage.token,
           },
         }
+        console.log(options)
         const response = await fetch(`${apiURL}/user/${localStorage.email}`, options)
         const data = await response.json()
         console.log(response)

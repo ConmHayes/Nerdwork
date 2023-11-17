@@ -29,7 +29,7 @@ def get_users():
 ##this is /user/email
 @user_bp.route('/<email>', methods=['GET'])
 @token_required
-def get_user(user,email):
+def get_user(user, email):
     user = User.query.filter_by(email=email).first()
     if user:
         return jsonify({

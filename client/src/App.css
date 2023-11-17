@@ -353,8 +353,10 @@ h3{
   top: 50%;
   left: 50%;
   width: 1800px;
+  max-width: 1800px;
+  height: 300px;
   transform: translate(-50%, -50%);
-  margin-top: 320px;
+  margin-top: 370px;
   background-color: #fff;
   padding: 20px;
   border: 1px solid #ccc;

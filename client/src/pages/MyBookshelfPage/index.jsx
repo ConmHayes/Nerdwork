@@ -2,6 +2,13 @@ import React, { useEffect, useState } from "react"
 import { BookCard } from "../../components"
 import { Link } from "react-router-dom";
 import Modal from "react-modal";
+import Harry_Potter_and_the_Order_of_the_Phoenix from "../../../public/Harry_Potter_and_the_Order_of_the_Phoenix.jpg"
+import HPGOF from "../../../public/71L9Y4OJn9L._AC_UF894,1000_QL80_.jpg"
+import HPCOS from "../../../public/9780747538486-uk.jpg"
+import HPPOA from "../../../public/71OZrU2sQTL._AC_UF1000,1000_QL80_.jpg"
+import LOTR from "../../../public/9780261103252.jpg"
+import TH from "../../../public/x500_bbb7d1ed-aba7-4eb8-a464-b1d64350a1c1_500x.jpg"
+
 
 const apiURL = "https://nerdwork-server.onrender.com"
 const siteURL = "https://nerdwork.onrender.com/"
@@ -36,7 +43,7 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended }
 
 
 
-    const top_links = [`${siteURL}profile`, "/", "/", "/"]
+    const top_links = [`${localURL}profile`, "/", "/", "/"]
     const bottom_links = ["/", "/"]
 
     const initialBooks = [
@@ -44,7 +51,7 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended }
         {
           id: 1,
           title: 'The Hobbit',
-          img: 'x500_bbb7d1ed-aba7-4eb8-a464-b1d64350a1c1_500x.jpg',
+          img: TH,
           author: 'J.R.R. Tolkien',
           genres: ['Fantasy'],
           owner: 'John Doe',
@@ -53,7 +60,7 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended }
         {
           id: 2,
           title: 'The Lord of the Rings',
-          img: '9780261103252.jpg',
+          img: LOTR,
           author: 'J.R.R. Tolkien',
           genres: ['Fantasy'],
           owner: 'John Doe',
@@ -62,7 +69,7 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended }
         {
           id: 3,
           title: 'Harry Potter and the Chamber of Secrets',
-          img: '9780747538486-uk.jpg',
+          img: HPCOS,
           author: 'J.K. Rowling',
           genres: ['Fantasy'],
           owner: 'John Doe',
@@ -71,7 +78,7 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended }
         {
           id: 4,
           title: 'Harry Potter and the Prisoner of Azkaban',
-          img: '71OZrU2sQTL._AC_UF1000,1000_QL80_.jpg',
+          img: HPPOA,
           author: 'J.K. Rowling',
           genres: ['Fantasy'],
           owner: 'John Doe',
@@ -80,7 +87,7 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended }
         {
           id: 5,
           title: 'Harry Potter and the Goblet of Fire',
-          img: '71L9Y4OJn9L._AC_UF894,1000_QL80_.jpg',
+          img: HPGOF,
           author: 'J.K. Rowling',
           genres: ['Fantasy'],
           owner: 'John Doe',
@@ -89,7 +96,7 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended }
         {
           id: 6,
           title: 'Harry Potter and the Order of the Phoenix',
-          img: 'Harry_Potter_and_the_Order_of_the_Phoenix.jpg',
+          img: Harry_Potter_and_the_Order_of_the_Phoenix,
           author: 'J.K. Rowling',
           genres: ['Fantasy'],
           owner: 'John Doe',
@@ -158,7 +165,7 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended }
                     {selectedBook && (
                     <>
                         <div className="modal-arrow"></div>
-                        <h2>{selectedBook.title}</h2>
+                        <h3>{selectedBook.title}</h3>
                         <p>Author: {selectedBook.author}</p>
                         <div>{starRating}</div>
                         {/* Add other book details as needed */}

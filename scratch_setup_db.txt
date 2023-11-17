@@ -2,7 +2,7 @@ within server folder, pipenv shell
 
 run python 
 from application import db, app
-from application.database.models import User, Friend, Item, Swap
+from application.database.models import User, Friend, Item, Swap, Community, Thread, Post
 app.app_context().push()
 db.create_all()
 

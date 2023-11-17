@@ -1,42 +1,38 @@
 from flask import Blueprint, request, jsonify
 from application.database.models import Item, db
+import json
 
 item_bp = Blueprint("item_bp", __name__, url_prefix='/item') 
 
 # Formatting the items 
-def format_item(item): 
+def format_item(item, genres_list): 
     return {
         "item_id": item.item_id,
         "category": item.category,
         "title": item.title, 
         "user_id": item.user_id, 
-        "genre": item.genre, 
+        "genre": genres_list, 
         "author": item.author, 
         "rating": item.rating,
         "img": item.img,
         "issue_num": item.issue_num
     }
 
-# Display all books or games or comics
 @item_bp.route("/", methods=['GET', 'POST'])
 def get_all():
-    """"Return All Items"""
     if request.method == 'GET':
-        data = request.json
         items = Item.query.all()
         item_list = []
         for item in items:
             item_list.append(format_item(item))
-        # Returning the data for the specified category
         return {"Items": item_list}
 
     """" Create an Item """
     if request.method == 'POST':
+        # {genre: , item: , img: null, }
         data = request.get_json()
         if data:
             genre, title, user_id, category, author, img, rating, issue_num = data['genre'], data['title'], data['user_id'], data['category'], data['author'], data['img'], data['rating'], data["issue_num"]
-
-            # TESTS
 
             if category and title and user_id and author:
                 try:
@@ -60,35 +56,29 @@ def get_all():
         else:
             return jsonify(message='No data passed in'), 400
 
-# USER STORY: Selects a tab (book, comic or games)
 @item_bp.route('/<category>', methods=['GET'])
 def get_by_category(category):
     items_by_product = Item.query.filter(Item.category == str(category)).all()
+    
     if not items_by_product:
         return jsonify(message=f'No items found for the following type: {category}'), 404
-    else:
-        matching_items = [format_item(item) for item in items_by_product]
-        return jsonify(items=matching_items)
+    
+    matching_items = []
+    for item in items_by_product:
+        genres_list = []
 
-# USER STORY: Select category > Search a title
-# @item_bp.route('/<category>/<title>', methods=['GET'])
-# def get_by_name(category, title):
+        try: 
+            # Attempt to parse the genre string into a list
+            genres_list = [genre.strip() for genre in item.genre.strip('[]').split(',')]
+        except Exception as e:
+            print("Exception occurred while formatting genres:", str(e))
 
-#     #we probably will need to pass name in in the body as otherwise I won't be
-#     #able to match with that exactly in the database
-#     data = request.get_json()
-#     data_title = data.get('title', '')
+        # Include the genres_list in the format_item 
+        formatted_item_list = format_item(item, genres_list)
+        matching_items.append(formatted_item_list)
 
-#     data_filtered = Item.query.filter_by(category=category, title=data_title).all()
-#     if not data_filtered:
-#          return jsonify(message=f'No items found with the name: {data_title}'), 404
-#     else:
-#         matching_items = [format_item(item) for item in data_filtered]
-#         return jsonify(items=matching_items)
+    return jsonify(items=matching_items)
 
-# we need to check this, as it is possible that an item id exists but it's not a 
-# certain product type. is that okay? 
-# USER STORY : Search category (book, comic, games) > Select an individual book
 @item_bp.route('/<category>/<item_id>', methods=['GET'])
 def get_items_by_user(category, item_id):
     item = Item.query.filter_by(category ==str(category), item_id= item_id).first()
@@ -97,7 +87,6 @@ def get_items_by_user(category, item_id):
     else:
         return jsonify(item= item)
 
-# USER STORY : Profile page > User updates a specific item in their collection
 @item_bp.route('/<item_id>', methods=['PATCH'])
 def update_item(item_id):
     if request.method == 'PATCH':

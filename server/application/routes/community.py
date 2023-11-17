@@ -47,12 +47,20 @@ def get_all():
                 return jsonify(message='Posting item failed, possibly missing mandatory arguments'), 400
         else:
             return jsonify(message='No data passed in'), 400
-        
-@community_bp.route("/", methods=['GET', 'POST'])
 
-            
-
-    
 # ? USER STORY > User selects a single community
 
-# @community_bp.route("/<community_id>", methods=['GET'])
+@community_bp.route("/<community_id>", methods=['GET'])
+def community_id(community_id):
+
+    # ? Retrieve one row 
+
+    community = Community.query.filter_by(community_id=community_id).first()
+
+    # ? Return data for the specified id
+
+    return jsonify(community_id=community.community_id, community_name=community.community_name, description=community.description)
+
+
+
+

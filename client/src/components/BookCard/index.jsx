@@ -1,10 +1,11 @@
 import React from 'react';
 import { Card, Badge } from 'react-bootstrap';
 import "../BookSearchCard/bookCard.css"
+import { useNavigate } from 'react-router';
+
 const BookCard = ({ book }) => {
-  const { title, img, author, genres, owner, rating } = book;
-  console.log(book)
-  console.log("Hello")
+  const { title, img, author, genre, owner, rating } = book;
+  const navigate = useNavigate()
   // Convert numerical rating to stars
   const stars = Array.from({ length: 5 }, (_, index) => (
     <span key={index} className={index < Math.floor(rating) ? 'text-warning' : 'text-secondary'}>
@@ -13,14 +14,16 @@ const BookCard = ({ book }) => {
   ));
 
   // Ensure genres is an array before mapping
-  const genreBadges = genres && Array.isArray(genres) ? genres.map((genre, index) => (
+  const genreBadges = genre && Array.isArray(genre) ? genre.map((genre, index) => (
     <Badge key={index} pill bg="secondary" className="mr-1">
       {genre}
     </Badge>
   )) : null;
-
+  function displayUser(id){
+    navigate(`/BookDetail/${id}`,{state: { book }})
+  }
   return (
-    <Card className="h-100 shadow-sm bg-white rounded" id="book-card">
+    <Card className="h-100 shadow-sm bg-white rounded" id="book-card" onClick={() => displayUser(book.item_id)}>
       <Card.Img variant="top" src={img} alt={`Cover of the book ${title}`} className="p-3" />
       <Card.Body className="d-flex flex-column">
         <Card.Title className="mb-0 font-weight-bold">{title}</Card.Title>

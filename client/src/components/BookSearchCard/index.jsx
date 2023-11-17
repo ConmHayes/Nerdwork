@@ -12,7 +12,7 @@ export default function BookSearchCard ({ book }){
     }
 
     return (
-        <div className="book-card" onClick={() => displayUser(1)}>
+        <div className="book-card" onClick={() => displayUser(book.item_id)}>
             <img src={book_image} alt={title}/> 
             
             <h3 style={{borderTop: "20px"}}>{title}</h3>

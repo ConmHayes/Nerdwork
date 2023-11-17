@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # from application import routes
-from application.routes import auth, user, item
+from application.routes import auth, user, item, community
 
 
 app = Flask(__name__)
@@ -25,4 +25,4 @@ db.init_app(app)
 app.register_blueprint(auth.auth_bp)
 app.register_blueprint(user.user_bp)
 app.register_blueprint(item.item_bp)
-# app.register_blueprint(community.community_bp)
+app.register_blueprint(community.community_bp)

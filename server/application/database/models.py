@@ -91,7 +91,7 @@ class Swap(db.Model):
 class Community(db.Model):
     community_id = db.Column(db.Integer, primary_key=True)
     community_name = db.Column(db.String(255), nullable=False)
-    description = db.Column(db.String(255))
+    description = db.Column(db.String(255), nullable=True)
 
     # Initialization
     def __init__(self, community_name, description):

@@ -9,7 +9,7 @@ const initialBooks = [
     title: 'The Hobbit',
     img: '',
     author: 'J.R.R. Tolkien',
-    genres: ['Fantasy'],
+    genres: '[Fantasy]',
     owner: 'John Doe',
     rating: 4.5,
     category: 'book'
@@ -18,18 +18,18 @@ const initialBooks = [
     id: 2,
     title: 'Sonic the Hedgehog',
     img: '',
-    author: 'J.R.R. Tolkien',
-    genres: ['Adventure', 'Boss Fight'],
+    author: 'SEGA',
+    genres: '[Adventure, Boss Fight]',
     owner: 'John Doe',
     rating: 4.5,
     category: 'game'
   },
   {
     id: 3,
-    title: 'Harry Potter and the Chamber of Secrets',
+    title: 'Spiderman',
     img: '',
-    author: 'J.K. Rowling',
-    genres: ['Fantasy'],
+    author: 'Stan Lee',
+    genres: '[Fantasy, Superhero]',
     owner: 'John Doe',
     rating: 4.5,
     category: 'comic book'

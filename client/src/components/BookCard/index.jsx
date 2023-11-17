@@ -1,9 +1,10 @@
 import React from 'react';
 import { Card, Badge } from 'react-bootstrap';
-import "../BookSearchCard/bookCard.css"
+
 import { useNavigate } from 'react-router';
 
-const BookCard = ({ book }) => {
+const BookCard = ({ book, isSelected }) => {
+
   const { title, img, author, genre, owner, rating } = book;
   const navigate = useNavigate()
   // Convert numerical rating to stars
@@ -23,7 +24,9 @@ const BookCard = ({ book }) => {
     navigate(`/BookDetail/${id}`,{state: { book }})
   }
   return (
-    <Card className="h-100 shadow-sm bg-white rounded" id="book-card" onClick={() => displayUser(book.item_id)}>
+    <Card className={`h-100 w-60 shadow-sm bg-white rounded ${isSelected ? 'selected-book' : ''}`} style={{maxHeight:"300px", maxWidth: "250px"}} onClick={() => displayUser(book.item_id)}>
+
+    
       <Card.Img variant="top" src={img} alt={`Cover of the book ${title}`} className="p-3" />
       <Card.Body className="d-flex flex-column">
         <Card.Title className="mb-0 font-weight-bold">{title}</Card.Title>

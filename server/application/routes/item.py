@@ -23,8 +23,21 @@ def get_all():
     if request.method == 'GET':
         items = Item.query.all()
         item_list = []
+
         for item in items:
-            item_list.append(format_item(item))
+            genres_list = []
+
+        try: 
+            # Attempt to parse the genre string into a list
+            genres_list = [genre.strip() for genre in item.genre.strip('[]').split(',')]
+        except Exception as e:
+            print("Exception occurred while formatting genres:", str(e))
+
+        # Include the genres_list in the format_item 
+        formatted_item_list = format_item(item, genres_list)
+
+        for item in items:
+            item_list.append(format_item(item, genres_list))
         return {"Items": item_list}
 
     """" Create an Item """

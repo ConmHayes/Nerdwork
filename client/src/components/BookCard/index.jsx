@@ -3,7 +3,8 @@ import { Card, Badge } from 'react-bootstrap';
 
 const BookCard = ({ book }) => {
   const { title, img, author, genres, owner, rating } = book;
-
+  console.log(book)
+  console.log("Hello")
   // Convert numerical rating to stars
   const stars = Array.from({ length: 5 }, (_, index) => (
     <span key={index} className={index < Math.floor(rating) ? 'text-warning' : 'text-secondary'}>

@@ -8,6 +8,7 @@ import HPCOS from "../../../public/9780747538486-uk.jpg"
 import HPPOA from "../../../public/71OZrU2sQTL._AC_UF1000,1000_QL80_.jpg"
 import LOTR from "../../../public/9780261103252.jpg"
 import TH from "../../../public/x500_bbb7d1ed-aba7-4eb8-a464-b1d64350a1c1_500x.jpg"
+import "animate.css"
 
 
 const apiURL = "https://nerdwork-server.onrender.com"
@@ -38,6 +39,7 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended }
         setStarRating(stars)
         setModalArrowX(modalArrowX)
         setSelectedBook(book)
+        
         setModalOpen(true)
     }
     function closeModal(){
@@ -111,8 +113,6 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended }
         },
       ];
 
-      
-
     return (
         
         <div className="flexbox-container profile-container">
@@ -151,12 +151,22 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended }
                 </div>
             </div>
             <div className="flexbox-container profile-bookshelf">
-                <p>Your Books</p>
+                <div className="flexbox-container" style={{width:"100%"}}>
+                    <div className="flexbox-item"style={{width:"50%", justifyContent: "flex-start"}}><p>Your Books</p></div>
+                    <div className="flexbox-item add-book" style={{width:"50%", justifyContent: "flex-end"}}>
+                            <p>Add another book</p>
+                        <i className="material-icons" style={{marginRight: "50px", marginLeft: "20px", marginBottom:"20px"}}>
+                            add_circle
+                        </i></div>
+                </div>
+                
                 <div className="flexbox-item carousel-container" style={{justifyContent:"flex-start"}}>
                     {
                     initialBooks.map((book, i) => (
-                        <div key={i} onClick = {() => openModal(book)} id={`Book_${book.id}`}>
-                            <BookCard book={ book } isSelected={selectedBook && selectedBook.id === book.id}/>
+                        <div key={i} onClick = {() => openModal(book)} id={`Book_${book.id}`} 
+                        className={!selectedBook ? "" : selectedBook.title == book.title ? "animate__animated animate__bounceIn" : ""}>
+                            <BookCard book={ book } isSelected={selectedBook && selectedBook.id === book.id}
+                            />
                         </div>
                     ))}
                     

@@ -1,9 +1,6 @@
-from flask_sqlalchemy import SQLAlchemy
+from application import db
 
-db = SQLAlchemy()
-#db.metadata.drop_all(db.engine, checkfirst=True)
-
-#User Table
+# ! User Table
 class User(db.Model):
     user_id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(50), nullable=False)
@@ -17,7 +14,7 @@ class User(db.Model):
         self.address = address
         self.password = password
 
-#Friends Table  
+# ! Friends Table  
 class Friend(db.Model):
     friend_id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'), nullable=False)
@@ -31,7 +28,7 @@ class Friend(db.Model):
         self.user_id = user_id
         self.friend_user_id = friend_user_id
 
-#Item Table
+# ! Item Table
 class Item(db.Model):
     item_id = db.Column(db.Integer, primary_key=True)
     category = db.Column(db.String(20), nullable=False)
@@ -43,7 +40,7 @@ class Item(db.Model):
     img = db.Column(db.String(255), nullable=True)
     rating = db.Column(db.Integer, nullable=False)
 
-    #Foreign Keys
+    # ! Foreign Keys
     user = db.relationship('User', foreign_keys=[user_id])
 
     def __init__(self, genre, title, user_id, category, author, issue_num, rating, img=None):
@@ -56,7 +53,7 @@ class Item(db.Model):
         self.rating = rating
         self.img = img
 
-#Swap Table
+# ! Swap Table
 class Swap(db.Model):
     swap_id = db.Column(db.Integer, primary_key=True)
     user_id_gives = db.Column(db.Integer, db.ForeignKey('user.user_id'), nullable=False)
@@ -64,7 +61,7 @@ class Swap(db.Model):
     date = db.Column(db.Date, nullable=False)
     item_id = db.Column(db.Integer, db.ForeignKey('item.item_id'), nullable=False)
 
-    #Foreign Keys
+    # ! Foreign Keys
     user_giver = db.relationship('User', foreign_keys=[user_id_gives])
     user_taker = db.relationship('User', foreign_keys=[user_id_taker])
 
@@ -74,18 +71,18 @@ class Swap(db.Model):
         self.date = date
         self.item_id = item_id
 
-# Community Table 
+# ! Community Table 
 class Community(db.Model):
     community_id = db.Column(db.Integer, primary_key=True)
     community_name = db.Column(db.String(255), nullable=False)
     description = db.Column(db.String(255), nullable=True)
 
-    # Initialization
+    # ! Initialization
     def __init__(self, community_name, description):
         self.community_name = community_name
         self.description = description
 
-# Thread table
+# ! Thread table
 class Thread(db.Model):
     thread_id = db.Column(db.Integer, primary_key=True)
     community_id = db.Column(db.Integer, db.ForeignKey('community.community_id'), nullable=False)
@@ -93,18 +90,18 @@ class Thread(db.Model):
     description = db.Column(db.String(255))
     user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'), nullable=False)
 
-    # Foreign Key Constraints
+    # ! Foreign Key Constraints
     community_id_FK = db.relationship('Community', foreign_keys=[community_id])
     user_id_FK = db.relationship('User', foreign_keys=[user_id])
 
-    # Initialization
+    # ! Initialization
     def __init__(self, community_id, title, description, user_id):
         self.community_id = community_id
         self.title = title
         self.description = description
         self.user_id = user_id
 
-# Post table 
+# ! Post table 
 class Post(db.Model):
     post_id = db.Column(db.Integer, primary_key=True)
     post_title = db.Column(db.String(255), nullable=False)
@@ -113,11 +110,11 @@ class Post(db.Model):
     body = db.Column(db.String(255), nullable=False)
     votes = db.Column(db.Integer, nullable=True, default=0)
 
-    # Foreign Key Constraints
+    # ! Foreign Key Constraints
     user_id_FK = db.relationship('User', foreign_keys=[user_id])
     thread_id_FK = db.relationship('Thread', foreign_keys=[thread_id])
 
-    # Initialization 
+    # ! Initialization 
     def __init__(self, post_title, user_id, thread_id, body, votes=0):
         self.post_title = post_title
         self.user_id = user_id

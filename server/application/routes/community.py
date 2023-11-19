@@ -1,13 +1,14 @@
-# Imports
-
+# ! Imports
+from application import db
 from flask import Blueprint, request, jsonify
-from application.database.models import Community, db
+from application.models import Community
 
-# Blueprint 
-
+"""
+! Blueprint > name of blueprint, module: where you are right now, prefix)
+""" 
 community_bp = Blueprint("community_bp", __name__, url_prefix='/community') 
 
-# Format Item Functions
+# ! Format Item Functions
 
 def format_community(community): 
     return {

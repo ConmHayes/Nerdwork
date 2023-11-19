@@ -1,7 +1,7 @@
 # Imports
-
 from flask import Blueprint, request, jsonify
-from application.database.models import Thread, db
+from application import db
+from application.models import Thread
 
 # Blueprint 
 

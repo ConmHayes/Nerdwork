@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify
-from application.database.models import User
+from application import db
+from application.models import User
 from auth_middleware import token_required
 
 user_bp = Blueprint('user', __name__, url_prefix='/user')

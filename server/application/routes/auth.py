@@ -1,11 +1,14 @@
-from flask import Flask, Blueprint, session, make_response, request, current_app
-import jwt
+
+# ! Usual imports
+from application import db
 from flask import request, jsonify
+import application.models as models
+from flask import Flask, Blueprint, session, make_response, request, current_app
+
+# ! Custom Imports
 from datetime import datetime, timedelta
 from  werkzeug.security import generate_password_hash, check_password_hash
-import application.database.models as models
-
-from application.database.models import db
+import jwt
 from auth_middleware import token_required
 
 

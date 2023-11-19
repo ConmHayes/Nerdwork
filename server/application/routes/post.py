@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
-from application.database.models import Post, db
+from application import db
+from application.models import Post
 import json
 
 # Blueprint 
@@ -110,6 +111,3 @@ def post_by_id(post_id):
         # ? If no post is found for the id notify the user
         return jsonify(message=f'No post found with id {post_id}'), 400
 
-
-
-# I am trying to figure out why these changes arent working 

@@ -51,56 +51,51 @@ def get_all():
         else:
             return jsonify(message='No data passed in'), 400
 
-# ? USER STORY > User votes on a post 
+# ? USER STORY > User wants to retrieve votes for a post. User wants to delete a post. User wants to update the votes (vote for or vote against)
 
-@post_bp.route("/<post_id>", methods=['PATCH', 'DELETE'])
+@post_bp.route("/<post_id>", methods=["GET",'DELETE', "PATCH"])
 def post_by_id(post_id):
+
+     # ? Retrieving the post we want the votes for 
+    post = Post.query.filter_by(post_id=post_id).first()
+
+    # ? The outer if loop will check if a post is found and the will proceed to process the request. If it isn't found it will notify the user
+    if post:
     
-    if request.method == "PATCH":
-        # ? Retrieving the post that we want to update
-        post = Post.query.filter_by(post_id=post_id).first()
-        
-        # ? Check if the post exists
-        if post:
-            try:
-                # ? Incrementing the posts value 
-                post.votes += 1
-
-                # ? Committing the changes to the database
-                db.session.commit()
-
-                # ? Return the updated post
-                return jsonify(
-                    post_id=post.post_id,
-                    post_title=post.post_title,
-                    user_id=post.user_id,
-                    thread_id=post.thread_id,
-                    body=post.body,
-                    votes=post.votes
-                    )
+        if request.method == "GET": 
             
-            except Exception as e:
-                return jsonify(message='An error occurred during updating the post', error=str(e)), 500
-        else:
-            return jsonify(message=f'No post found with id {post_id}'), 400
-    
-    else:
+            # ? Return the number of votes for the specified user
+            return jsonify(votes=post.votes), 200
         
-        # ? Retrieve the entry we want to delete 
-        post = Post.query.filter_by(post_id=post_id).first()
+        elif request.method == "DELETE":
 
-        if post: 
-
-            # ? Delete the entry from the database
+            # ? Delete the specified post
             db.session.delete(post)
 
-            # ? Commit changes to the database
+            # ? Commit the changes to the database
             db.session.commit()
 
-            return jsonify(message=f"Post with ID {post_id} has been successfully deleted")
+            # ? Return message to user
+            return jsonify(message=f"Post with ID {post_id} has been successfully deleted"), 200
         
-        else: 
-            return jsonify(message=f"No posts were found with the ID {post_id}")
+        elif request.method == "PATCH":
+
+            # ? Receive the data from the user 
+            data = request.get_json()
+
+            # ? Assign the new value to the post id specified 
+            post.votes = data["votes"]
+
+            # ? Commit the changes to the database
+            db.session.commit()
+
+            # ? Return a message to the user
+            return jsonify(message=f"Post with ID {post_id} has been successfully updated"), 200
+ 
+    else:
+
+        # ? If no post is found for the id notify the user
+        return jsonify(message=f'No post found with id {post_id}'), 400
 
 
 

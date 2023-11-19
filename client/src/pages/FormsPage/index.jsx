@@ -23,16 +23,18 @@ const FormsPage = ({ onAddBook }) => {
 
     // Basic fetch call for testing
     try {
-      const response = await fetch('https://nerdwork-server.onrender.com/item', {
+      const response = await fetch('http://127.0.0.1:5000/item', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization : localStorage.token,
         },
         body: JSON.stringify({
           title: "Test Title",
           img: "test",
           author: "Test Author",
-          genre: "[Test Genre]",
+          genre: "[Ildiko, Something]",
           issue_num: 1,
           user_id: 1,
           rating: 5,

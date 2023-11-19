@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
 from application.database.models import Post, db
+import json
 
 # Blueprint 
 post_bp = Blueprint("post_bp", __name__, url_prefix='/post') 
@@ -69,22 +70,33 @@ def post_by_id(post_id):
         
         elif request.method == "DELETE":
 
-            # ? Delete the specified post
-            db.session.delete(post)
+            # ? Catch any exceptions that might occur during DB interactions
+            try :
+                # ? Delete the specified post
+                db.session.delete(post)
 
-            # ? Commit the changes to the database
-            db.session.commit()
+                # ? Commit the changes to the database
+                db.session.commit()
 
-            # ? Return message to user
-            return jsonify(message=f"Post with ID {post_id} has been successfully deleted"), 200
-        
+                # ? Return message to user
+                return jsonify(message=f"Post with ID {post_id} has been successfully deleted"), 200
+            
+            except Exception as e:
+                return jsonify(message=f"Error deleting post: {str(e)}"), 500
+            
         elif request.method == "PATCH":
 
-            # ? Receive the data from the user 
-            data = request.get_json()
+            # ? Try block to ensure that the json file is parsed correctly
+            try :
+                # ? Receive the data from the user 
+                data = request.get_json()
 
-            # ? Assign the new value to the post id specified 
-            post.votes = data["votes"]
+                # ? Assign the new value to the post id specified 
+                post.votes = data["votes"]
+
+            except (json.decoder.JSONDecoderError, KeyError) as e:
+                return jsonify(message=f"Error parsing JSON: {str(e)}"), 400
+
 
             # ? Commit the changes to the database
             db.session.commit()

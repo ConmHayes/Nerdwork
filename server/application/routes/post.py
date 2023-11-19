@@ -88,6 +88,7 @@ def post_by_id(post_id):
 
             # ? Try block to ensure that the json file is parsed correctly
             try :
+                
                 # ? Receive the data from the user 
                 data = request.get_json()
 

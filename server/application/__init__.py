@@ -10,7 +10,6 @@ load_dotenv()
 # from application import routes
 from application.routes import auth, user, item, community, thread, post
 
-
 app = Flask(__name__)
 CORS(app)
 app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")

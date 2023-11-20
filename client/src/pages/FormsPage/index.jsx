@@ -19,9 +19,12 @@ const FormsPage = ({ onAddBook }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Log formData whenever it changes
-    console.log("Form data updated:", formData);
-  }, [formData]); // Dependency array includes formData
+    const userEmail = localStorage.getItem('email');
+    if (userEmail) {
+      setFormData(prevFormData => ({ ...prevFormData, email: userEmail }));
+    }
+  }, []);
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -85,7 +88,7 @@ const FormsPage = ({ onAddBook }) => {
             <FormInput label="Author" type="text" placeholder="Enter author's name" name="author" value={formData.author} onChange={handleChange} />
             <FormMultiSelect label="Genres" name="genre" selected={selectedgenre} options={['Cyberpunk', 'Superhero', 'Romance', 'Adventure', 'Thriller', 'Survival', 'Sport', 'Mecha', 'Musical','Other']} onChange={handleGenreChange} />
             <FormInput label="Issue Number" type="text" placeholder="Enter issue number" name="issue_num" value={formData.issue_num} onChange={handleChange} />
-            <FormInput label="Email" type="text" placeholder="Enter your email" name="email" value={formData.email} onChange={handleChange} />
+            {/* <FormInput label="Email" type="text" placeholder="Enter your email" name="email" value={formData.email} onChange={handleChange} /> */}
             <FormRating label="Rating" name="rating" value={formData.rating} onChange={handleChange} min={0} max={5} step={0.1} />
             <FormSelect label="Category" name="category" value={formData.category} options={[{ value: 'book', label: 'Book' }, { value: 'comic book', label: 'Comic Book' }, { value: 'game', label: 'Game' }]} onChange={handleChange} />
             <Button variant="primary" type="submit">Submit</Button>

@@ -29,7 +29,7 @@ def get_users():
 ##this is /user/email
 @user_bp.route('/<email>', methods=['GET'])
 @token_required
-def get_user(user, email):
+def get_user(user,email):
     user = User.query.filter_by(email=email).first()
     if user:
         return jsonify({
@@ -48,7 +48,7 @@ def get_user_and_items(email, category):
     
     if user:
         # Join User and Item tables and filter by user_id
-        items = Item.query.join(User).filter(User.user_id == user.user_id, Item.category == category).all()
+        items = Item.query.join(User).filter(User.email == user.email, Item.category == category).all()
 
         # Construct the response
         user_data = {

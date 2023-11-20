@@ -9,6 +9,11 @@ import HPPOA from "../../../public/71OZrU2sQTL._AC_UF1000,1000_QL80_.jpg"
 import LOTR from "../../../public/9780261103252.jpg"
 import TH from "../../../public/x500_bbb7d1ed-aba7-4eb8-a464-b1d64350a1c1_500x.jpg"
 import "animate.css"
+import { Container, Row, Col, Button, Form } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import { NavigationBar, FormInput, FormMultiSelect, FormRating, FormSelect, Bookshelf } from '../../components';``
+
+
 
 
 const apiURL = "https://nerdwork-server.onrender.com"
@@ -22,6 +27,43 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended }
     const [selectedBook, setSelectedBook] = useState(null)
     const [starRating, setStarRating] = useState("")
     const [modalArrowX, setModalArrowX] = useState(0);
+    const [formOpen, setFormOpen] = useState(false)
+    const [selectedGenres, setSelectedGenres] = useState([]);
+    const [error, setError] = useState('');
+
+
+    const [formData, setFormData] = useState({
+        title: '',
+        img: '',
+        author: '',
+        genres: [],
+        owner: '',
+        rating: 0,
+        category: ''
+      });
+
+      const [username, setUsername] = useState("")
+
+      async function getUsername(){
+          const options = {
+            method: "GET",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+              Authorization : localStorage.token,
+            },
+          }
+          console.log(options)
+          const response = await fetch(`${apiURL}/user/${localStorage.email}`, options)
+          const data = await response.json()
+          console.log(response)
+          setUsername(data.username)
+        }
+        
+        useEffect(() => {
+            getUsername()
+        }, [])
+    
 
     function openModal(book){
 
@@ -46,6 +88,84 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended }
         setSelectedBook(null)
         setModalOpen(false)
     }
+
+    function openAdd(){
+        setModalOpen(false)
+        setFormOpen(true)   
+    }
+    function closeAdd(){
+        setFormData({
+            title: '',
+            img: '',
+            author: '',
+            genres: [],
+            owner: '',
+            rating: 0,
+            category: 'Book'
+          })
+        setFormOpen(false)
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+      
+        // Prepare the data to be sent
+        const dataToSend = {
+          ...formData,
+          genre: selectedGenres, 
+          issue_num: parseInt(formData.issue_num, 10), 
+          email: formData.email,
+          rating: parseFloat(formData.rating) 
+        };
+      
+        try {
+          const response = await fetch('https://nerdwork-server.onrender.com/item/', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: localStorage.token
+            },
+            body: JSON.stringify(dataToSend),
+          });
+          console.log(response)
+          if (!response.ok) {
+            const errorBody = await response.json(); 
+            throw new Error(`HTTP error! status: ${response.status}, Message: ${errorBody.message}`);
+          }
+          
+      
+          const result = await response.json();
+          console.log(result);
+          onAddBook(result);
+          setFormOpen(false)
+          // navigate("/profile");
+        } catch (error) {
+          setError(`There was a problem adding your item: ${error.message}`);
+          console.error('Error:', error);
+        }
+      };
+    
+
+      const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData((prevData) => ({
+          ...prevData,
+          [name]: value
+        }));
+      };
+    
+      const handleGenreChange = (selectedOption) => {
+        let newSelected;
+        if (selectedGenres.includes(selectedOption)) {
+          newSelected = selectedGenres.filter(option => option !== selectedOption);
+        } else {
+          newSelected = [...selectedGenres, selectedOption];
+        }
+        setSelectedGenres(newSelected);
+        setFormData(prev => ({ ...prev, genre: newSelected }));
+      };
+    
+    
 
     const top_icons = ["home", "sports_esports", "import_contacts", "diversity_3"]
     const bottom_icons = ["settings", "call"]
@@ -137,7 +257,7 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended }
                     </Link>
                     ))}
                 </div>
-                <div className="flexbox-item placeholder" style={{border: "transparent"}}>
+                <div className="flexbox-item placeholder-box" style={{border: "transparent"}}>
 
                 </div>
                 <div className="flexbox-item option-row">
@@ -155,10 +275,36 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended }
                     <div className="flexbox-item"style={{width:"50%", justifyContent: "flex-start"}}><p>Your Books</p></div>
                     <div className="flexbox-item add-book" style={{width:"50%", justifyContent: "flex-end"}}>
                             <p>Add another book</p>
-                        <i className="material-icons" style={{marginRight: "50px", marginLeft: "20px", marginBottom:"20px"}}>
-                            add_circle
-                        </i></div>
+                                <i className="material-icons"
+                                    onClick={openAdd} 
+                                    style={{marginRight: "50px", marginLeft: "20px", marginBottom:"20px"}}>
+                                        add_circle
+                                </i>
+                        </div>
                 </div>
+                <Modal
+                    isOpen={formOpen}
+                    onRequestClose={closeAdd}
+                    contentLabel="Book Details"
+                    className="modal-form"
+                    
+                >
+                    <h2 style={{textAlign: "center"}}>Add a new book to your collection!</h2>
+                        <Form onSubmit={handleSubmit} style={{width: "100%", textAlign: "center"}}>
+                            <Row className="justify-content-md-center w-100">
+                                <Col md={6}>
+                                    <FormInput label="Title" type="text" placeholder="Enter title" name="title" value={formData.title} onChange={handleChange} />
+                                    <FormInput label="Author" type="text" placeholder="Enter author's name" name="author" value={formData.author} onChange={handleChange} />
+                                    <FormMultiSelect label="Genres" name="genres" selected={selectedGenres} options={['Cyberpunk', 'Superhero', 'Romance', 'Adventure', 'Thriller', 'Survival', 'Sport', 'Mecha', 'Musical', 'Other']} onChange={handleGenreChange} />
+                                    <h3>Owner:</h3><p>{username}</p>
+                                    <FormRating label="Rating" name="rating" value={formData.rating} onChange={handleChange} min={0} max={5} step={0.1} />
+                                    <h3>Category:</h3><p>Book</p>                                    
+                                    <Button variant="primary" type="submit" className="login-button">Submit</Button>
+                                </Col>
+                            </Row>    
+                        </Form>
+
+                </Modal>
                 
                 <div className="flexbox-item carousel-container" style={{justifyContent:"flex-start"}}>
                     {
@@ -198,3 +344,5 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended }
 }
 
 //<button className="login-button" onClick={openModal}> Open Modal </button>
+//className="custom-modal"
+//overlayClassName="custom-overlay"

@@ -15,7 +15,9 @@ def format_item(item, genres_list):
         "author": item.author, 
         "rating": item.rating,
         "img": item.img,
-        "issue_num": item.issue_num
+        "issue_num": item.issue_num,
+        "description": item.description,
+        "tradeable": item.tradeable
     }
 
 @item_bp.route("/", methods=['GET', 'POST'])
@@ -33,10 +35,9 @@ def get_all():
 
     """" Create an Item """
     if request.method == 'POST':
-        # {genre: , item: , img: null, }
         data = request.get_json()
         if data:
-            genre, title, email, category, author, img, rating, issue_num = data['genre'], data['title'], data['email'], data['category'], data['author'], data['img'], data['rating'], data["issue_num"]
+            genre, title, email, category, author, img, rating, issue_num, description, tradeable = data['genre'], data['title'], data['email'], data['category'], data['author'], data['img'], data['rating'], data["issue_num"], data['description'], data['tradeable']
 
             if category and title and email and author:
                 try:
@@ -48,7 +49,9 @@ def get_all():
                         author=author,
                         img=img,
                         rating=rating,
-                        issue_num=issue_num
+                        issue_num=issue_num, 
+                        description = description,
+                        tradeable = tradeable
                     )
                     db.session.add(item_to_add)
                     db.session.commit()
@@ -99,7 +102,7 @@ def update_item(item_id):
         #find new user id request body 
         new_user_email_str = new_user_data.get('email', '')
         try:
-            new_user_id = int(new_user_email_str)
+            new_user_email = str(new_user_email_str)
         except ValueError:
             return jsonify(error= 'Invalid user_id format. Must be an integer'), 400
         #find which item needs updating
@@ -108,6 +111,6 @@ def update_item(item_id):
         if not item_to_update:
             return jsonify(message=f'No items found with the item_id: {item_id}'), 404
         else:
-            item_to_update.user_id = new_user_id
+            item_to_update.email = new_user_email
             db.session.commit()
             return jsonify(message=f'Item {item_id} updated successfully ')

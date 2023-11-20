@@ -14,6 +14,7 @@ from application.routes import auth, user, item, find_data
 app = Flask(__name__)
 CORS(app)
 app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
+app.config['GOOGLE_API_KEY'] = os.getenv("GOOGLE_API_KEY")
 
 db_url = os.environ.get("DB_URL")
 

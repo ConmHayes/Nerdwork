@@ -3,7 +3,11 @@ import json
 import urllib.parse
 import urllib.request
 from application.database.models import Item, db
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
+api_key = os.environ.get("GOOGLE_API_KEY")
 google_bp = Blueprint("google_bp", __name__, url_prefix='/google')
 
 # Function that takes a name of a book and returns an object of the book
@@ -15,8 +19,6 @@ def get_book_info(title="Harry Potter and the Prisoner of Azkaban"):
         user_email = request.json.get('email')
         title = request.json.get('title', title)
 
-        # Fetch book information from the Google Books API
-        api_key = 'AIzaSyB8Hw22PIQimUW3au9yCa2qgCf9sxTmUfI'
         payload = {
             'q': f'intitle:{title}',
             'key': api_key,
@@ -52,7 +54,6 @@ def get_book_info(title="Harry Potter and the Prisoner of Azkaban"):
     elif request.method == 'GET':
         # Handle GET request to fetch book information
         title = request.json.get('title', title)
-        api_key = 'AIzaSyB8Hw22PIQimUW3au9yCa2qgCf9sxTmUfI'
 
         payload = {
             'q': f'intitle:{title}',

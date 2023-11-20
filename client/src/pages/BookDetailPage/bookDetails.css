@@ -97,6 +97,7 @@
     }
   }
   .owners-section {
+    margin-top: 20px;
     padding: 20px;
     background-color: #f9f9f9; /* Light grey background */
     border-top: 1px solid #ccc; /* A subtle top border */
@@ -105,7 +106,6 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    
   }
   
   .owners-list {

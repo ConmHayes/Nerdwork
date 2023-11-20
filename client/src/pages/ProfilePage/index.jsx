@@ -74,7 +74,7 @@ export default function ProfilePage(){
                         </Link>
                     ))}
                 </div>
-                <div className="flexbox-item placeholder">
+                <div className="flexbox-item placeholder-box">
 
                 </div>
                 <div className="flexbox-item option-row">
@@ -92,9 +92,22 @@ export default function ProfilePage(){
             <div className="flexbox-container flexbox-carousel">
         <p>Suggested for you...</p>
         
-
-            <div className="wrapper" id="permas">
-                <div className="imageContainer">
+            <div className="wrapper">
+                <div id="permas" style={{flexDirection: "row"}}>
+                    <div className="profile-item">Hello</div>
+                    <div className="profile-item">There</div>
+                    <div className="profile-item">World</div>
+                    <div className="profile-item">How</div>
+                    <div className="profile-item">Are</div>
+                    <div className="profile-item">You </div>
+                    <div className="profile-item">Doing</div>
+                    <div className="profile-item">Hello</div>
+                    <div className="profile-item">There</div>
+                    <div className="profile-item">World</div>
+                    <div className="profile-item">How</div>
+                    <div className="profile-item">Are</div>
+                    <div className="profile-item">You </div>
+                    <div className="profile-item">Doing</div>
                     <div className="profile-item">Hello</div>
                     <div className="profile-item">There</div>
                     <div className="profile-item">World</div>
@@ -104,6 +117,7 @@ export default function ProfilePage(){
                     <div className="profile-item">Doing</div>
                 </div>
             </div>
+            
 
 
       </div>
@@ -112,57 +126,3 @@ export default function ProfilePage(){
 };
 
 
-
-/*
-<div class="row">
-      <div class="col-md-2"></div>
-      <div class="col-md-10">
-        <div id="carouselExample" class="carousel slide">
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <img src="https://m.media-amazon.com/images/I/91ORJa-xI9L._SY466_.jpg" class="carPics"/>
-              <img src="https://m.media-amazon.com/images/I/51XUd9lyjwL._SX342_SY445_.jpg" class="carPics"/>
-              <img src="https://m.media-amazon.com/images/I/41esrpLG2BL._SY445_SX342_.jpg" class="carPics"/>
-              <img src="https://m.media-amazon.com/images/I/51zZ3SAulVL._SY445_SX342_.jpg" class="carPics"/>
-            </div>
-            <div class="carousel-item">
-              <img src="https://m.media-amazon.com/images/I/71ODBY2ChvL._SY466_.jpg" class="carPics"/>
-              <img src="https://m.media-amazon.com/images/I/81c6aew79KL._SL1500_.jpg" class="carPics"/>
-              <img src="https://m.media-amazon.com/images/I/91O1dxoUXoL._SL1500_.jpg" class="carPics"/>
-              <img src="https://m.media-amazon.com/images/I/81WnXhMjGgL._SL1500_.jpg" class="carPics"/>
-            </div>
-            <div class="carousel-item">
-              <img src="https://m.media-amazon.com/images/I/81mCE+uclxL._SL1500_.jpg" class="carPics"/>
-              <img src="https://m.media-amazon.com/images/I/71D6PnMg4WL._SL1500_.jpg" class="carPics"/>
-              <img src="https://m.media-amazon.com/images/I/81fygAyvKML._SL1500_.jpg" class="carPics"/>
-              <img src="https://m.media-amazon.com/images/I/81HRGUehn1L._SY385_.jpg" class="carPics"/>
-            </div>
-          </div>
-          <button
-            class="carousel-control-prev"
-            type="button"
-            data-bs-target="#carouselExample"
-            data-bs-slide="prev"
-          >
-          <span
-            class="carousel-control-prev-icon"
-            aria-hidden="true"
-          ></span>
-          <span class="visually-hidden">Previous</span>
-          </button>
-          <button
-            class="carousel-control-next"
-            type="button"
-            data-bs-target="#carouselExample"
-            data-bs-slide="next"
-          >
-            <span
-              class="carousel-control-next-icon"
-              aria-hidden="true"
-            ></span>
-            <span class="visually-hidden">Next</span>
-          </button>
-        </div>
-      </div>
-    </div>
-    */

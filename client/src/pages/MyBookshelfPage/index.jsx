@@ -221,7 +221,7 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended }
                     </Link>
                     ))}
                 </div>
-                <div className="flexbox-item placeholder" style={{border: "transparent"}}>
+                <div className="flexbox-item placeholder-box" style={{border: "transparent"}}>
 
                 </div>
                 <div className="flexbox-item option-row">

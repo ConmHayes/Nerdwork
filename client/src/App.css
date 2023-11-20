@@ -312,11 +312,12 @@ h3{
     background-color: lightgreen;
 }
 
-.placeholder{
+.placeholder-box{
     height: 250px;
     width: 250px;
     margin-top: 50px;
     border: black solid 3px;
+    background-color: transparent;
 }
 .lower{
     width: 450px;
@@ -474,27 +475,39 @@ h3{
 
 
 
-.wrapper{
+.wrapper {
+    display: flex;
     overflow: hidden;
     background-color: red;
     height: 350px;
     width: 100%;
-    border: black 5px solid
-}
-
-.imageContainer{
-  display: flex;
-  flex-direction: row;
-  align-items: flex-end;
-  gap: 25px;
-  width: 200%;
-}
-
-.profile-item{
+    max-width: 100%;
+    border: black 5px solid;
+  }
+  
+  #permas {
+    display: flex;
+    white-space: nowrap;
+    animation-name: scroll;
+    animation-duration: 100s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+  }
+  
+  #permas .profile-item {
     height: 330px;
     width: 150px;
     border: black 5px solid;
     margin-right: 20px;
-    margin-right: 20px;
-    background-color: lightblue
-}
+    background-color: lightblue;
+  }
+  
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+  

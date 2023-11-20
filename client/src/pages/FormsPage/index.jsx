@@ -87,7 +87,7 @@ const FormsPage = ({ onAddBook }) => {
             <FormInput label="Issue Number" type="text" placeholder="Enter issue number" name="issue_num" value={formData.issue_num} onChange={handleChange} />
             <FormInput label="Username" type="text" placeholder="Enter username" name="user_id" value={formData.user_id} onChange={handleChange} />
             <FormRating label="Rating" name="rating" value={formData.rating} onChange={handleChange} min={0} max={5} step={0.1} />
-            <FormSelect label="Category" name="category" value={formData.category} options={[{ value: 'Book', label: 'Book' }, { value: 'Comic Book', label: 'Comic Book' }, { value: 'Game', label: 'Game' }]} onChange={handleChange} />
+            <FormSelect label="Category" name="category" value={formData.category} options={[{ value: 'book', label: 'Book' }, { value: 'comic book', label: 'Comic Book' }, { value: 'game', label: 'Game' }]} onChange={handleChange} />
             <Button variant="primary" type="submit">Submit</Button>
           </Form>
         </Col>

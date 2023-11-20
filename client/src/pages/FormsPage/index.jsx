@@ -8,7 +8,7 @@ const FormsPage = ({ onAddBook }) => {
     title: "",
     img: "",
     author: "",
-    genre: "[]",
+    genre: [],
     issue_num: "",
     email: "",
     rating: 0,
@@ -24,20 +24,42 @@ const FormsPage = ({ onAddBook }) => {
       setFormData(prevFormData => ({ ...prevFormData, email: userEmail }));
     }
   }, []);
-  
+
+  const updateImage = async (title, email) => {
+    try {
+      const response = await fetch(`https://nerdwork-server.onrender.com/google/`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ title, email }),
+      });
+
+      if (!response.ok) {
+        const errorBody = await response.json();
+        throw new Error(`HTTP error! status: ${response.status}, Message: ${errorBody.message}`);
+      }
+
+      // Handle the response here
+      const result = await response.json();
+      console.log('Image updated:', result);
+    } catch (error) {
+      console.error('Error updating image:', error);
+      setError(`There was a problem updating the image: ${error.message}`);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
-    // Prepare the data to be sent
+
     const dataToSend = {
       ...formData,
       genre: selectedgenre, 
-      issue_num: parseInt(formData.issue_num, 10), 
+      issue_num: parseInt(formData.issue_num, 10),
       email: formData.email,
       rating: parseFloat(formData.rating) 
     };
-  
+
     try {
       const response = await fetch('https://nerdwork-server.onrender.com/item/', {
         method: 'POST',
@@ -46,23 +68,25 @@ const FormsPage = ({ onAddBook }) => {
         },
         body: JSON.stringify(dataToSend),
       });
-  
+
       if (!response.ok) {
         const errorBody = await response.json(); 
         throw new Error(`HTTP error! status: ${response.status}, Message: ${errorBody.message}`);
       }
-      
-  
+
       const result = await response.json();
       console.log(result);
       onAddBook(result);
+
+      // Call the updateImage function after successful POST
+      await updateImage(formData.title, formData.email);
+
       // navigate("/profile");
     } catch (error) {
       setError(`There was a problem adding your item: ${error.message}`);
       console.error('Error:', error);
     }
   };
-  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -79,7 +103,6 @@ const FormsPage = ({ onAddBook }) => {
     setSelectedgenre(newSelected);
     setFormData(prev => ({ ...prev, genre: newSelected }));
   };
-  
 
   return (
     <Container>
@@ -90,7 +113,7 @@ const FormsPage = ({ onAddBook }) => {
           {error && <Alert variant="danger">{error}</Alert>}
           <Form onSubmit={handleSubmit}>
             <FormInput label="Title" type="text" placeholder="Enter title" name="title" value={formData.title} onChange={handleChange} />
-            <FormInput label="Image URL" type="text" placeholder="Enter image URL" name="img" value={formData.img} onChange={handleChange} />
+            {/* <FormInput label="Image URL" type="text" placeholder="Enter image URL" name="img" value={formData.img} onChange={handleChange} /> */}
             <FormInput label="Author" type="text" placeholder="Enter author's name" name="author" value={formData.author} onChange={handleChange} />
             <FormMultiSelect label="Genres" name="genre" selected={selectedgenre} options={['Cyberpunk', 'Superhero', 'Romance', 'Adventure', 'Thriller', 'Survival', 'Sport', 'Mecha', 'Musical', 'Other']} onChange={handleGenreChange} />
             <FormInput label="Issue Number" type="text" placeholder="Enter issue number" name="issue_num" value={formData.issue_num} onChange={handleChange} />

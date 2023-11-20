@@ -3,6 +3,7 @@
     color: #333;
     min-height: 100vh;
     padding: 2rem 0;
+    
   }
   
   .container {
@@ -95,4 +96,67 @@
       margin-bottom: 1rem;
     }
   }
+  .owners-section {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f9f9f9; /* Light grey background */
+    border-top: 1px solid #ccc; /* A subtle top border */
+    max-width: 700px;
+    min-width: 500px; 
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
   
+  .owners-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Space between cards */
+    justify-content: center; 
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;/* Center the cards */
+  }
+  
+  .user-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 200px; /* Fixed card width */
+    padding: 15px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Soft shadow */
+    border-radius: 10px; /* Rounded corners */
+    transition: transform 0.2s;
+    border: solid wheat; /* Smooth transition for hover effect */
+  }
+  
+  .user-card:hover {
+    transform: translateY(-5px); /* Slight lift effect on hover */
+  }
+  
+  .user-card img.profile-icon {
+    width: 100px; /* Fixed image size */
+    height: 100px; /* Fixed image size */
+    border-radius: 50%; /* Circular images */
+    object-fit: cover;
+    border: 3px solid #007bff; /* Blue border color */
+    margin-bottom: 10px;
+  }
+  
+  .user-card .user-name {
+    font-size: 1rem;
+    color: #333;
+    margin-top: 10px;
+    font-weight: bold;
+  }
+  
+  .user-card a {
+    text-decoration: none;
+    color: #007bff; /* Blue color for links */
+    transition: color 0.2s; /* Smooth color transition for hover effect */
+  }
+  
+  .user-card a:hover {
+    color: #0056b3; /* Darker blue on hover */
+  }

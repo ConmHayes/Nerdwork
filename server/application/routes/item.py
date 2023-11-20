@@ -23,16 +23,17 @@ def get_all():
     if request.method == 'GET':
         items = Item.query.all()
         item_list = []
-
+        
         for item in items:
             genres_list = [genre.strip() for genre in item.genre.strip('[]').split(',')]
             item_list.append(format_item(item, genres_list))
 
         return jsonify({"Items": item_list}), 200
 
+
     """" Create an Item """
     if request.method == 'POST':
-        
+        # {genre: , item: , img: null, }
         data = request.get_json()
         if data:
             genre, title, email, category, author, img, rating, issue_num = data['genre'], data['title'], data['email'], data['category'], data['author'], data['img'], data['rating'], data["issue_num"]

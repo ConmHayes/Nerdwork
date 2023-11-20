@@ -97,9 +97,9 @@ def update_item(item_id):
     if request.method == 'PATCH':
         new_user_data = request.get_json()
         #find new user id request body 
-        new_user_id_str = new_user_data.get('user_id', '')
+        new_user_email_str = new_user_data.get('email', '')
         try:
-            new_user_id = int(new_user_id_str)
+            new_user_id = int(new_user_email_str)
         except ValueError:
             return jsonify(error= 'Invalid user_id format. Must be an integer'), 400
         #find which item needs updating

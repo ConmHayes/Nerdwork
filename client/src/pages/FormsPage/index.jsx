@@ -10,7 +10,7 @@ const FormsPage = ({ onAddBook }) => {
     author: "",
     genre: "[]",
     issue_num: "",
-    user_id: "",
+    email: "",
     rating: 0,
     category: ""
   });
@@ -31,7 +31,7 @@ const FormsPage = ({ onAddBook }) => {
       ...formData,
       genre: selectedgenre, 
       issue_num: parseInt(formData.issue_num, 10), 
-      user_id: parseInt(formData.user_id, 10), 
+      email: formData.email,
       rating: parseFloat(formData.rating) 
     };
   
@@ -85,7 +85,7 @@ const FormsPage = ({ onAddBook }) => {
             <FormInput label="Author" type="text" placeholder="Enter author's name" name="author" value={formData.author} onChange={handleChange} />
             <FormMultiSelect label="Genres" name="genre" selected={selectedgenre} options={['Cyberpunk', 'Superhero', 'Romance', 'Adventure', 'Thriller', 'Survival', 'Sport', 'Mecha', 'Musical','Other']} onChange={handleGenreChange} />
             <FormInput label="Issue Number" type="text" placeholder="Enter issue number" name="issue_num" value={formData.issue_num} onChange={handleChange} />
-            <FormInput label="Username" type="text" placeholder="Enter username" name="user_id" value={formData.user_id} onChange={handleChange} />
+            <FormInput label="Email" type="text" placeholder="Enter your email" name="email" value={formData.email} onChange={handleChange} />
             <FormRating label="Rating" name="rating" value={formData.rating} onChange={handleChange} min={0} max={5} step={0.1} />
             <FormSelect label="Category" name="category" value={formData.category} options={[{ value: 'book', label: 'Book' }, { value: 'comic book', label: 'Comic Book' }, { value: 'game', label: 'Game' }]} onChange={handleChange} />
             <Button variant="primary" type="submit">Submit</Button>

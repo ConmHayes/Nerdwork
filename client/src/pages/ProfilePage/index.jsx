@@ -2,7 +2,6 @@ import { useState, useEffect } from "react"
 import React from "react"
 import "./style.css"
 import { Link } from "react-router-dom"
-import gsap from "gsap"
 
 const apiURL = "https://nerdwork-server.onrender.com"
 const siteURL = "https://nerdwork.onrender.com/"

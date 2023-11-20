@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-
+import { Link } from 'react-router-dom';
 import {Genre,Rating} from '../../components';
-import { useLocation,useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import "./bookDetails.css"
 
 export default function BookDetailPage(){
+  
   const mockUserOwners = [
     {
       id: 1,
@@ -28,9 +29,12 @@ export default function BookDetailPage(){
     // Add more users as needed
   ];
    const location = useLocation();
-   const data = location.state.book;
-    console.log("ok")
-
+   const books = location.state;
+   console.log(books)
+   const data  = books["0"]
+   console.log(data)
+   
+   
   
 
     if (!data) {
@@ -39,8 +43,8 @@ export default function BookDetailPage(){
     const UserCard = ({ user }) => {
       return (
         <div className="user-card">
-          <img src={user.profileImageUrl || 'default-profile-icon.jpg'} alt={`${user.name}'s profile`} className="profile-icon" />
-          <div className="user-name">{user.name}</div>
+          <img src={user.profileImageUrl || 'default-profile-icon.jpg'} alt={`${user.email}'s profile`} className="profile-icon" />
+          <Link to={`/profile`}>{user.email}</Link>
         </div>
       );
     };
@@ -57,9 +61,7 @@ export default function BookDetailPage(){
             <h3 className="author">{data.author}</h3>
             <p className="description">{data.description}</p>
             <div className="genres">
-              {data.genre.map((genre, index) => (
-                <span key={index} className="genre">{genre}</span>
-              ))}
+              <Genre genres={data.genre} />
             </div>
             <div className="rating">
               <Rating value={data.rating} />
@@ -69,7 +71,7 @@ export default function BookDetailPage(){
         <div className="owners-section">
         <h2>Owners of this Book</h2>
         <div className="owners-list">
-          {mockUserOwners?.map((user, index) => (
+          {books?.map((user, index) => (
             <UserCard key={index} user={user} />
           ))}
         </div>

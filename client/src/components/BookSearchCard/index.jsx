@@ -1,10 +1,11 @@
 import React from 'react';
 import "./bookCard.css"
 import { useNavigate } from 'react-router-dom';
-
+import Genre from '../Genre'
+import Rating from '../Rating';
 
 export default function BookSearchCard ({ book }){
-    const { title, author, book_image,releaseDate } = book;
+    const { title, author, book_image,rating, genre } = book;
     const navigate = useNavigate();
 
     function displayUser(id){
@@ -17,7 +18,15 @@ export default function BookSearchCard ({ book }){
             
             <h3 style={{borderTop: "20px"}}>{title}</h3>
             <p>Author: {author}</p>
-            <p>Release Date: {releaseDate}</p>
+            <div className="genres">
+              {book.genre.map((genre, index) => (
+                <span key={index} className="genre">{genre}</span>
+              ))}
+            </div>
+            <div className="rating">
+              <Rating value={book.rating} />
+            </div>
+            
         </div>
     );
 };

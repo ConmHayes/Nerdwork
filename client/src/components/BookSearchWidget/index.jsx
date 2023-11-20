@@ -3,11 +3,12 @@ import SearchForm from "../SearchForm";
 import "./bookSearchWidget.css"
 import BookSearchCard from "../BookSearchCard";
 import BookCard from "../BookCard";
+import { useNavigate } from "react-router-dom";
 
 export default function BookSearchWidget () {
     const [searchString, setSearchString] = useState("");
     const [books, setBooks] = useState([]);
-   
+    const navigate = useNavigate()
 
     useEffect(() => {
         fetchBooks();
@@ -19,27 +20,53 @@ export default function BookSearchWidget () {
             const response = await fetch('https://nerdwork-server.onrender.com/item/book'); 
             const data = await response.json();
             console.log(data)
-            const books = data.items
-            setBooks(books);
-            console.log( "books", books)
+            const book = data.items
+            setBooks(book);
             // Initially display all books
         } catch (error) {
             console.error('Error fetching books:', error);
         }
     };
-    
+    function removeDuplicateTitles(data) {
+        const uniqueTitles = new Set();
+        const filteredData = [];
+      
+        data.forEach(item => {
+          if (!uniqueTitles.has(item.title)) {
+            uniqueTitles.add(item.title);
+            filteredData.push(item);
+          }
+        });
+        console.log(filteredData)
+        return filteredData;
+      }
+      
+      
+    const uniqueData = removeDuplicateTitles(books);
+    function getBooksByTitle(title) {
+        return books.filter(book => book.title === title);
+    }
+
     function displayBooks() {
-        return books
+        return uniqueData
                 .filter(book => searchString.length == 0 || book.title.toLowerCase().includes(searchString.toLowerCase()))
-                .map(book => <BookCard key={book.item_id} book={book} />)
+                .map(book => ( 
+                <div key={book.item_id} onClick={() => displayUser(book.item_id,book)} >
+                <BookSearchCard book={book} />
+                </div>
+            ))
+    }
+    function displayUser(id,book){
+        const booksWithTitle = getBooksByTitle(book.title);
+        console.log("naviate", booksWithTitle )
+        navigate(`/BookDetail/${id}`, { state: booksWithTitle  })
     }
     return(
         <div>
             <SearchForm searchString={searchString} setSearchString={setSearchString}/>
-            <div className="cards-container">
-               {displayBooks()}
-            </div>
+            <div className="cards-container" >
+               {displayBooks() }
+            </div> 
         </div>
-
     )
 }

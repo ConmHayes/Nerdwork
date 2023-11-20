@@ -83,22 +83,23 @@ def get_by_category(category):
 
     return jsonify(items=matching_items)
 
-@item_bp.route('/<category>/<item_id>', methods=['GET'])
-def get_items_by_user(category, item_id):
-    item = Item.query.filter_by(category ==str(category), item_id= item_id).first()
-    if not item:
-        return jsonify(message=f'No items found with the item_id: {item_id} and the type as: {category}'), 404
-    else:
-        return jsonify(item= item)
+# @item_bp.route('/<category>/<item_id>', methods=['GET'])
+# def get_items_by_user(category, item_id):
+#     item = Item.query.filter(category ==str(category), item_id= item_id).first()
+#     if not item:
+#         return jsonify(message=f'No items found with the item_id: {item_id} and the type as: {category}'), 404
+#     else:
+#         return jsonify(item= item)
 
+#rework
 @item_bp.route('/<item_id>', methods=['PATCH'])
 def update_item(item_id):
     if request.method == 'PATCH':
         new_user_data = request.get_json()
         #find new user id request body 
-        new_user_id_str = new_user_data.get('user_id', '')
+        new_user_email_str = new_user_data.get('email', '')
         try:
-            new_user_id = int(new_user_id_str)
+            new_user_id = int(new_user_email_str)
         except ValueError:
             return jsonify(error= 'Invalid user_id format. Must be an integer'), 400
         #find which item needs updating

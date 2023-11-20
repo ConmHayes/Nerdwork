@@ -1,6 +1,8 @@
 import React from 'react';
 import { Card, Badge } from 'react-bootstrap';
 
+import { useNavigate } from 'react-router';
+
 const BookCard = ({ book, isSelected }) => {
 
   const { title, img, author, genres, owner, rating } = book;
@@ -17,10 +19,13 @@ const BookCard = ({ book, isSelected }) => {
       {genre}
     </Badge>
   )) : null;
-
+  function displayUser(id){
+    navigate(`/BookDetail/${id}`,{state: { book }})
+  }
   return (
-    <Card className={`h-100 w-60 shadow-sm bg-white rounded ${isSelected ? 'selected-book' : ''}`} style={{maxHeight:"300px", maxWidth: "250px"}}>
+    <Card className={`h-100 w-60 shadow-sm bg-white rounded ${isSelected ? 'selected-book' : ''}`} style={{maxHeight:"300px", maxWidth: "250px"}} onClick={() => displayUser(book.item_id)}>
 
+    
       <Card.Img variant="top" src={img} alt={`Cover of the book ${title}`} className="p-3" />
       <Card.Body className="d-flex flex-column">
         <Card.Title className="mb-0 font-weight-bold">{title}</Card.Title>

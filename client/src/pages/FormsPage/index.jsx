@@ -70,7 +70,7 @@ const FormsPage = ({ onAddBook }) => {
       });
 
       if (!response.ok) {
-        const errorBody = await response.json();
+        const errorBody = await response.json(); 
         throw new Error(`HTTP error! status: ${response.status}, Message: ${errorBody.message}`);
       }
 
@@ -103,7 +103,7 @@ const FormsPage = ({ onAddBook }) => {
     setSelectedgenre(newSelected);
     setFormData(prev => ({ ...prev, genre: newSelected }));
   };
-  
+
   return (
     <Container>
       <NavigationBar />

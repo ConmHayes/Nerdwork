@@ -105,6 +105,7 @@ const FormsPage = ({ onAddBook }) => {
   };
 
   return (
+    
     <Container>
       <NavigationBar />
       <Row className="justify-content-md-center w-100">
@@ -129,3 +130,4 @@ const FormsPage = ({ onAddBook }) => {
 };
 
 export default FormsPage;
+//

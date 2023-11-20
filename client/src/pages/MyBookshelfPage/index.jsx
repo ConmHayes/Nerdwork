@@ -21,7 +21,7 @@ const siteURL = "https://nerdwork.onrender.com/"
 const localURL = "http://localhost:5173/"
 
 
-export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended }){
+export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended, onAddBook }){
     
     const [isModalOpen, setModalOpen] = useState(false)
     const [selectedBook, setSelectedBook] = useState(null)
@@ -39,7 +39,7 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended }
         genres: [],
         owner: '',
         rating: 0,
-        category: ''
+        category: 'book'
       });
 
       const [username, setUsername] = useState("")
@@ -105,45 +105,6 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended }
           })
         setFormOpen(false)
     }
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-      
-        // Prepare the data to be sent
-        const dataToSend = {
-          ...formData,
-          genre: selectedGenres, 
-          issue_num: parseInt(formData.issue_num, 10), 
-          email: formData.email,
-          rating: parseFloat(formData.rating) 
-        };
-      
-        try {
-          const response = await fetch('https://nerdwork-server.onrender.com/item/', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: localStorage.token
-            },
-            body: JSON.stringify(dataToSend),
-          });
-          console.log(response)
-          if (!response.ok) {
-            const errorBody = await response.json(); 
-            throw new Error(`HTTP error! status: ${response.status}, Message: ${errorBody.message}`);
-          }
-          
-      
-          const result = await response.json();
-          console.log(result);
-          onAddBook(result);
-          setFormOpen(false)
-          // navigate("/profile");
-        } catch (error) {
-          setError(`There was a problem adding your item: ${error.message}`);
-          console.error('Error:', error);
-        }
-      };
     
 
       const handleChange = (e) => {
@@ -165,6 +126,77 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended }
         setFormData(prev => ({ ...prev, genre: newSelected }));
       };
     
+      useEffect(() => {
+        const userEmail = localStorage.getItem('email');
+        if (userEmail) {
+          setFormData(prevFormData => ({ ...prevFormData, email: userEmail }));
+        }
+      }, []);
+    
+      const updateImage = async (title, email) => {
+        try {
+          const response = await fetch(`https://nerdwork-server.onrender.com/google/`, {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ title, email }),
+          });
+    
+          if (!response.ok) {
+            const errorBody = await response.json();
+            throw new Error(`HTTP error! status: ${response.status}, Message: ${errorBody.message}`);
+          }
+    
+          // Handle the response here
+          const result = await response.json();
+          console.log('Image updated:', result);
+        } catch (error) {
+          console.error('Error updating image:', error);
+          setError(`There was a problem updating the image: ${error.message}`);
+        }
+      };
+
+      const handleSubmit = async (e) => {
+        e.preventDefault();
+    
+        const dataToSend = {
+          ...formData,
+          genre: selectedGenres, 
+          issue_num: parseInt(formData.issue_num, 10),
+          email: formData.email,
+          rating: parseFloat(formData.rating) 
+        };
+    
+        try {
+          const response = await fetch('https://nerdwork-server.onrender.com/item/', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(dataToSend),
+          });
+    
+          if (!response.ok) {
+            const errorBody = await response.json(); 
+            throw new Error(`HTTP error! status: ${response.status}, Message: ${errorBody.message}`);
+          }
+    
+          const result = await response.json();
+          console.log(result);
+          onAddBook(result);
+    
+          // Call the updateImage function after successful POST
+          await updateImage(formData.title, formData.email);
+    
+          // navigate("/profile");
+        } catch (error) {
+          setError(`There was a problem adding your item: ${error.message}`);
+          console.error('Error:', error);
+        }
+      };
+    
+    
     
 
     const top_icons = ["home", "sports_esports", "import_contacts", "diversity_3"]
@@ -172,7 +204,7 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended }
 
 
 
-    const top_links = [`${siteURL}profile`, "/", "/", "/"]
+    const top_links = [`${localURL}profile`, "/", "/", "/"]
     const bottom_links = ["/", "/"]
 
     const initialBooks = [
@@ -298,7 +330,6 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended }
                                     <FormMultiSelect label="Genres" name="genres" selected={selectedGenres} options={['Cyberpunk', 'Superhero', 'Romance', 'Adventure', 'Thriller', 'Survival', 'Sport', 'Mecha', 'Musical', 'Other']} onChange={handleGenreChange} />
                                     <h3>Owner:</h3><p>{username}</p>
                                     <FormRating label="Rating" name="rating" value={formData.rating} onChange={handleChange} min={0} max={5} step={0.1} />
-                                    <h3>Category:</h3><p>Book</p>                                    
                                     <Button variant="primary" type="submit" className="login-button">Submit</Button>
                                 </Col>
                             </Row>    

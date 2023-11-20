@@ -14,4 +14,4 @@ export { default as FormRating } from "./FormRating"
 export { default as Communities} from "./Communities"
 export { default as Rating } from "./Rating"
 export { default as Genre } from "./Genre"
-
+export { default as GeneralForm } from "./GeneralForm"

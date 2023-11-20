@@ -312,17 +312,19 @@ h3{
     background-color: lightgreen;
 }
 
-.placeholder{
+.placeholder-box{
     height: 250px;
     width: 250px;
     margin-top: 50px;
     border: black solid 3px;
+    background-color: transparent;
 }
 .lower{
     width: 450px;
 }
 .flexbox-carousel{
     flex-direction: column;
+    display: flex;
     padding-left: 50px;
     width: 60%;
     align-items: flex-start;
@@ -341,12 +343,22 @@ h3{
     height:400px
 }
 
-.carousel-container{
-    overflow-x: hidden;
-    
+.carousel-container {
+    overflow: hidden;
 }
 
-/* Add your global styles here */
+.carousel-inner {
+    display: flex;
+}
+
+.carousel-item {
+    flex: 0 0 100%; /* Set flex-basis to 100% to make each item take the full width */
+    text-align: center;
+    box-sizing: border-box; /* Include padding and border in the width */
+    height: 350px;
+    background-color: red;
+}
+
 
 .custom-modal {
   position: absolute;
@@ -428,3 +440,74 @@ h3{
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
 }
+
+.modal-animation-enter {
+    opacity: 0.01;
+    transform: translateY(-20px);
+  }
+  
+  .modal-animation-enter-active {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 300ms, transform 300ms;
+  }
+  
+  .modal-animation-exit {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .modal-animation-exit-active {
+    opacity: 0.01;
+    transform: translateY(-20px);
+    transition: opacity 300ms, transform 300ms;
+  }
+  
+
+.modal-form{
+    width: 60%;
+    position: absolute;
+    top: 25%;
+    left: 25%;
+    background-color: aliceblue;
+}
+
+
+
+
+.wrapper {
+    display: flex;
+    overflow: hidden;
+    background-color: red;
+    height: 350px;
+    width: 100%;
+    max-width: 100%;
+    border: black 5px solid;
+  }
+  
+  #permas {
+    display: flex;
+    white-space: nowrap;
+    animation-name: scroll;
+    animation-duration: 100s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+  }
+  
+  #permas .profile-item {
+    height: 330px;
+    width: 150px;
+    border: black 5px solid;
+    margin-right: 20px;
+    background-color: lightblue;
+  }
+  
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+  

@@ -16,8 +16,8 @@ google_bp = Blueprint("google_bp", __name__, url_prefix='/google')
 def get_book_info(title="Harry Potter and the Prisoner of Azkaban"):
     if request.method == 'PATCH':
 
-        user_email = request.json.get('email')
-        title = request.json.get('title', title)
+        data = request.get_json()
+        title, user_email = data['title'], data['email']
 
         payload = {
             'q': f'intitle:{title}',
@@ -38,13 +38,17 @@ def get_book_info(title="Harry Potter and the Prisoner of Azkaban"):
 
                 if user_email:
                     user_email = str(user_email)
-                    item_to_patch = Item.query.filter(Item.email == user_email).first()
-                    item_to_patch.img = image_url
-                    db.session.commit()
-
-
-                return jsonify({'message': 'User image URL updated successfully'})
-
+                    item_to_patch = Item.query.filter(Item.email == user_email, Item.title== title ).first()
+                    
+                    if item_to_patch:
+                        item_to_patch.img = image_url
+                        db.session.commit()
+                        return jsonify({'message': 'User image URL updated successfully'})
+                    else:
+                        return jsonify({'error': 'User or book not found'})
+                
+                else:
+                    return jsonify({'error': 'Email is required for update'})
             else:
                 return jsonify({'error': 'No results found for the given title'})
 
@@ -53,7 +57,8 @@ def get_book_info(title="Harry Potter and the Prisoner of Azkaban"):
 
     elif request.method == 'GET':
         # Handle GET request to fetch book information
-        title = request.json.get('title', title)
+        data = request.get_json()
+        title = data['title']
 
         payload = {
             'q': f'intitle:{title}',

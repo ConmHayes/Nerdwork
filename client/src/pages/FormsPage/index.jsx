@@ -48,7 +48,7 @@ const FormsPage = ({ onAddBook }) => {
       });
   
       if (!response.ok) {
-        const errorBody = await response.json(); // Assuming the server sends a JSON response
+        const errorBody = await response.json(); 
         throw new Error(`HTTP error! status: ${response.status}, Message: ${errorBody.message}`);
       }
       

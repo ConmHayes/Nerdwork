@@ -5,8 +5,7 @@ import { useNavigate } from 'react-router';
 
 const BookCard = ({ book, isSelected }) => {
 
-  const { title, img, author, genre, owner, rating } = book;
-  const navigate = useNavigate()
+  const { title, img, author, genres, owner, rating } = book;
   // Convert numerical rating to stars
   const stars = Array.from({ length: 5 }, (_, index) => (
     <span key={index} className={index < Math.floor(rating) ? 'text-warning' : 'text-secondary'}>
@@ -15,8 +14,8 @@ const BookCard = ({ book, isSelected }) => {
   ));
 
   // Ensure genres is an array before mapping
-  const genreBadges = genre && Array.isArray(genre) ? genre.map((genre, index) => (
-    <Badge key={index} pill bg="secondary" className="mr-1">
+  const genreBadges = genres && Array.isArray(genres) ? genres.map((genre, index) => (
+    <Badge key={index} pill bg="secondary" className="mr-1" color='tertiary'>
       {genre}
     </Badge>
   )) : null;

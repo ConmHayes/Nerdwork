@@ -352,7 +352,7 @@ h3{
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 1800px;
+  width: 85%;
   max-width: 1800px;
   height: 300px;
   transform: translate(-50%, -50%);
@@ -361,6 +361,10 @@ h3{
   padding: 20px;
   border: 1px solid #ccc;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.custom-modal h3{
+    margin-top: -30px;
 }
 
 .custom-overlay {
@@ -380,17 +384,47 @@ h3{
 }
 
 .modal-arrow {
-    position: absolute;
-    top: 10px; /* Adjust the position based on your design */
-    left: 50%;
-    transform: translateX(-50%);
+
+    position: relative;
     width: 0;
     height: 0;
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    border-bottom: 15px solid #fff; /* Adjust the color based on your design */
+    background-color: transparent ;
+    border-left: 30px solid transparent;
+    border-right: 30px solid transparent;
+    border-bottom: 50px solid #fff; /* Adjust the color to contrast with the modal background */
+    bottom:60px
+
   }
   
   .selected-book{
     border: rebeccapurple solid 5px;
   }
+
+  .add-book{
+    width:"50%"; 
+    justify-Content: "flex-end"
+  }
+
+  .add-book i{
+    margin-right: "50px";
+    margin-left: "20px"; 
+    margin-bottom:"20px";
+    
+  }
+
+  .add-book i:hover{
+    color: blueviolet;
+    cursor: pointer;
+    transition: 0.5s;
+  }
+
+
+.example::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.example {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}

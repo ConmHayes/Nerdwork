@@ -36,20 +36,21 @@ class Item(db.Model):
     item_id = db.Column(db.Integer, primary_key=True)
     category = db.Column(db.String(20), nullable=False)
     title = db.Column(db.String(255), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'), nullable=False)
+    email = db.Column(db.String(255), db.ForeignKey('user.email'), nullable=False)  # Keep email as a foreign key
     genre = db.Column(db.String(255), nullable=False)
     author = db.Column(db.String(255), nullable=False)
     issue_num = db.Column(db.Integer)
     img = db.Column(db.String(255), nullable=True)
     rating = db.Column(db.Integer, nullable=False)
 
-    #Foreign Keys
-    user = db.relationship('User', foreign_keys=[user_id])
+    # Foreign Keys
+    user = db.relationship('User', foreign_keys=[email]) 
 
-    def __init__(self, genre, title, user_id, category, author, issue_num, rating, img=None):
+
+    def __init__(self, genre, title, email, category, author, issue_num, img, rating):
         self.category = category
         self.title = title
-        self.user_id = user_id
+        self.email = email
         self.genre = genre
         self.author = author
         self.issue_num = issue_num
@@ -91,11 +92,11 @@ class Thread(db.Model):
     community_id = db.Column(db.Integer, db.ForeignKey('community.community_id'), nullable=False)
     title = db.Column(db.String(255), nullable=False)
     description = db.Column(db.String(255))
-    user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'), nullable=False)
+    email = db.Column(db.String(255), db.ForeignKey('user.email'), nullable=False)
 
     # Foreign Key Constraints
     community_id_FK = db.relationship('Community', foreign_keys=[community_id])
-    user_id_FK = db.relationship('User', foreign_keys=[user_id])
+    email_FK = db.relationship('User', foreign_keys=[email])
 
     # Initialization
     def __init__(self, community_id, title, description, user_id):
@@ -108,13 +109,13 @@ class Thread(db.Model):
 class Post(db.Model):
     post_id = db.Column(db.Integer, primary_key=True)
     post_title = db.Column(db.String(255), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'), nullable=False)
+    email = db.Column(db.String(255), db.ForeignKey('user.email'), nullable=False)
     thread_id = db.Column(db.Integer, db.ForeignKey('thread.thread_id'),nullable=False)
     body = db.Column(db.String(255), nullable=False)
     votes = db.Column(db.Integer, nullable=True, default=0)
 
     # Foreign Key Constraints
-    user_id_FK = db.relationship('User', foreign_keys=[user_id])
+    email_FK = db.relationship('User', foreign_keys=[email])
     thread_id_FK = db.relationship('Thread', foreign_keys=[thread_id])
 
     # Initialization 

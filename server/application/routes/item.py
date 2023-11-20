@@ -1,8 +1,8 @@
 from flask import Blueprint, request, jsonify
 from application.database.models import Item, db
-import json
 
 item_bp = Blueprint("item_bp", __name__, url_prefix='/item') 
+
 
 # Formatting the items 
 def format_item(item, genres_list): 
@@ -10,7 +10,7 @@ def format_item(item, genres_list):
         "item_id": item.item_id,
         "category": item.category,
         "title": item.title, 
-        "user_id": item.user_id, 
+        "email": item.email, 
         "genre": genres_list, 
         "author": item.author, 
         "rating": item.rating,
@@ -23,36 +23,27 @@ def get_all():
     if request.method == 'GET':
         items = Item.query.all()
         item_list = []
-
+        
         for item in items:
-            genres_list = []
-
-        try: 
-            # Attempt to parse the genre string into a list
             genres_list = [genre.strip() for genre in item.genre.strip('[]').split(',')]
-        except Exception as e:
-            print("Exception occurred while formatting genres:", str(e))
-
-        # Include the genres_list in the format_item 
-        formatted_item_list = format_item(item, genres_list)
-
-        for item in items:
             item_list.append(format_item(item, genres_list))
-        return {"Items": item_list}
+
+        return jsonify({"Items": item_list}), 200
+
 
     """" Create an Item """
     if request.method == 'POST':
         # {genre: , item: , img: null, }
         data = request.get_json()
         if data:
-            genre, title, user_id, category, author, img, rating, issue_num = data['genre'], data['title'], data['user_id'], data['category'], data['author'], data['img'], data['rating'], data["issue_num"]
+            genre, title, email, category, author, img, rating, issue_num = data['genre'], data['title'], data['email'], data['category'], data['author'], data['img'], data['rating'], data["issue_num"]
 
-            if category and title and user_id and author:
+            if category and title and email and author:
                 try:
                     item_to_add = Item(
                         genre=genre,
                         title=title,
-                        user_id=user_id,
+                        email=email,
                         category=category, 
                         author=author,
                         img=img,

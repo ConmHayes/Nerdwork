@@ -32,7 +32,7 @@ export default function ProfilePage(){
     
     const top_rows = ["My Bookshelf", "My Games", "My Comics", "My Friends"]
     const top_icons = ["book", "sports_esports", "import_contacts", "diversity_3"]
-    const top_links = [`${localURL}profile/bookshelf`, "/", "/", "/"]
+    const top_links = [`${siteURL}profile/bookshelf`, "/", "/", "/"]
 
     const bottom_rows = ["Settings", "Contact Us"]
     const bottom_icons = ["settings", "call"]

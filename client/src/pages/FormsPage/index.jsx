@@ -23,34 +23,31 @@ const FormsPage = ({ onAddBook }) => {
 
     // Basic fetch call for testing
     try {
-      const options = {
-        method: "POST",
+      const response = await fetch('https://nerdwork-server.onrender.com/item', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           title: "Test Title",
           img: "test",
           author: "Test Author",
-          genre: "[Test, Genre]",
+          genre: "[Test Genre]",
           issue_num: 1,
           user_id: 1,
           rating: 5,
           category: "book"
-        })}
+        }),
+      });
 
-      const response = await fetch('https://nerdwork-server.onrender.com/item/', options);
-      
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      const result = await response.json();
 
+      const result = await response.json();
       console.log(result);
       // onAddBook(result);
       // navigate("/profile");
-    
-    
     } catch (error) {
       setError(`There was a problem adding your item: ${error.message}`);
       console.error('Error:', error);

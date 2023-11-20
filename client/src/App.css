@@ -464,12 +464,13 @@ h3{
   }
   
 
-.modal-form{
+  .modal-form{
     width: 60%;
     position: absolute;
     top: 25%;
     left: 25%;
     background-color: aliceblue;
+    border: black solid 5px
 }
 
 

@@ -49,20 +49,20 @@ class Item(db.Model):
     item_id = db.Column(db.Integer, primary_key=True)
     category = db.Column(db.String(20), nullable=False)
     title = db.Column(db.String(255), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'), nullable=False)
+    email = db.Column(db.String(255), db.ForeignKey('user.email'), nullable=False)  # Keep email as a foreign key
     genre = db.Column(db.String(255), nullable=False)
     author = db.Column(db.String(255), nullable=False)
     issue_num = db.Column(db.Integer)
     img = db.Column(db.String(255))
     rating = db.Column(db.Integer, nullable=False)
 
-    #Foreign Keys
-    user = db.relationship('User', foreign_keys=[user_id])
+    # Foreign Keys
+    user = db.relationship('User', foreign_keys=[email]) 
 
-    def __init__(self, genre, title, user_id, category, author, issue_num, img, rating):
+    def __init__(self, genre, title, email, category, author, issue_num, img, rating):
         self.category = category
         self.title = title
-        self.user_id = user_id
+        self.email = email
         self.genre = genre
         self.author = author
         self.issue_num = issue_num

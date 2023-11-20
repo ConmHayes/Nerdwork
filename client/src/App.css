@@ -27,7 +27,7 @@ hr{
     justify-content: center;
     align-items: center;
     text-align: center;
-    border: black solid 3px;
+    border: black solid 5px;
 
 }
 
@@ -48,7 +48,7 @@ hr{
     color: black;
     margin-bottom: 20px;
     justify-content: left;
-    border: black solid 3px
+    border: black solid 5px
 }
 
 .login-button.login-page{
@@ -155,7 +155,7 @@ font-size: 20px;
     background-color: rebeccapurple;
     justify-content: flex-start;
     flex-direction: column;
-    border: black solid 3px
+    border: black solid 5px
 }
 
 .profile-sidebar-extended{
@@ -166,7 +166,7 @@ font-size: 20px;
     background-color: rebeccapurple;
     justify-content: flex-start;
     flex-direction: column;
-    border: black solid 3px
+    border: black solid 5px
 }
 
 .profile-bar{
@@ -260,14 +260,14 @@ h3{
     width: 500px;
     margin-top: 20px;
     height: 50px;
-    border: black solid 3px;
+    border: black solid 5px;
 }
 
 .profile-box{
     width: 50px;
     margin-top: 20px;
     height: 50px;
-    border: black solid 3px;
+    border: black solid 5px;
 }
 
 
@@ -316,7 +316,7 @@ h3{
     height: 250px;
     width: 250px;
     margin-top: 50px;
-    border: black solid 3px;
+    border: black solid 5px;
     background-color: transparent;
 }
 .lower{
@@ -464,12 +464,13 @@ h3{
   }
   
 
-.modal-form{
+  .modal-form{
     width: 60%;
     position: absolute;
     top: 25%;
     left: 25%;
     background-color: aliceblue;
+    border: black solid 5px
 }
 
 
@@ -499,6 +500,7 @@ h3{
     width: 150px;
     border: black 5px solid;
     margin-right: 20px;
+    margin-top: 6px;
     background-color: lightblue;
   }
   

@@ -69,11 +69,17 @@ const FormsPage = ({ onAddBook }) => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleGenreChange = (e) => {
-    const values = Array.from(e.target.selectedOptions, option => option.value);
-    setSelectedgenre(values);
-    setFormData(prev => ({ ...prev, genre: values }));
+  const handleGenreChange = (selectedOption) => {
+    let newSelected;
+    if (selectedgenre.includes(selectedOption)) {
+      newSelected = selectedgenre.filter(option => option !== selectedOption);
+    } else {
+      newSelected = [...selectedgenre, selectedOption];
+    }
+    setSelectedgenre(newSelected);
+    setFormData(prev => ({ ...prev, genre: newSelected }));
   };
+  
 
   return (
     <Container>
@@ -86,7 +92,7 @@ const FormsPage = ({ onAddBook }) => {
             <FormInput label="Title" type="text" placeholder="Enter title" name="title" value={formData.title} onChange={handleChange} />
             <FormInput label="Image URL" type="text" placeholder="Enter image URL" name="img" value={formData.img} onChange={handleChange} />
             <FormInput label="Author" type="text" placeholder="Enter author's name" name="author" value={formData.author} onChange={handleChange} />
-            <FormMultiSelect label="Genres" name="genre" selected={selectedgenre} options={['Cyberpunk', 'Superhero', 'Romance', 'Adventure', 'Thriller', 'Survival', 'Sport', 'Mecha', 'Musical','Other']} onChange={handleGenreChange} />
+            <FormMultiSelect label="Genres" name="genre" selected={selectedgenre} options={['Cyberpunk', 'Superhero', 'Romance', 'Adventure', 'Thriller', 'Survival', 'Sport', 'Mecha', 'Musical', 'Other']} onChange={handleGenreChange} />
             <FormInput label="Issue Number" type="text" placeholder="Enter issue number" name="issue_num" value={formData.issue_num} onChange={handleChange} />
             {/* <FormInput label="Email" type="text" placeholder="Enter your email" name="email" value={formData.email} onChange={handleChange} /> */}
             <FormRating label="Rating" name="rating" value={formData.rating} onChange={handleChange} min={0} max={5} step={0.1} />

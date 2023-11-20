@@ -21,7 +21,6 @@ def format_community(community):
 @community_bp.route("/", methods=['GET','POST'])
 def get_all():
     if request.method == 'GET':
-        data = request.json
         communities = Community.query.all()
         community_list = []
         for community in communities:

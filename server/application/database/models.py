@@ -49,7 +49,7 @@ class Item(db.Model):
     user = db.relationship('User', foreign_keys=[email]) 
 
 
-    def __init__(self, genre, title, email, category, author, issue_num, img, rating, description,tradeable):
+    def __init__(self, genre, title, email, category, author, issue_num, img, rating, description, tradeable):
         self.category = category
         self.title = title
         self.email = email
@@ -87,7 +87,6 @@ class Swap(db.Model):
     user_email_requestie = db.Column(db.String(255), db.ForeignKey('user.email'), nullable=False)
     wanted_item_id = db.Column(db.Integer, db.ForeignKey('item.item_id'), nullable=False)
     requestie_item_id = db.Column(db.Integer, db.ForeignKey('item.item_id'), nullable=False)
-    date = db.Column(db.Date, nullable=True)
     accepted = db.Column(db.Boolean, default=False)
     rejected_by_requester = db.Column(db.Boolean, default=False)
     ##deleted a double date column after db reset

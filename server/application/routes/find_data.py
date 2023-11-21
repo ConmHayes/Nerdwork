@@ -67,15 +67,14 @@ def get_book_info(title="Harry Potter and the Prisoner of Azkaban"):
             'q': f'intitle:{title}',
             'key': api_key,
         }
-        headers = {'Content-Type': 'application/json'}
-        url = f'https://www.googleapis.com/books/v1/volumes?'
+
+        query = urllib.parse.urlencode(payload)
+        url = f'https://www.googleapis.com/books/v1/volumes?{query}'
 
         try:
-            response = requests.get(url=url, params=payload, headers=headers)
-            response.raise_for_status()
-            # text = response.read()
-            # data = json.loads(text)
-            data = response.json()
+            response = urllib.request.urlopen(url)
+            text = response.read()
+            data = json.loads(text)
 
             # return only the first result
             if 'items' in data and len(data['items']) > 0:
@@ -88,24 +87,24 @@ def get_book_info(title="Harry Potter and the Prisoner of Azkaban"):
         except urllib.error.URLError as e:
             return jsonify({'error': str(e)})
         
-
+        
     # elif request.method == 'GET':
     #     # Handle GET request to fetch book information
-    #     data = request.get_json()
-    #     title = data['title']
+    #     title = request.json.get('title', title)
 
     #     payload = {
     #         'q': f'intitle:{title}',
     #         'key': api_key,
     #     }
-
-    #     query = urllib.parse.urlencode(payload)
-    #     url = f'https://www.googleapis.com/books/v1/volumes?{query}'
+    #     headers = {'Content-Type': 'application/json'}
+    #     url = f'https://www.googleapis.com/books/v1/volumes?'
 
     #     try:
-    #         response = urllib.request.urlopen(url)
-    #         text = response.read()
-    #         data = json.loads(text)
+    #         response = requests.get(url=url, params=payload, headers=headers)
+    #         response.raise_for_status()
+    #         # text = response.read()
+    #         # data = json.loads(text)
+    #         data = response.json()
 
     #         # return only the first result
     #         if 'items' in data and len(data['items']) > 0:
@@ -117,3 +116,4 @@ def get_book_info(title="Harry Potter and the Prisoner of Azkaban"):
 
     #     except urllib.error.URLError as e:
     #         return jsonify({'error': str(e)})
+        

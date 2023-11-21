@@ -11,6 +11,7 @@ export default function ProfilePage(){
     const [sidebarExtended, setSidebarExtended] = useState(true)
     const [username, setUsername] = useState("")
 
+
     async function getUsername(){
         const options = {
           method: "GET",
@@ -25,33 +26,22 @@ export default function ProfilePage(){
         const data = await response.json()
         console.log(response)
         setUsername(data.username)
-      }
-      
+      } 
   
     
     const top_rows = ["My Bookshelf", "My Games", "My Comics", "My Friends"]
     const top_icons = ["book", "sports_esports", "import_contacts", "diversity_3"]
-    const top_links = [`${localURL}profile/bookshelf`, "/", "/", "/"]
+    const top_links = [`${siteURL}profile/bookshelf`, "/", "/", "/"]
 
     const bottom_rows = ["Settings", "Contact Us"]
     const bottom_icons = ["settings", "call"]
     const bottom_links = ["/", "/"]
 
-    useEffect(() => {
-        const carousel = document.querySelector("#carouselExampleSlidesOnly")
-
-        const animationDuration = 5
-        const totalDuration = animationDuration * 1000 * 3
-
-        carousel.style.animation = `scrollAnimation ${totalDuration}ms linear infinite`
-
-        return () => (carousel.style.animation = "none")
-    }, [])
+    
 
     useEffect(() => {
         getUsername()
     }, [])
-
 
     return(
         <div className="flexbox-container profile-container">
@@ -83,43 +73,55 @@ export default function ProfilePage(){
                         </Link>
                     ))}
                 </div>
-                <div className="flexbox-item placeholder">
+                <div className="flexbox-item placeholder-box">
 
                 </div>
                 <div className="flexbox-item option-row">
                     {bottom_rows.map((title, i) => (
                         <Link to={bottom_links[i]} className="link" key={i}>
                             <div className={`flexbox-item profile-option ${i % 2 === 0 ? 'even' : 'odd'}`}>
-                                
                                     <i className="material-icons left">{bottom_icons[i]}</i>
                                     {title}
-                                
                             </div>
-                        </Link>
-                        
-                        
+                        </Link>    
                     ))}
                 </div>
+
             </div>
             <div className="flexbox-container flexbox-carousel">
-                <p>Suggested for you...</p>
-                <div className="flexbox-item carousel-container">
-                    
-                    <div id="carouselExampleSlidesOnly" className="carousel">
-                        <div className="carousel-inner ">
-                            <div className="carousel-item active" >
-                                <p>Hello</p>
-                            </div>
-                            <div className="carousel-item">
-                                <p>There</p>
-                            </div>
-                            <div className="carousel-item">
-                                <p>World</p>
-                            </div>
-                        </div>
-                    </div>
+        <p>Suggested for you...</p>
+        
+            <div className="wrapper">
+                <div id="permas" style={{flexDirection: "row"}}>
+                    <div className="profile-item">Hello</div>
+                    <div className="profile-item">There</div>
+                    <div className="profile-item">World</div>
+                    <div className="profile-item">How</div>
+                    <div className="profile-item">Are</div>
+                    <div className="profile-item">You </div>
+                    <div className="profile-item">Doing</div>
+                    <div className="profile-item">Hello</div>
+                    <div className="profile-item">There</div>
+                    <div className="profile-item">World</div>
+                    <div className="profile-item">How</div>
+                    <div className="profile-item">Are</div>
+                    <div className="profile-item">You </div>
+                    <div className="profile-item">Doing</div>
+                    <div className="profile-item">Hello</div>
+                    <div className="profile-item">There</div>
+                    <div className="profile-item">World</div>
+                    <div className="profile-item">How</div>
+                    <div className="profile-item">Are</div>
+                    <div className="profile-item">You </div>
+                    <div className="profile-item">Doing</div>
                 </div>
             </div>
-        </div>
-    )
-}
+            
+
+
+      </div>
+    </div>
+  );
+};
+
+

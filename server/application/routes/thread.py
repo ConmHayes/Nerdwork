@@ -15,7 +15,7 @@ def format_thread(thread):
         "community_id": thread.community_id,
         "title": thread.title,
         "description": thread.description,
-        "user_id": thread.user_id
+        "email": thread.email
     }
 
 # ? User Story: Selects community tab > Displays all communities > Selects a single community > Displays all threads > Selects a single thread 
@@ -34,7 +34,7 @@ def thread_id(thread_id):
         community_id=thread.community_id, 
         title=thread.title,
         description=thread.description,
-        user_id=thread.user_id
+        email=thread.email
     )
 
 # ? User Story: Selects community tab > Displays all communities > Selects a single community > Displays all threads > Create a custom thread
@@ -49,15 +49,15 @@ def create_thread():
     if data:
 
         # ? Deconstruct data
-        community_id, title, description, user_id = data["community_id"], data["title"], data["description"], data["user_id"]
+        community_id, title, description, email = data["community_id"], data["title"], data["description"], data["email"]
 
-        if community_id and title and user_id:
+        if community_id and title and email:
             try:
                 thread_to_add = Thread(
                     community_id=community_id,
                     title=title,
                     description=description,
-                    user_id=user_id
+                    email=email
                 )
                 db.session.add(thread_to_add)
                 db.session.commit()
@@ -68,6 +68,15 @@ def create_thread():
             return jsonify(message='Posting item failed, possibly missing mandatory arguments'), 400
     else:
         return jsonify(message='No data passed in'), 400
-            
 
+# Retrieve all threads for a specific community
+@thread_bp.route("/community/<community_id>", methods=['GET'])
+def threads_by_community(community_id):
+    # Retrieve all threads for the specified community_id
+    threads = Thread.query.filter_by(community_id=community_id).all()
 
+    # Format the threads
+    thread_list = [format_thread(thread) for thread in threads]
+
+    # Return the formatted threads as JSON
+    return jsonify({"Threads": thread_list})

@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify
-from application.database.models import User
+from application.database.models import User, Item
 from auth_middleware import token_required
 
 user_bp = Blueprint('user', __name__, url_prefix='/user')
@@ -29,7 +29,7 @@ def get_users():
 ##this is /user/email
 @user_bp.route('/<email>', methods=['GET'])
 @token_required
-def get_user(user, email):
+def get_user(user,email):
     user = User.query.filter_by(email=email).first()
     if user:
         return jsonify({
@@ -38,5 +38,40 @@ def get_user(user, email):
             'address': user.address,
             'email': user.email,
         })
+    else:
+        return jsonify({'message': 'User not found'}), 404
+    
+
+@user_bp.route('/<email>/<category>', methods=['GET'])
+def get_user_and_items(email, category):
+    user = User.query.filter_by(email=email).first()
+    
+    if user:
+        # Join User and Item tables and filter by user_id
+        items = Item.query.join(User).filter(User.email == user.email, Item.category == category).all()
+
+        # Construct the response
+        user_data = {
+            'user_id': user.user_id,
+            'username': user.username,
+            'address': user.address,
+            'email': user.email,
+        }
+
+        item_data = [
+            {
+                'item_id': item.item_id,
+                'category': item.category,
+                'title': item.title,
+                'genre': item.genre,
+                'author': item.author,
+                'issue_num': item.issue_num,
+                'img': item.img,
+                'rating': item.rating,
+            }
+            for item in items
+        ]
+
+        return jsonify({'user': user_data, 'items': item_data})
     else:
         return jsonify({'message': 'User not found'}), 404

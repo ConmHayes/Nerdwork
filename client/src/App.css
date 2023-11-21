@@ -27,7 +27,7 @@ hr{
     justify-content: center;
     align-items: center;
     text-align: center;
-    border: black solid 3px;
+    border: black solid 5px;
 
 }
 
@@ -48,7 +48,7 @@ hr{
     color: black;
     margin-bottom: 20px;
     justify-content: left;
-    border: black solid 3px
+    border: black solid 5px
 }
 
 .login-button.login-page{
@@ -155,7 +155,7 @@ font-size: 20px;
     background-color: rebeccapurple;
     justify-content: flex-start;
     flex-direction: column;
-    border: black solid 3px
+    border: black solid 5px
 }
 
 .profile-sidebar-extended{
@@ -166,7 +166,7 @@ font-size: 20px;
     background-color: rebeccapurple;
     justify-content: flex-start;
     flex-direction: column;
-    border: black solid 3px
+    border: black solid 5px
 }
 
 .profile-bar{
@@ -260,14 +260,14 @@ h3{
     width: 500px;
     margin-top: 20px;
     height: 50px;
-    border: black solid 3px;
+    border: black solid 5px;
 }
 
 .profile-box{
     width: 50px;
     margin-top: 20px;
     height: 50px;
-    border: black solid 3px;
+    border: black solid 5px;
 }
 
 
@@ -312,17 +312,19 @@ h3{
     background-color: lightgreen;
 }
 
-.placeholder{
+.placeholder-box{
     height: 250px;
     width: 250px;
     margin-top: 50px;
-    border: black solid 3px;
+    border: black solid 5px;
+    background-color: transparent;
 }
 .lower{
     width: 450px;
 }
 .flexbox-carousel{
     flex-direction: column;
+    display: flex;
     padding-left: 50px;
     width: 60%;
     align-items: flex-start;
@@ -341,19 +343,29 @@ h3{
     height:400px
 }
 
-.carousel-container{
-    overflow-x: hidden;
-    
+.carousel-container {
+    overflow: hidden;
 }
 
-/* Add your global styles here */
+.carousel-inner {
+    display: flex;
+}
+
+.carousel-item {
+    flex: 0 0 100%; /* Set flex-basis to 100% to make each item take the full width */
+    text-align: center;
+    box-sizing: border-box; /* Include padding and border in the width */
+    height: 350px;
+    background-color: red;
+}
+
 
 .custom-modal {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 1500px;
-  max-width: 1500px;
+  width: 85%;
+  max-width: 1800px;
   height: 300px;
   transform: translate(-50%, -50%);
   margin-top: 370px;
@@ -361,6 +373,10 @@ h3{
   padding: 20px;
   border: 1px solid #ccc;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.custom-modal h3{
+    margin-top: -30px;
 }
 
 .custom-overlay {
@@ -380,17 +396,120 @@ h3{
 }
 
 .modal-arrow {
-    position: absolute;
-    top: 10px; /* Adjust the position based on your design */
-    left: 50%;
-    transform: translateX(-50%);
+
+    position: relative;
     width: 0;
     height: 0;
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    border-bottom: 15px solid #fff; /* Adjust the color based on your design */
+    background-color: transparent ;
+    border-left: 30px solid transparent;
+    border-right: 30px solid transparent;
+    border-bottom: 50px solid #fff; /* Adjust the color to contrast with the modal background */
+    bottom:60px
+
   }
   
   .selected-book{
     border: rebeccapurple solid 5px;
   }
+
+  .add-book{
+    width:"50%"; 
+    justify-Content: "flex-end"
+  }
+
+  .add-book i{
+    margin-right: "50px";
+    margin-left: "20px"; 
+    margin-bottom:"20px";
+    
+  }
+
+  .add-book i:hover{
+    color: blueviolet;
+    cursor: pointer;
+    transition: 0.5s;
+  }
+
+
+.example::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.example {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.modal-animation-enter {
+    opacity: 0.01;
+    transform: translateY(-20px);
+  }
+  
+  .modal-animation-enter-active {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 300ms, transform 300ms;
+  }
+  
+  .modal-animation-exit {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .modal-animation-exit-active {
+    opacity: 0.01;
+    transform: translateY(-20px);
+    transition: opacity 300ms, transform 300ms;
+  }
+  
+
+  .modal-form{
+    width: 60%;
+    position: absolute;
+    top: 20%;
+    left: 25%;
+    background-color: aliceblue;
+    border: black solid 5px
+}
+
+
+
+
+.wrapper {
+    display: flex;
+    overflow: hidden;
+    background-color: red;
+    height: 350px;
+    width: 100%;
+    max-width: 100%;
+    border: black 5px solid;
+  }
+  
+  #permas {
+    display: flex;
+    white-space: nowrap;
+    animation-name: scroll;
+    animation-duration: 100s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+  }
+  
+  #permas .profile-item {
+    height: 330px;
+    width: 150px;
+    border: black 5px solid;
+    margin-right: 20px;
+    margin-top: 6px;
+    background-color: lightblue;
+  }
+  
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+  

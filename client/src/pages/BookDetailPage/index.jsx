@@ -48,7 +48,7 @@ export default function BookDetailPage(){
       <div className="container">
         <h1 className="page-title">Book Details</h1>
         <div className="image-container">
-          <img src={data.imageUrl} alt={data.title} className="book-image"/>
+          <img src={data.img} alt={data.title} className="book-image"/>
         </div>
         <div className="text-content">
           <h2 className="title">{data.title}</h2>

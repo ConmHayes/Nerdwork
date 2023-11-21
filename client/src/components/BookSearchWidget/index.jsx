@@ -2,7 +2,6 @@ import React,  {useState, useEffect } from "react";
 import SearchForm from "../SearchForm";
 import "./bookSearchWidget.css"
 import BookSearchCard from "../BookSearchCard";
-import BookCard from "../BookCard";
 import { useNavigate } from "react-router-dom";
 
 export default function BookSearchWidget () {
@@ -39,7 +38,7 @@ export default function BookSearchWidget () {
         });
         console.log(filteredData)
         return filteredData;
-      }
+    }
       
       
     const uniqueData = removeDuplicateTitles(books);
@@ -52,7 +51,7 @@ export default function BookSearchWidget () {
                 .filter(book => searchString.length == 0 || book.title.toLowerCase().includes(searchString.toLowerCase()))
                 .map(book => ( 
                 <div key={book.item_id} onClick={() => displayUser(book.item_id,book)} >
-                <BookSearchCard book={book} />
+                <BookSearchCard item={book} />
                 </div>
             ))
     }

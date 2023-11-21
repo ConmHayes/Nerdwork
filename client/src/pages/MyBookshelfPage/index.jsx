@@ -208,7 +208,7 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended, 
 
 
 
-    const top_links = [`${localURL}profile`, "/", "/", "/"]
+    const top_links = [`${siteURL}profile`, "/", "/", "/"]
     const bottom_links = ["/", "/"]
 
     async function getBooksAndFilter(){

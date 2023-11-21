@@ -4,16 +4,15 @@ import { useNavigate } from 'react-router-dom';
 import Genre from '../Genre'
 import Rating from '../Rating';
 
-export default function BookSearchCard ({ book }){
-    const { title, author, img, rating, genre } = book;
+export default function BookSearchCard ({ item }){
+    const { title, author, img, rating, genre } = item;
     const navigate = useNavigate();
-    console.log("img", img)
     function displayUser(id){
        navigate(`/BookDetail/${id}`)
     }
-
+    console.log("item" , item)
     return (
-        <div className="book-card" onClick={() => displayUser(book.item_id)}>
+        <div className="book-card" onClick={() => displayUser(item.item_id)}>
             <img src={img} alt={title}/> 
             
             <h3 style={{borderTop: "20px"}}>{title}</h3>

@@ -75,7 +75,7 @@ class Request(db.Model):
     
 
     def __init__(self, user_email_request, user_email_requestie, wanted_item_id, rejected_by_requestie):
-        self.User_email_request = user_email_request
+        self.user_email_request = user_email_request
         self.user_email_requestie = user_email_requestie
         self.wanted_item_id = wanted_item_id
         self.rejected_by_requestie = rejected_by_requestie
@@ -90,7 +90,7 @@ class Swap(db.Model):
     date = db.Column(db.Date, nullable=True)
     accepted = db.Column(db.Boolean, default=False)
     rejected_by_requester = db.Column(db.Boolean, default=False)
-    date = db.Column(db.Date, nullable=False)
+    ##deleted a double date column after db reset
 
     #Foreign Keys
     requester = db.relationship('User', foreign_keys=[user_email_requester])
@@ -131,11 +131,11 @@ class Thread(db.Model):
     email_FK = db.relationship('User', foreign_keys=[email])
 
     # Initialization
-    def __init__(self, community_id, title, description, user_id):
+    def __init__(self, community_id, title, description, email):
         self.community_id = community_id
         self.title = title
         self.description = description
-        self.user_id = user_id
+        self.email = email
 
 # Post table 
 class Post(db.Model):

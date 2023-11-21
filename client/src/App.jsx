@@ -34,8 +34,10 @@ function App() {
           <Route path="/BookSearch" element={<Pages.BookSearchPage/>} /> 
           <Route path="/ComicSearch" element={<Pages.ComicSearchPage/>} /> 
           <Route path="/GameSearch" element={<Pages.GameSearchPage/>} /> 
-          <Route path="/Profile" element={<Pages.ProfilePage/>} /> 
-          <Route path ="/profile/bookshelf" element={<Pages.MyBookshelfPage />} />
+
+          <Route path="/Profile" element={<Pages.ProfilePage onAddBook={handleAddBook}/>} /> 
+          <Route path ="/profile/bookshelf" element={<Pages.MyBookshelfPage onAddBook={handleAddBook}/>} />
+
           <Route path="/request" element={<Pages.RequestPage />} />
           <Route path="/BookDetail/:id" element={<Pages.BookDetailPage />} />
 

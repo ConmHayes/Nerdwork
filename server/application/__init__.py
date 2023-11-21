@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # from application import routes
-from application.routes import auth, user, item, find_data, community, thread
+from application.routes import auth, user, item, find_data, community, thread, trade
 
 
 app = Flask(__name__)

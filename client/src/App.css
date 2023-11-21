@@ -335,7 +335,22 @@ h3{
     padding-left: 50px;
     width: 90%;
     align-items: flex-start;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+
+
 }
+
+.bookshelf-container {
+    width: 1900px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    margin-bottom: 50px;
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+}
+
 
 .bookshelf{
     background-color: blue;
@@ -347,6 +362,7 @@ h3{
     overflow: hidden;
     margin-bottom: 50px
 }
+
 
 .carousel-inner {
     display: flex;
@@ -422,7 +438,7 @@ h3{
   background-color: #2980b9;
 }
   
-  .selected-book{
+.selected-book{
     border: rebeccapurple solid 5px;
   }
 

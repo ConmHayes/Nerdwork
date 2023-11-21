@@ -32,13 +32,16 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended, 
     const [error, setError] = useState('');
     const [initialBooks, setInitialBooks] = useState([])
     const [formData, setFormData] = useState({
-        title: '',
-        img: '',
-        author: '',
-        genres: [],
-        owner: '',
+        title: "",
+        img: "",
+        author: "",
+        genre: [],
+        issue_num: "",
+        email: "",
         rating: 0,
-        category: 'book'
+        category: "book",
+        description: null,
+        tradeable: true
       });
 
       const [username, setUsername] = useState("")
@@ -108,7 +111,7 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended, 
             genres: [],
             email: '',
             rating: 0,
-            category: 'Book',
+            category: 'book',
             issue_num: null,
             description: null,
             tradeable: true
@@ -161,6 +164,8 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended, 
           // Handle the response here
           const result = await response.json();
           console.log('Image updated:', result);
+          setFormOpen(false)
+          getBooksAndFilter()
         } catch (error) {
           console.error('Error updating image:', error);
           setError(`There was a problem updating the image: ${error.message}`);
@@ -198,7 +203,20 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended, 
     
           // Call the updateImage function after successful POST
           await updateImage(formData.title, formData.email);
-    
+          setFormData({
+            title: "",
+            img: "",
+            author: "",
+            genre: [],
+            issue_num: "",
+            email: "",
+            rating: 0,
+            category: "book",
+            description: null,
+            tradeable: true
+        });
+        setSelectedGenres([])
+        setModalOpen(false)
           // navigate("/profile");
         } catch (error) {
           setError(`There was a problem adding your item: ${error.message}`);
@@ -230,6 +248,7 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended, 
         }
         const response = await fetch(`${apiURL}/item/book`, options)
         const data = await response.json()
+        console.log(data.items)
     
         // Filter books based on the condition
         const filteredBooks = data.items.filter(book => book.email === localStorage.email);
@@ -315,12 +334,12 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended, 
 
                 </Modal>
                 
-                <div className="flexbox-item carousel-container" style={{justifyContent:"flex-start"}}>
+                <div className="flexbox-item bookshelf-container" style={{justifyContent:"flex-start"}}>
                     {
                     initialBooks.map((book, i) => (
                         <div key={i} onClick = {() => openModal(book)} id={`Book_${book.item_id}`} 
                         className={!selectedBook ? "" : selectedBook.title == book.title ? "animate__animated animate__bounceIn" : ""}>
-                            <BookCard book={ book } isSelected={selectedBook && selectedBook.id === book.item_id}
+                            <BookCard book={ book } isSelected={selectedBook && selectedBook.item_id === book.item_id} style={{width: "150px", height:"350px"}}
                             />
                         </div>
                     ))}

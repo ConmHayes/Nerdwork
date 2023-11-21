@@ -2,9 +2,11 @@ import { useState, useEffect } from "react"
 import React from "react"
 import "./style.css"
 import { Link } from "react-router-dom"
-import { GeneralForm } from "../../components"
+import { GeneralForm, BookCard } from "../../components"
 import Modal from "react-modal"
 import { Container, Row, Col, Button, Form } from 'react-bootstrap';
+import { useNavigate } from "react-router-dom";
+
 
 
 const apiURL = "https://nerdwork-server.onrender.com"
@@ -15,6 +17,8 @@ export default function ProfilePage( { onAddBook }){
     const [sidebarExtended, setSidebarExtended] = useState(true)
     const [username, setUsername] = useState("")
     const [modalOpen, setModalOpen] = useState(false)
+    const [carouselItems, setCarouselItems] = useState([])
+    const navigate = useNavigate()
 
 
     async function getUsername(){
@@ -40,6 +44,7 @@ export default function ProfilePage( { onAddBook }){
     const bottom_icons = ["settings", "call"]
     const bottom_links = ["/", "/"]
 
+
     function openModal(){
         setModalOpen(true)
     }
@@ -49,7 +54,7 @@ export default function ProfilePage( { onAddBook }){
     }
 
     async function getCarouselItems(){
-        options = {
+        const options = {
             method: "GET",
             headers: {
                 Accept: "application/json",
@@ -57,15 +62,38 @@ export default function ProfilePage( { onAddBook }){
                 Authorization: localStorage.token
             }
         }
-        const response = await fetch(`${apiURL}/item`, options)
+        const response = await fetch(`${apiURL}/item/book`, options)
         const data = await response.json()
-        console.log(data.items)
-    
+        
+        const len = data.items.length
+        const randomArray = [];
+        const tracking = []
 
+        while (randomArray.length < 21) {
+          const randomIndex = Math.floor(Math.random() * len);
+        
+          // Check if the random index is not already in the array
+          if (!tracking.includes(randomIndex)) {
+            tracking.push(randomIndex)
+            randomArray.push(data.items[randomIndex]);
+          }
+        }
+        setCarouselItems(randomArray)        
+
+    }
+
+    function makeCarousel(){
+        console.log(carouselItems)
+        return (
+            carouselItems.map((item) => (
+                <div className="profile-item" key={item.item_id} ><img src={item.img}></img></div>
+            ))
+        )
     }
 
     useEffect(() => {
         getUsername()
+        getCarouselItems()
     }, [])
 
     return(
@@ -142,27 +170,7 @@ export default function ProfilePage( { onAddBook }){
         
             <div className="wrapper">
                 <div id="permas" style={{flexDirection: "row"}}>
-                    <div className="profile-item">Hello</div>
-                    <div className="profile-item">There</div>
-                    <div className="profile-item">World</div>
-                    <div className="profile-item">How</div>
-                    <div className="profile-item">Are</div>
-                    <div className="profile-item">You </div>
-                    <div className="profile-item">Doing</div>
-                    <div className="profile-item">Hello</div>
-                    <div className="profile-item">There</div>
-                    <div className="profile-item">World</div>
-                    <div className="profile-item">How</div>
-                    <div className="profile-item">Are</div>
-                    <div className="profile-item">You </div>
-                    <div className="profile-item">Doing</div>
-                    <div className="profile-item">Hello</div>
-                    <div className="profile-item">There</div>
-                    <div className="profile-item">World</div>
-                    <div className="profile-item">How</div>
-                    <div className="profile-item">Are</div>
-                    <div className="profile-item">You </div>
-                    <div className="profile-item">Doing</div>
+                    {makeCarousel()}
                 </div>
             </div>
             
@@ -175,3 +183,31 @@ export default function ProfilePage( { onAddBook }){
 
 //TODO: Get 21 things from the database
 //21 entries
+//#endregion
+
+/*
+<div className="profile-item">Hello</div>
+                    <div className="profile-item">There</div>
+                    <div className="profile-item">World</div>
+                    <div className="profile-item">How</div>
+                    <div className="profile-item">Are</div>
+                    <div className="profile-item">You </div>
+                    <div className="profile-item">Doing</div>
+                    <div className="profile-item">Hello</div>
+                    <div className="profile-item">There</div>
+                    <div className="profile-item">World</div>
+                    <div className="profile-item">How</div>
+                    <div className="profile-item">Are</div>
+                    <div className="profile-item">You </div>
+                    <div className="profile-item">Doing</div>
+                    <div className="profile-item">Hello</div>
+                    <div className="profile-item">There</div>
+                    <div className="profile-item">World</div>
+                    <div className="profile-item">How</div>
+                    <div className="profile-item">Are</div>
+                    <div className="profile-item">You </div>
+                    <div className="profile-item">Doing</div>
+
+
+                    onclick={navigate(`/BookDetail/${item.item_id}`, { state: booksWithTitle  })}
+*/

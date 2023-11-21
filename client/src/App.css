@@ -516,7 +516,7 @@ h3{
 .wrapper {
     display: flex;
     overflow: hidden;
-    background-color: red;
+    background-color: violet;
     height: 350px;
     width: 100%;
     max-width: 100%;
@@ -533,13 +533,30 @@ h3{
   }
   
   #permas .profile-item {
-    height: 330px;
-    width: 150px;
-    border: black 5px solid;
-    margin-right: 20px;
-    margin-top: 6px;
-    background-color: lightblue;
+    height: 300px;
+    width: 180px;
+    margin-right: 100px;
+    margin-top: 20px;
+    background-color: transparent;
   }
+
+  #permas .profile-item:hover{
+    cursor: pointer;
+    
+  }
+
+  .profile-item img{
+    width:200px;
+    height:300px;
+    border: 5px black solid
+  }
+  .profile-item img:hover{
+    scale:1.1;
+    opacity:1.5;
+    border: 5px black solid;
+    transition:0.3s
+  }
+
   
   @keyframes scroll {
     0% {

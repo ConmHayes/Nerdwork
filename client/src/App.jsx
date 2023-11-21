@@ -45,6 +45,7 @@ function App() {
           {/* <Route path="/books" element={<Bookshelf />} /> */}
 
           <Route path="/communities" element={<Pages.CommunityPage />} />
+          <Route path="/communities/threads/:id" element={<Pages.ThreadsPage />} />
 
         </Route>
       </Routes>

@@ -38,7 +38,7 @@ function App() {
           <Route path="/Profile" element={<Pages.ProfilePage onAddBook={handleAddBook}/>} /> 
           <Route path ="/profile/bookshelf" element={<Pages.MyBookshelfPage onAddBook={handleAddBook}/>} />
 
-          <Route path="/request" element={<Pages.RequestPage />} />
+          <Route path="/request/:id" element={<Pages.RequestPage />} />
           <Route path="/BookDetail/:id" element={<Pages.BookDetailPage />} />
 
           <Route path="/forms" element={<Pages.FormsPage onAddBook={handleAddBook} />} />

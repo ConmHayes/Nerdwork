@@ -12,6 +12,8 @@ const FormsPage = ({ onAddBook }) => {
     issue_num: "",
     email: "",
     rating: 0,
+    description: "",
+    tradeable: true,
     category: ""
   });
   const [selectedgenre, setSelectedgenre] = useState([]);

@@ -337,8 +337,8 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended, 
                 <div className="flexbox-item bookshelf-container" style={{justifyContent:"flex-start"}}>
                     {
                     initialBooks.map((book, i) => (
-                        <div key={i} onClick = {() => openModal(book)} id={`Book_${book.item_id}`}>
-                            <BookCard book={ book } isSelected={selectedBook && selectedBook.item_id === book.item_id} style={{width: "150px", height:"350px"}}
+                        <div className="test" key={i} onClick = {() => openModal(book)} id={`Book_${book.item_id}`}>
+                            <img src={book.img} className={selectedBook?.item_id=== book.item_id ? "selected-book" : ""}
                             />
                         </div>
                     ))}

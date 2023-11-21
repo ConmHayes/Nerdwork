@@ -49,7 +49,7 @@ class Item(db.Model):
     user = db.relationship('User', foreign_keys=[email]) 
 
 
-    def __init__(self, genre, title, email, category, author, issue_num, img, rating, description,tradeable):
+    def __init__(self, genre, title, email, category, author, issue_num, img, rating, description, tradeable):
         self.category = category
         self.title = title
         self.email = email
@@ -75,7 +75,7 @@ class Request(db.Model):
     
 
     def __init__(self, user_email_request, user_email_requestie, wanted_item_id, rejected_by_requestie):
-        self.User_email_request = user_email_request
+        self.user_email_request = user_email_request
         self.user_email_requestie = user_email_requestie
         self.wanted_item_id = wanted_item_id
         self.rejected_by_requestie = rejected_by_requestie
@@ -87,7 +87,6 @@ class Swap(db.Model):
     user_email_requestie = db.Column(db.String(255), db.ForeignKey('user.email'), nullable=False)
     wanted_item_id = db.Column(db.Integer, db.ForeignKey('item.item_id'), nullable=False)
     requestie_item_id = db.Column(db.Integer, db.ForeignKey('item.item_id'), nullable=False)
-    date = db.Column(db.Date, nullable=True)
     accepted = db.Column(db.Boolean, default=False)
     rejected_by_requester = db.Column(db.Boolean, default=False)
     date = db.Column(db.Date, nullable=False)
@@ -131,11 +130,11 @@ class Thread(db.Model):
     email_FK = db.relationship('User', foreign_keys=[email])
 
     # Initialization
-    def __init__(self, community_id, title, description, user_id):
+    def __init__(self, community_id, title, description, email):
         self.community_id = community_id
         self.title = title
         self.description = description
-        self.user_id = user_id
+        self.email = email
 
 # Post table 
 class Post(db.Model):

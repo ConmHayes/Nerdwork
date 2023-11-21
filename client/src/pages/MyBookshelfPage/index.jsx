@@ -47,7 +47,7 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended, 
       const top_icons = ["home", "sports_esports", "import_contacts", "diversity_3"]
       const bottom_icons = ["settings", "call"]
   
-      const top_links = [`${localURL}profile`, "/", "/", "/"]
+      const top_links = [`${siteURL}profile`, "/", "/", "/"]
       const bottom_links = ["/", "/"]
   
       async function getUsername(){

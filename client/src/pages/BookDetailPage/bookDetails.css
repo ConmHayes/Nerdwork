@@ -7,7 +7,7 @@
   }
   
   .container {
-    max-width: 900px; /* Adjust the width as needed */
+    max-width: 900px;
     margin: 0 auto;
     background-color: #fffbe7;
     border-radius: 5px;
@@ -15,6 +15,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    align-items: stretch;
     padding: 2rem;
   }
   
@@ -27,20 +28,20 @@
   }
   
   .image-container {
-    flex-basis: 40%; /* Adjust the size of the image container */
+    flex-basis: 40%; 
     align-self: center;
   }
   
   .book-image {
     width: 100%;
-    max-width: 250px; /* Adjust the size of the image as needed */
+    max-width: 250px;
     height: auto;
-    margin-right: 2rem; /* Spacing between image and text */
+    margin-right: 2rem; 
     border: 5px solid #d2b48c;
   }
   
   .text-content {
-    flex-basis: 60%; /* Adjust the text container size */
+    flex-basis: 60%; 
     align-self: center;
   }
   
@@ -96,26 +97,28 @@
       margin-bottom: 1rem;
     }
   }
+  
   .owners-section {
     margin-top: 20px;
     padding: 20px;
-    background-color: #f9f9f9; /* Light grey background */
-    border-top: 1px solid #ccc; /* A subtle top border */
-    max-width: 700px;
-    min-width: 500px; 
+    background-color: #f9f9f9;
+    border-top: 1px solid #ccc;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+     max-width: 900px; 
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
   }
   
   .owners-list {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px; /* Space between cards */
+    gap: 20px; 
     justify-content: center; 
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;/* Center the cards */
+    width: 100%;
+    
   }
   
   .user-card {
@@ -125,22 +128,22 @@
     width: 200px; /* Fixed card width */
     padding: 15px;
     background-color: white;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Soft shadow */
-    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+    border-radius: 10px; 
     transition: transform 0.2s;
-    border: solid wheat; /* Smooth transition for hover effect */
+    border: solid wheat; 
   }
   
   .user-card:hover {
-    transform: translateY(-5px); /* Slight lift effect on hover */
+    transform: translateY(-5px); 
   }
   
   .user-card img.profile-icon {
-    width: 100px; /* Fixed image size */
-    height: 100px; /* Fixed image size */
-    border-radius: 50%; /* Circular images */
+    width: 100px; 
+    height: 100px; 
+    border-radius: 50%; 
     object-fit: cover;
-    border: 3px solid #007bff; /* Blue border color */
+    border: 3px solid #007bff; 
     margin-bottom: 10px;
   }
   
@@ -153,10 +156,26 @@
   
   .user-card a {
     text-decoration: none;
-    color: #007bff; /* Blue color for links */
-    transition: color 0.2s; /* Smooth color transition for hover effect */
+    color: #007bff;
+    transition: color 0.2s; 
   }
   
   .user-card a:hover {
-    color: #0056b3; /* Darker blue on hover */
+    color: #0056b3; 
+  }
+  .send-request-btn {
+    margin-top: 10px; 
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer; 
+    background-color: #007bff; 
+    color: white; 
+    border: none; 
+    border-radius: 5px; 
+    outline: none; 
+    transition: background-color 0.3s; 
+  }
+  
+  .send-request-btn:hover {
+    background-color: #0056b3; 
   }

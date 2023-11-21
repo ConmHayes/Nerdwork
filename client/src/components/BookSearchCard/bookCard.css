@@ -7,13 +7,24 @@
     margin-bottom: 20px;
     width: 400px;
     height: 700px;
-    border: 2px solid #ffcc00;
+    background-color: #f8f8d2; 
+    border-radius: 5px;
+     box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.3);
+         position: relative;
+    margin: 10px;
+    padding: 10px;
 }
-#book-card{
-  
-    
-    width: 400px;
-    height: 700px;
+.book-card::before{
+    content: '';
+    position: absolute;
+    top: -4px; 
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 20px;
+    background-color: #ff4136;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
 }
 
 .book-card h3 {

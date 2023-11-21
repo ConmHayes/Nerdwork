@@ -42,12 +42,14 @@ class Item(db.Model):
     issue_num = db.Column(db.Integer)
     img = db.Column(db.String(255), nullable=True)
     rating = db.Column(db.Integer, nullable=False)
+    description = db.Column(db.String(5000), nullable=True)
+    tradeable = db.Column(db.Boolean, default=True)
 
     # Foreign Keys
     user = db.relationship('User', foreign_keys=[email]) 
 
 
-    def __init__(self, genre, title, email, category, author, issue_num, img, rating):
+    def __init__(self, genre, title, email, category, author, issue_num, img, rating, description, tradeable):
         self.category = category
         self.title = title
         self.email = email
@@ -56,24 +58,53 @@ class Item(db.Model):
         self.issue_num = issue_num
         self.rating = rating
         self.img = img
+        self.description = description
+        self.tradeable = tradeable
+
+#request Table
+class Request(db.Model):
+    request_id = db.Column(db.Integer, primary_key=True)
+    user_email_request = db.Column(db.String(255), db.ForeignKey('user.email'),  nullable=False)
+    user_email_requestie = db.Column(db.String(255), db.ForeignKey('user.email'), nullable=False)
+    wanted_item_id = db.Column(db.Integer, db.ForeignKey('item.item_id'), nullable=False)
+    rejected_by_requestie = db.Column(db.Boolean, default=False)
+
+    requester = db.relationship('User', foreign_keys=[user_email_request])
+    requestie = db.relationship('User', foreign_keys=[user_email_requestie])
+    wanted_item = db.relationship('Item', foreign_keys=[wanted_item_id])
+    
+
+    def __init__(self, user_email_request, user_email_requestie, wanted_item_id, rejected_by_requestie):
+        self.user_email_request = user_email_request
+        self.user_email_requestie = user_email_requestie
+        self.wanted_item_id = wanted_item_id
+        self.rejected_by_requestie = rejected_by_requestie
 
 #Swap Table
 class Swap(db.Model):
     swap_id = db.Column(db.Integer, primary_key=True)
-    user_id_gives = db.Column(db.Integer, db.ForeignKey('user.user_id'), nullable=False)
-    user_id_taker = db.Column(db.Integer, db.ForeignKey('user.user_id'), nullable=False)
-    date = db.Column(db.Date, nullable=False)
-    item_id = db.Column(db.Integer, db.ForeignKey('item.item_id'), nullable=False)
+    user_email_requester = db.Column(db.String(255), db.ForeignKey('user.email'), nullable=False)
+    user_email_requestie = db.Column(db.String(255), db.ForeignKey('user.email'), nullable=False)
+    wanted_item_id = db.Column(db.Integer, db.ForeignKey('item.item_id'), nullable=False)
+    requestie_item_id = db.Column(db.Integer, db.ForeignKey('item.item_id'), nullable=False)
+    accepted = db.Column(db.Boolean, default=False)
+    rejected_by_requester = db.Column(db.Boolean, default=False)
+    ##deleted a double date column after db reset
 
     #Foreign Keys
-    user_giver = db.relationship('User', foreign_keys=[user_id_gives])
-    user_taker = db.relationship('User', foreign_keys=[user_id_taker])
+    requester = db.relationship('User', foreign_keys=[user_email_requester])
+    requestie = db.relationship('User', foreign_keys=[user_email_requestie])
+    wanted_item = db.relationship('Item', foreign_keys=[wanted_item_id])
+    requestie_item = db.relationship('Item', foreign_keys=[requestie_item_id])
 
-    def __init__(self, user_id_gives, user_id_taker, date, item_id):
-        self.user_id_gives = user_id_gives
-        self.user_id_taker = user_id_taker
+    def __init__(self, user_email_requester, user_email_requestie, wanted_item_id, requestie_item_id, date, accepted, rejected_by_requester):
+        self.user_email_requester = user_email_requester
+        self.user_email_requestie = user_email_requestie
+        self.wanted_item_id = wanted_item_id
+        self.requestie_item_id = requestie_item_id
         self.date = date
-        self.item_id = item_id
+        self.accepted = accepted
+        self.rejected_by_requester = rejected_by_requester
 
 # Community Table 
 class Community(db.Model):
@@ -99,11 +130,11 @@ class Thread(db.Model):
     email_FK = db.relationship('User', foreign_keys=[email])
 
     # Initialization
-    def __init__(self, community_id, title, description, user_id):
+    def __init__(self, community_id, title, description, email):
         self.community_id = community_id
         self.title = title
         self.description = description
-        self.user_id = user_id
+        self.email = email
 
 # Post table 
 class Post(db.Model):

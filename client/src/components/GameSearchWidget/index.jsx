@@ -1,10 +1,14 @@
 import React,  { useState, useEffect} from "react";
 import SearchForm from "../SearchForm";
 import BookSearchCard from "../BookSearchCard";
+import { useNavigate } from "react-router-dom";
+
 
 export default function GameSearchWidget () {
     const [searchString, setSearchString] = useState("");
     const [games, setGames] = useState([]);
+    const navigate = useNavigate()
+
 
     useEffect(() => {
         fetchComics();

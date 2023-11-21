@@ -43,6 +43,9 @@ def get_all():
         return jsonify(format_community(new_community)), 201
 
     
-# ? USER STORY > User selects a single community
+@community_bp.route("/<community_id>", methods=['GET'])
+def community_id(community_id):
+    
+    community = Community.query.filter_by(community_id=community_id).first()
+    return jsonify(community_id=community.community_id, community_name=community.community_name, description=community.description)
 
-# @community_bp.route("/<community_id>", methods=['GET'])

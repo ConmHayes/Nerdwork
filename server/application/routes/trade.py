@@ -12,6 +12,15 @@ def format_request(request_obj):
         'rejected_by_requestie': request_obj.rejected_by_requestie
     }
 
+def format_request_get(request_obj):
+    return {
+        'request_id': request_obj.request_id,
+        'user_email_request': request_obj.user_email_request,
+        'user_email_requestie': request_obj.user_email_requestie,
+        'wanted_item_id': request_obj.wanted_item_id,
+        'rejected_by_requestie': request_obj.rejected_by_requestie
+    }
+
 def format_swap(request_obj):
     return {
         'user_email_requester': request_obj.user_email_requester,
@@ -31,7 +40,7 @@ def get_all_requests():
 
     requests =[]
     for r in requests_obj:
-        requests.append(format_request(r))
+        requests.append(format_request_get(r))
 
     return jsonify(requests= requests)
 

@@ -26,10 +26,8 @@ export default function ProfilePage( { onAddBook }){
             Authorization : localStorage.token,
           },
         }
-        console.log(options)
         const response = await fetch(`${apiURL}/user/${localStorage.email}`, options)
         const data = await response.json()
-        console.log(response)
         setUsername(data.username)
       } 
   
@@ -65,7 +63,7 @@ export default function ProfilePage( { onAddBook }){
                                 <i className="material-icons ikon">person</i>
                             </span>
                         </div>
-                        <div className="flexbox-item" style = {{position: "relative", left: "10px", width: "400px"}}>
+                        <div className="flexbox-item" style = {{position: "relative", left: "10px", width: "350px"}}>
                             <h3> Welcome, {username}!</h3>
                         </div>
                         <div className="flexbox-item bell">
@@ -114,9 +112,12 @@ export default function ProfilePage( { onAddBook }){
                                     onRequestClose={closeModal}
                                     contentLabel="Book Details"
                                     className="modal-form-profile" 
-                                    onAddBook={ onAddBook }
+                                    modalOpen={modalOpen}
+                                    setModalOpen={setModalOpen}
                                 >
-                                    <GeneralForm style ={{textAlign: "center"}}/>
+                                    <GeneralForm style ={{textAlign: "center"}}
+                                    setModalOpen={setModalOpen}
+                                    modalOpen={modalOpen}/>
                                 </Modal>
                     </div>
                     

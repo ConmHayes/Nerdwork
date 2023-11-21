@@ -4,8 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { FormInput, FormMultiSelect, FormRating, FormSelect, NavigationBar } from '../../components';
 
 
-export default function GeneralForm( { onAddBook } ){
-    console.log(onAddBook)
+export default function GeneralForm( { onAddBook, modalOpen, setModalOpen } ){
     const [formData, setFormData] = useState({
         title: "",
         img: "",
@@ -14,7 +13,9 @@ export default function GeneralForm( { onAddBook } ){
         issue_num: "",
         email: "",
         rating: 0,
-        category: ""
+        category: "",
+        description: null,
+        tradeable: true
       });
       const [selectedgenre, setSelectedgenre] = useState([]);
       const [error, setError] = useState('');
@@ -78,10 +79,10 @@ export default function GeneralForm( { onAddBook } ){
     
           const result = await response.json();
           console.log(result);
-          onAddBook(result);
+          await updateImage(formData.title, formData.email);
+          setModalOpen(false)
     
           // Call the updateImage function after successful POST
-          await updateImage(formData.title, formData.email);
     
           // navigate("/profile");
         } catch (error) {
@@ -108,16 +109,16 @@ export default function GeneralForm( { onAddBook } ){
     
 
     return(
-    <Container>
+    <div style={{width: "100%"}}>
         <Row className="justify-content-md-center w-100">
             <Col md={6}>
-            <h2>Add New Item</h2>
+            <h2 style={{textAlign: "center"}}>Add New Item</h2>
             {error && <Alert variant="danger">{error}</Alert>}
             <Form onSubmit={handleSubmit} style={{textAlign: "center"}}>
                 <FormInput label="Title" type="text" placeholder="Enter title" name="title" value={formData.title} onChange={handleChange} />
                 {/* <FormInput label="Image URL" type="text" placeholder="Enter image URL" name="img" value={formData.img} onChange={handleChange} /> */}
                 <FormInput label="Author" type="text" placeholder="Enter author's name" name="author" value={formData.author} onChange={handleChange} />
-                <FormMultiSelect label="Genres" name="genre" selected={selectedgenre} options={['Cyberpunk', 'Superhero', 'Romance', 'Adventure', 'Thriller', 'Survival', 'Sport', 'Mecha', 'Musical', 'Other']} onChange={handleGenreChange} />
+                <FormMultiSelect label="Genres" name="genre" selected={selectedgenre} options={['Cyberpunk', 'Superhero', 'Romance', 'Adventure', 'Thriller', 'Survival', 'Sport', 'Mecha', 'Musical', "Comedy", "Science Fiction", "Fantasy", "Historical", 'Other']} onChange={handleGenreChange} />
                 <FormInput label="Issue Number" type="text" placeholder="Enter issue number" name="issue_num" value={formData.issue_num} onChange={handleChange} />
                 {/* <FormInput label="Email" type="text" placeholder="Enter your email" name="email" value={formData.email} onChange={handleChange} /> */}
                 <FormRating label="Rating" name="rating" value={formData.rating} onChange={handleChange} min={0} max={5} step={0.1} />
@@ -126,6 +127,6 @@ export default function GeneralForm( { onAddBook } ){
             </Form>
             </Col>
         </Row>
-    </Container>
+    </div>
     )
 }

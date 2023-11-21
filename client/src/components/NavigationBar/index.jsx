@@ -10,7 +10,7 @@ const NavigationBar = () => {
   return (
     <div className='main-container mt-5'>
       <Navbar bg="light" expand="lg" className="mb-3" fixed="top">
-        <Navbar.Brand as={NavLink} to="/">
+        <Navbar.Brand as={NavLink} to="/" style={{marginLeft:"20px"}}>
           Nerdwork
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />

@@ -3,7 +3,7 @@ import { Container, Row, Col, Button, Form, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { FormInput, FormMultiSelect, FormRating, FormSelect, NavigationBar } from '../../components';
 
-const FormsPage = ({ onAddBook }) => {
+const FormsPage = ({ onAddBook, setModalOpen, modalOpen }) => {
   const [formData, setFormData] = useState({
     title: "",
     img: "",
@@ -68,7 +68,7 @@ const FormsPage = ({ onAddBook }) => {
         },
         body: JSON.stringify(dataToSend),
       });
-
+      console.log(response)
       if (!response.ok) {
         const errorBody = await response.json(); 
         throw new Error(`HTTP error! status: ${response.status}, Message: ${errorBody.message}`);
@@ -76,11 +76,10 @@ const FormsPage = ({ onAddBook }) => {
 
       const result = await response.json();
       console.log(result);
-      onAddBook(result);
 
       // Call the updateImage function after successful POST
       await updateImage(formData.title, formData.email);
-
+      setModalOpen(false)
       // navigate("/profile");
     } catch (error) {
       setError(`There was a problem adding your item: ${error.message}`);

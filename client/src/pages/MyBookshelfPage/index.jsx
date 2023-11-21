@@ -9,7 +9,7 @@ import HPPOA from "../../../public/71OZrU2sQTL._AC_UF1000,1000_QL80_.jpg"
 import LOTR from "../../../public/9780261103252.jpg"
 import TH from "../../../public/x500_bbb7d1ed-aba7-4eb8-a464-b1d64350a1c1_500x.jpg"
 import "animate.css"
-import { Container, Row, Col, Button, Form } from 'react-bootstrap';
+import { Container, Row, Col, Button, Form, Badge } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { NavigationBar, FormInput, FormMultiSelect, FormRating, FormSelect, Bookshelf } from '../../components';``
 
@@ -31,8 +31,6 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended, 
     const [selectedGenres, setSelectedGenres] = useState([]);
     const [error, setError] = useState('');
     const [initialBooks, setInitialBooks] = useState([])
-
-
     const [formData, setFormData] = useState({
         title: '',
         img: '',
@@ -45,6 +43,13 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended, 
 
       const [username, setUsername] = useState("")
 
+
+      const top_icons = ["home", "sports_esports", "import_contacts", "diversity_3"]
+      const bottom_icons = ["settings", "call"]
+  
+      const top_links = [`${localURL}profile`, "/", "/", "/"]
+      const bottom_links = ["/", "/"]
+  
       async function getUsername(){
           const options = {
             method: "GET",
@@ -75,12 +80,13 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended, 
             </span>
           ))
           
-
-        const bookCardElement = document.getElementById(`Book_${book.id}`);
+        console.log(book.item_id)
+        const bookCardElement = document.getElementById(`Book_${book.item_id}`);
         const bookCardRect = bookCardElement.getBoundingClientRect();
         const modalArrowX = bookCardRect.left - bookCardRect.width/2;       
         setStarRating(stars)
         setModalArrowX(modalArrowX)
+        console.log(modalArrowX)
         setSelectedBook(book)
         
         setModalOpen(true)
@@ -201,15 +207,17 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended, 
       };
     
     
-    
+    function generateBadges(genres){
+        const genreBadges = genres && Array.isArray(genres) ? genres.map((genre, index) => (
+            <Badge key={index} pill bg="secondary" className="mr-1" color='tertiary'>
+              {genre}
+            </Badge>
+          )) : null;
+        return (genreBadges
 
-    const top_icons = ["home", "sports_esports", "import_contacts", "diversity_3"]
-    const bottom_icons = ["settings", "call"]
+        )
+    }
 
-
-
-    const top_links = [`${siteURL}profile`, "/", "/", "/"]
-    const bottom_links = ["/", "/"]
 
     async function getBooksAndFilter(){
         const options = {
@@ -310,9 +318,9 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended, 
                 <div className="flexbox-item carousel-container" style={{justifyContent:"flex-start"}}>
                     {
                     initialBooks.map((book, i) => (
-                        <div key={i} onClick = {() => openModal(book)} id={`Book_${book.id}`} 
+                        <div key={i} onClick = {() => openModal(book)} id={`Book_${book.item_id}`} 
                         className={!selectedBook ? "" : selectedBook.title == book.title ? "animate__animated animate__bounceIn" : ""}>
-                            <BookCard book={ book } isSelected={selectedBook && selectedBook.id === book.id}
+                            <BookCard book={ book } isSelected={selectedBook && selectedBook.id === book.item_id}
                             />
                         </div>
                     ))}
@@ -328,16 +336,33 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended, 
                 >
                     {selectedBook && (
                     <>
-                        <div className="modal-arrow" style={{ left: modalArrowX }}></div>
-                        <h3>{selectedBook.title}</h3>
+                        <div className="flexbox-container">
+                            <div className="flexbox-item" style={{width: "30%", justifyContent: "flex-start"}}>
+                            <h3>{selectedBook.title}</h3>
+                            </div>
+                            <div className="flexbox-item" style={{width: "60%"}}>
+                                {generateBadges(selectedBook.genre)}
+                            </div>
+                            <div className="flexbox-item" style={{width: "10%", justifyContent: "flex-end"}}>
+                            <i className="material-icons close-ikon"
+                                    onClick={closeModal} 
+                                    style={{marginRight: "50px", marginLeft: "20px", marginBottom:"20px", color: "red"}}>
+                                        cancel
+                                </i>
+
+                            </div>
+
+                        </div>
                         <p>Author: {selectedBook.author}</p>
                         <div>{starRating}</div>
-                        <button className="close-button" onClick={closeModal}>
-                        Close
-                        </button>
+                        <p>{selectedBook.description}</p>
+                        
                     </>
                     )}
                 </Modal>
+                {isModalOpen && selectedBook && (
+                    <div className="modal-arrow" style={{ left: modalArrowX, marginTop: "-50px" }}></div>
+                )}
             </div>
         </div>
     )

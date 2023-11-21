@@ -21,7 +21,7 @@ const siteURL = "https://nerdwork.onrender.com/"
 const localURL = "http://localhost:5173/"
 
 
-export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended }){
+export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended, onAddBook }){
     
     const [isModalOpen, setModalOpen] = useState(false)
     const [selectedBook, setSelectedBook] = useState(null)
@@ -30,6 +30,7 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended }
     const [formOpen, setFormOpen] = useState(false)
     const [selectedGenres, setSelectedGenres] = useState([]);
     const [error, setError] = useState('');
+    const [initialBooks, setInitialBooks] = useState([])
 
 
     const [formData, setFormData] = useState({
@@ -39,7 +40,7 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended }
         genres: [],
         owner: '',
         rating: 0,
-        category: ''
+        category: 'book'
       });
 
       const [username, setUsername] = useState("")
@@ -99,51 +100,15 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended }
             img: '',
             author: '',
             genres: [],
-            owner: '',
+            email: '',
             rating: 0,
-            category: 'Book'
+            category: 'Book',
+            issue_num: null,
+            description: null,
+            tradeable: true
           })
         setFormOpen(false)
     }
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-      
-        // Prepare the data to be sent
-        const dataToSend = {
-          ...formData,
-          genre: selectedGenres, 
-          issue_num: parseInt(formData.issue_num, 10), 
-          email: formData.email,
-          rating: parseFloat(formData.rating) 
-        };
-      
-        try {
-          const response = await fetch('https://nerdwork-server.onrender.com/item/', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: localStorage.token
-            },
-            body: JSON.stringify(dataToSend),
-          });
-          console.log(response)
-          if (!response.ok) {
-            const errorBody = await response.json(); 
-            throw new Error(`HTTP error! status: ${response.status}, Message: ${errorBody.message}`);
-          }
-          
-      
-          const result = await response.json();
-          console.log(result);
-          onAddBook(result);
-          setFormOpen(false)
-          // navigate("/profile");
-        } catch (error) {
-          setError(`There was a problem adding your item: ${error.message}`);
-          console.error('Error:', error);
-        }
-      };
     
 
       const handleChange = (e) => {
@@ -165,6 +130,77 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended }
         setFormData(prev => ({ ...prev, genre: newSelected }));
       };
     
+      useEffect(() => {
+        const userEmail = localStorage.getItem('email');
+        if (userEmail) {
+          setFormData(prevFormData => ({ ...prevFormData, email: userEmail }));
+        }
+      }, []);
+    
+      const updateImage = async (title, email) => {
+        try {
+          const response = await fetch(`https://nerdwork-server.onrender.com/google/`, {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ title, email }),
+          });
+    
+          if (!response.ok) {
+            const errorBody = await response.json();
+            throw new Error(`HTTP error! status: ${response.status}, Message: ${errorBody.message}`);
+          }
+    
+          // Handle the response here
+          const result = await response.json();
+          console.log('Image updated:', result);
+        } catch (error) {
+          console.error('Error updating image:', error);
+          setError(`There was a problem updating the image: ${error.message}`);
+        }
+      };
+
+      const handleSubmit = async (e) => {
+        e.preventDefault();
+    
+        const dataToSend = {
+          ...formData,
+          genre: selectedGenres, 
+          issue_num: parseInt(formData.issue_num, 10),
+          email: formData.email,
+          rating: parseFloat(formData.rating) 
+        };
+    
+        try {
+          const response = await fetch('https://nerdwork-server.onrender.com/item/', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: localStorage.token
+            },
+            body: JSON.stringify(dataToSend),
+          });
+    
+          if (!response.ok) {
+            const errorBody = await response.json(); 
+            throw new Error(`HTTP error! status: ${response.status}, Message: ${errorBody.message}`);
+          }
+    
+          const result = await response.json();
+          console.log(result);
+    
+          // Call the updateImage function after successful POST
+          await updateImage(formData.title, formData.email);
+    
+          // navigate("/profile");
+        } catch (error) {
+          setError(`There was a problem adding your item: ${error.message}`);
+          console.error('Error:', error);
+        }
+      };
+    
+    
     
 
     const top_icons = ["home", "sports_esports", "import_contacts", "diversity_3"]
@@ -175,63 +211,29 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended }
     const top_links = [`${siteURL}profile`, "/", "/", "/"]
     const bottom_links = ["/", "/"]
 
-    const initialBooks = [
-        // give me random books
-        {
-          id: 1,
-          title: 'The Hobbit',
-          img: TH,
-          author: 'J.R.R. Tolkien',
-          genres: ['Fantasy'],
-          owner: 'John Doe',
-          rating: 4.5
-        },
-        {
-          id: 2,
-          title: 'The Lord of the Rings',
-          img: LOTR,
-          author: 'J.R.R. Tolkien',
-          genres: ['Fantasy'],
-          owner: 'John Doe',
-          rating: 4.5
-        },
-        {
-          id: 3,
-          title: 'Harry Potter and the Chamber of Secrets',
-          img: HPCOS,
-          author: 'J.K. Rowling',
-          genres: ['Fantasy'],
-          owner: 'John Doe',
-          rating: 4.5
-        },
-        {
-          id: 4,
-          title: 'Harry Potter and the Prisoner of Azkaban',
-          img: HPPOA,
-          author: 'J.K. Rowling',
-          genres: ['Fantasy'],
-          owner: 'John Doe',
-          rating: 4.5
-        },
-        {
-          id: 5,
-          title: 'Harry Potter and the Goblet of Fire',
-          img: HPGOF,
-          author: 'J.K. Rowling',
-          genres: ['Fantasy'],
-          owner: 'John Doe',
-          rating: 2
-        },
-        {
-          id: 6,
-          title: 'Harry Potter and the Order of the Phoenix',
-          img: Harry_Potter_and_the_Order_of_the_Phoenix,
-          author: 'J.K. Rowling',
-          genres: ['Fantasy'],
-          owner: 'John Doe',
-          rating: 3
-        },
-      ];
+    async function getBooksAndFilter(){
+        const options = {
+            method: "GET",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                Authorization: localStorage.token
+            }
+        }
+        const response = await fetch(`${apiURL}/item/book`, options)
+        const data = await response.json()
+    
+        // Filter books based on the condition
+        const filteredBooks = data.items.filter(book => book.email === localStorage.email);
+        console.log(filteredBooks)
+
+        setInitialBooks(filteredBooks)
+
+    }
+    useEffect(() => {
+        getBooksAndFilter()
+    }, [])
+
 
     return (
         
@@ -295,10 +297,9 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended }
                                 <Col md={6}>
                                     <FormInput label="Title" type="text" placeholder="Enter title" name="title" value={formData.title} onChange={handleChange} />
                                     <FormInput label="Author" type="text" placeholder="Enter author's name" name="author" value={formData.author} onChange={handleChange} />
-                                    <FormMultiSelect label="Genres" name="genres" selected={selectedGenres} options={['Cyberpunk', 'Superhero', 'Romance', 'Adventure', 'Thriller', 'Survival', 'Sport', 'Mecha', 'Musical', 'Other']} onChange={handleGenreChange} />
+                                    <FormMultiSelect label="Genres" name="genres" selected={selectedGenres} options={['Cyberpunk', 'Superhero', 'Romance', 'Adventure', 'Thriller', 'Survival', 'Sport', 'Mecha', 'Musical', "Comedy", "Science Fiction", "Fantasy", "Historical", 'Other']} onChange={handleGenreChange} />
                                     <h3>Owner:</h3><p>{username}</p>
                                     <FormRating label="Rating" name="rating" value={formData.rating} onChange={handleChange} min={0} max={5} step={0.1} />
-                                    <h3>Category:</h3><p>Book</p>                                    
                                     <Button variant="primary" type="submit" className="login-button">Submit</Button>
                                 </Col>
                             </Row>    
@@ -331,7 +332,6 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended }
                         <h3>{selectedBook.title}</h3>
                         <p>Author: {selectedBook.author}</p>
                         <div>{starRating}</div>
-                        {/* Add other book details as needed */}
                         <button className="close-button" onClick={closeModal}>
                         Close
                         </button>
@@ -343,6 +343,3 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended }
     )
 }
 
-//<button className="login-button" onClick={openModal}> Open Modal </button>
-//className="custom-modal"
-//overlayClassName="custom-overlay"

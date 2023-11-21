@@ -48,6 +48,22 @@ export default function ProfilePage( { onAddBook }){
         setModalOpen(false)
     }
 
+    async function getCarouselItems(){
+        options = {
+            method: "GET",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                Authorization: localStorage.token
+            }
+        }
+        const response = await fetch(`${apiURL}/item`, options)
+        const data = await response.json()
+        console.log(data.items)
+    
+
+    }
+
     useEffect(() => {
         getUsername()
     }, [])
@@ -157,5 +173,5 @@ export default function ProfilePage( { onAddBook }){
   );
 };
 
-
+//TODO: Get 21 things from the database
 //21 entries

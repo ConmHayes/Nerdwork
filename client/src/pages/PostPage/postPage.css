@@ -1,0 +1,98 @@
+
+
+.thread {
+    max-width: 800px;
+    margin: 0 auto;
+    font-family: "Source Sans Pro",Arial,sans-serif;
+    margin-top: 70px;
+    background-color: #ffffff;
+  }
+  
+  .thread-head,
+  .post-card {
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+  
+  .thread-title {
+    font-size: 24px;
+    color: black;
+    margin-bottom: 8px;
+  }
+  
+  .thread-description {
+    font-size: 16px;
+    color: black;
+    
+  }
+
+  
+  
+  .post-head {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  
+  .user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 12px;
+  }
+  
+  .user-email {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  .post-body {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  
+  .post-footer {
+    display: flex;
+    align-items: center;
+    margin-top: 12px;
+  }
+  
+  .vote-icon {
+    /* Use an actual icon here */
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+    background: #ddd; /* Placeholder for the icon */
+  }
+  
+  .vote-count {
+    font-size: 16px;
+  }
+  
+  .sorter {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 16px;
+    margin-top: 10px;
+  }
+  
+  .sorter label {
+    margin-right: 8px;
+  }
+  
+  .sorter select {
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+  }
+  
+  .posts-container {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid #ddd;
+  }

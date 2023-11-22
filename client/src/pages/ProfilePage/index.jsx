@@ -122,6 +122,7 @@ export default function ProfilePage(){
           } catch (error) {
             console.error('Error fetching requests:', error);
           }
+        }
 
     function openModal(){
         setModalOpen(true)
@@ -284,10 +285,3 @@ export default function ProfilePage(){
     </div>
   );
 };
-
-//TODO: Re
-
-/*
-
-                    onclick={navigate(`/BookDetail/${item.item_id}`, { state: booksWithTitle  })}
-*/

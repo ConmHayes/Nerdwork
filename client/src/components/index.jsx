@@ -1,4 +1,3 @@
-export { default as Header } from "./Header"
 export { default as UsernameForm } from "./UsernameForm"
 export { default as ComicSearchWidget} from "./ComicSearchWidget"
 export { default as BookSearchWidget} from "./BookSearchWidget"

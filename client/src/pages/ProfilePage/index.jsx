@@ -15,6 +15,7 @@ export default function ProfilePage(){
     const [sidebarExtended, setSidebarExtended] = useState(true)
     const [username, setUsername] = useState("");
     const [requests, setRequests] = useState([]);
+    const [swap, setSwap] = useState([]);
     const [item, setItem] = useState([])
     const [modalOpen, setModalOpen] = useState(false)
     const [carouselItems, setCarouselItems] = useState([])
@@ -44,7 +45,7 @@ export default function ProfilePage(){
             },
           });
           const data = await response.json();
-          const requestData = data.requests; // Access the Communities array in the response
+          const requestData = data.requests; 
           setRequests(requestData)
         } catch (error) {
           console.error('Error fetching requests:', error);
@@ -59,12 +60,27 @@ export default function ProfilePage(){
             },
           });
           const data = await response.json();
-          const itemData = data.Items; // Access the Communities array in the response
+          const itemData = data.Items; 
           setItem(itemData)
         } catch (error) {
           console.error('Error fetching item:', error);
         }
       };
+
+    const fetchSwap = async () => {
+        try {
+          const response = await fetch('https://nerdwork-server.onrender.com/trade/swap', {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
+          const data = await response.json();
+          const swapData = data.swaps; 
+          setSwap(swapData)
+        } catch (error) {
+          console.error('Error fetching requests:', error);
+        }
+    };
 
     useEffect(() => {
         fetchRequest();
@@ -78,6 +94,10 @@ export default function ProfilePage(){
         fetchItems()
     }, [])
 
+    useEffect(() => {
+      fetchSwap()
+  }, [])
+
     // useEffect(() =>{
     //     displayRequests()
     // }, [requests])
@@ -90,6 +110,19 @@ export default function ProfilePage(){
     const bottom_rows = ["Settings", "Contact Us"]
     const bottom_icons = ["settings", "call"]
     const bottom_links = ["/", "/"] 
+
+    function displayApproval() {
+      return swap.filter(swaps => swaps.user_email_requester === localStorage.getItem('email') && swaps.accepted == false && swaps.rejected_by_requester == false)
+      .map(swap => (
+          <div key={swap.swap_id} >
+              <h2>The email who requested: {swap.user_email_swap}</h2>
+              <p>The item that you requested: {item.filter(items => items.item_id == swap.wanted_item_id).map(item => item.title)}</p>
+              <p>The item that they requested: {item.filter(items => items.item_id == swap.requestie_item_id).map(item => item.title)}</p>
+              <button onClick={() => handleViewTrades(swap)}>View Trades</button>
+              <button onClick={() => handleReject(swap)}>reject</button>
+          </div>
+        ));
+    } 
 
     function displayRequests() {
         return requests.filter(requests => requests.user_email_requestie === localStorage.getItem('email') && requests.rejected_by_requestie == false)

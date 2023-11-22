@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # from application import routes
-from application.routes import auth, user, item, find_data, community, thread, trade
+from application.routes import auth, user, item, find_data, community, thread, trade, post
 
 
 app = Flask(__name__)
@@ -31,5 +31,6 @@ app.register_blueprint(find_data.google_bp)
 app.register_blueprint(trade.trade_bp)
 app.register_blueprint(community.community_bp)
 app.register_blueprint(thread.thread_bp)
+app.register_blueprint(post.post_bp)
 
 

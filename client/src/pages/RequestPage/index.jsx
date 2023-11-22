@@ -9,8 +9,8 @@ const RequestPage = () => {
   const [requests, setRequests] = useState([])
   const [item, setItem] = useState([])
   const [books, setBooks] = useState([]);
-  const { id } = useParams()
-
+  let { id } = useParams()
+  id = parseInt(id)
   const fetchRequest = async () => {
     try {
       const response = await fetch('https://nerdwork-server.onrender.com/trade/', {
@@ -31,13 +31,12 @@ const RequestPage = () => {
   }, []);
 
   const requestProfile = async (id, requests) => {
-    console.log(id)
-    console.log(requests)
-    const singleRequest = requests.find(obj => obj[3] === 3)
-    console.log(singleRequest)
-    const Request = singleRequest.user_email_request
+    // Example usage
+    const desiredRequestId = id;
+    const singleRequest = findItemByRequestId(desiredRequestId, requests);
+    const requestEmail = singleRequest.user_email_request
     const item_id = singleRequest.wanted_item_id
-
+    let ourCategory = undefined
     try {
       const response = await fetch('https://nerdwork-server.onrender.com/item/', {
         headers: {
@@ -47,11 +46,24 @@ const RequestPage = () => {
       const data = await response.json();
       const itemData = data.Items; 
       const ourItem = itemData.filter(item => item_id == item.item_id)
-      setItem(ourItem)
+      ourCategory = ourItem[0].category
+
+      try {
+        const response = await fetch(`https://nerdwork-server.onrender.com/user/${requestEmail}/${ourCategory}`, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        const userData = await response.json();
+        const itemDetail = userData.items; 
+      } catch (error) {
+        console.error('Error fetching item:', error);
+      }
     } catch (error) {
       console.error('Error fetching item:', error);
     }
 
+    
 
   }
 
@@ -59,7 +71,32 @@ const RequestPage = () => {
       requestProfile(id, requests);
   }, [id, requests]);
 
-  
+  function findItemByRequestId(requestId, data) {
+    for (const item of data) {
+        // console.log(item)
+        if (item.request_id === requestId) {
+            return item;
+        }
+    }
+    return null;
+}
+
+function displaybooks() {
+  return requests.map(request => (
+      <div key={request.request_id} >
+          <h2>The email who requested: {request.user_email_request}</h2>
+          <p>The item_id that was requested: {item.filter(items => items.item_id == request.wanted_item_id).map(item => item.title)}</p>
+          <button onClick={() => handleViewTrades(request)}>View Trades</button>
+          <button onClick={() => handleReject(request)}>reject</button>
+      </div>
+    ));
+} 
+
+
+
+
+
+
   const handleTradeRequest = (selectedBookId, selectedDate) => {
     // Find the book in the books array
     const bookToTrade = books.find(book => book.id === selectedBookId);

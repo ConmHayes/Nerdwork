@@ -48,6 +48,8 @@ function App() {
 
           <Route path="/communities" element={<Pages.CommunityPage />} />
           <Route path="/communities/threads/:id" element={<Pages.ThreadsPage />} />
+          <Route path="/post/:thread_id" element={<Pages.PostPage />} />
+
 
         </Route>
       </Routes>

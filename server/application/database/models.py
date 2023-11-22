@@ -150,9 +150,9 @@ class Post(db.Model):
     thread_id_FK = db.relationship('Thread', foreign_keys=[thread_id])
 
     # Initialization 
-    def __init__(self, post_title, user_id, thread_id, body, votes=0):
+    def __init__(self, post_title, email, thread_id, body, votes=0):
         self.post_title = post_title
-        self.user_id = user_id
+        self.email = email
         self.thread_id = thread_id
         self.body = body
         self.votes = votes

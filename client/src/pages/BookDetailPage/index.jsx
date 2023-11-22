@@ -77,21 +77,23 @@ export default function BookDetailPage(){
   return (
     <div className="book-detail-page">
       <div className="container">
-        <h1 className="page-title">Book Details</h1>
+        <h1 className="page-title">{data.title}</h1>
+        <h3 className='page-author'> {data.author}</h3>
         <div className="image-container">
-          <img src={data.imageUrl} alt={data.title} className="book-image"/>
+          <img src={data.img} alt={data.title} className="book-image"/>
         </div>
         <div className="text-content">
-          <h2 className="title">{data.title}</h2>
-          <h3 className="author">{data.author}</h3>
-          <p className="description">{data.description}</p>
+          <div className='description'>
+            <h3> Discription : </h3>
+            <p>{data.description}</p>
+          </div>
           <div className="genres">
             <Genre genres={data.genre} />
           </div>
           <div className="rating">
             <Rating value={data.rating} />
           </div>
-          </div>
+        </div>
       </div>
       <div className="owners-section">
       <h2>Owners of this Book</h2>

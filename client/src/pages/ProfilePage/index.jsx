@@ -2,7 +2,11 @@ import { useState, useEffect } from "react"
 import React from "react"
 import "./style.css"
 import { Link } from "react-router-dom"
+import { GeneralForm, BookCard } from "../../components"
+import Modal from "react-modal"
 import { useNavigate } from "react-router-dom";
+
+
 
 const apiURL = "https://nerdwork-server.onrender.com"
 const siteURL = "https://nerdwork.onrender.com/"
@@ -13,7 +17,11 @@ export default function ProfilePage(){
     const [username, setUsername] = useState("");
     const [requests, setRequests] = useState([]);
     const [item, setItem] = useState([])
-    const navigate = useNavigate();
+    const [modalOpen, setModalOpen] = useState(false)
+    const [carouselItems, setCarouselItems] = useState([])
+    const [userItems, setUserItems] = useState([])
+    const navigate = useNavigate()
+
     async function getUsername(){
         const options = {
           method: "GET",
@@ -77,7 +85,8 @@ export default function ProfilePage(){
   
     const top_rows = ["My Bookshelf", "My Games", "My Comics", "My Friends"]
     const top_icons = ["book", "sports_esports", "import_contacts", "diversity_3"]
-    const top_links = [`${siteURL}profile/bookshelf`, "/", "/", "/"]
+    const top_var = ["book", "game", "comic book", ""]
+    const top_links = [`${siteURL}profile/bookshelf`, `${siteURL}profile/bookshelf`, `${siteURL}profile/bookshelf`, "/"]
 
     const bottom_rows = ["Settings", "Contact Us"]
     const bottom_icons = ["settings", "call"]
@@ -94,6 +103,7 @@ export default function ProfilePage(){
             </div>
           ));
       } 
+
 
     const handleReject = async (request) => {
         try {
@@ -112,11 +122,70 @@ export default function ProfilePage(){
           } catch (error) {
             console.error('Error fetching requests:', error);
           }
+
+    function openModal(){
+        setModalOpen(true)
+    }
+    function closeModal(){
+        setModalOpen(false)
     }
 
     const handleViewTrades = async (request) => {
         navigate(`/request/${request.request_id}`)
     }
+
+    async function getCarouselItems(){
+        const options = {
+            method: "GET",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                Authorization: localStorage.token
+            }
+        }
+        const response = await fetch(`${apiURL}/item/book`, options)
+        const data = await response.json()
+        
+        const len = data.items.length
+        const randomArray = [];
+        const tracking = []
+
+        while (randomArray.length < 21) {
+          const randomIndex = Math.floor(Math.random() * len);
+        
+          // Check if the random index is not already in the array
+          if (!tracking.includes(randomIndex)) {
+            tracking.push(randomIndex)
+            randomArray.push(data.items[randomIndex]);
+          }
+        }
+        const filteredBooks = data.items.filter(item => item.email === localStorage.email);
+        
+        setUserItems(filteredBooks)
+        
+
+        setCarouselItems(randomArray)        
+
+    }
+    function setShelf(shelf){
+        console.log(`${shelf}`)
+        localStorage.shelf=shelf
+        console.log(localStorage.shelf)
+    }
+
+    function makeCarousel(items){
+        return (
+            items.map((item) => (
+                <div className="profile-item" key={item.item_id} ><img src={item.img}></img></div>
+            ))
+        )
+    }
+
+    useEffect(() => {
+        getUsername()
+        getCarouselItems()
+    }, [])
+
 
     return(
         <div className="flexbox-container profile-container">
@@ -140,7 +209,7 @@ export default function ProfilePage(){
 
                 <div className="flexbox-container option-row ">
                     {top_rows.map((title, i) => (
-                    <Link to={top_links[i]} className="link" key={i}>    
+                    <Link to={top_links[i]} className="link" key={i} onClick={() => setShelf(top_var[i])}>    
                         <div className={`flexbox-item profile-option ${i % 2 === 0 ? 'even' : 'odd'}`}>
                                 <i className="material-icons left">{top_icons[i]}</i>
                                 {title}
@@ -164,45 +233,61 @@ export default function ProfilePage(){
 
             </div>
             <div className="flexbox-container flexbox-carousel">
+
                 <div>
 
                 </div>
                 <div>
                 {displayRequests()}
                 </div>
-                <p>Suggested for you...</p>
+
+                <div className="flexbox-container" style={{width:"100%"}}>
+                        <div className="flexbox-item"style={{width:"50%", justifyContent: "flex-start"}}><p>Suggested for you...</p></div>
+                        <div className="flexbox-item add-book" style={{width:"50%", justifyContent: "flex-end"}}>
+                                <p>Add an item to your account</p>
+                                    <i className="material-icons"
+                                        onClick={openModal} 
+                                        style={{marginRight: "50px", marginLeft: "20px", marginBottom:"20px"}}>
+                                            add_circle
+                                    </i>
+                                    <Modal
+                                        isOpen={modalOpen}
+                                        onRequestClose={closeModal}
+                                        contentLabel="Book Details"
+                                        className="modal-form-profile" 
+                                        modalOpen={modalOpen}
+                                        setModalOpen={setModalOpen}
+                                    >
+                                        <GeneralForm style ={{textAlign: "center"}}
+                                        setModalOpen={setModalOpen}
+                                        modalOpen={modalOpen}/>
+                                    </Modal>
+                        </div>
+                </div>
+
         
-            <div className="wrapper">
-                <div id="permas" style={{flexDirection: "row"}}>
-                    <div className="profile-item">Hello</div>
-                    <div className="profile-item">There</div>
-                    <div className="profile-item">World</div>
-                    <div className="profile-item">How</div>
-                    <div className="profile-item">Are</div>
-                    <div className="profile-item">You </div>
-                    <div className="profile-item">Doing</div>
-                    <div className="profile-item">Hello</div>
-                    <div className="profile-item">There</div>
-                    <div className="profile-item">World</div>
-                    <div className="profile-item">How</div>
-                    <div className="profile-item">Are</div>
-                    <div className="profile-item">You </div>
-                    <div className="profile-item">Doing</div>
-                    <div className="profile-item">Hello</div>
-                    <div className="profile-item">There</div>
-                    <div className="profile-item">World</div>
-                    <div className="profile-item">How</div>
-                    <div className="profile-item">Are</div>
-                    <div className="profile-item">You </div>
-                    <div className="profile-item">Doing</div>
+                <div className="wrapper">
+                    <div id="permas" style={{flexDirection: "row"}}>
+                        {makeCarousel(carouselItems)}
+                    </div>
+                </div>
+                <div className="flexbox-item flexbox-carousel" style={{marginTop:"50px", width: "100%"}}>
+                    <h3>Your Items</h3>
+                    <div className="wrapper">
+                        <div id="permas">
+                            {makeCarousel(userItems)}
+                        </div>
+                    </div>
                 </div>
             </div>
             
-
-
-      </div>
     </div>
   );
 };
 
+//TODO: Re
 
+/*
+
+                    onclick={navigate(`/BookDetail/${item.item_id}`, { state: booksWithTitle  })}
+*/

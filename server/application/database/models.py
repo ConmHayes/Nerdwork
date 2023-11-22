@@ -91,7 +91,7 @@ class Swap(db.Model):
     accepted = db.Column(db.Boolean, default=False)
     rejected_by_requester = db.Column(db.Boolean, default=False)
     date = db.Column(db.Date, nullable=True, default=datetime.utcnow)
-    ##deleted a double date column after db reset
+
 
     #Foreign Keys
     requester = db.relationship('User', foreign_keys=[user_email_requester])

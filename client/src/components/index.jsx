@@ -1,4 +1,3 @@
-export { default as Header } from "./Header"
 export { default as UsernameForm } from "./UsernameForm"
 export { default as ComicSearchWidget} from "./ComicSearchWidget"
 export { default as BookSearchWidget} from "./BookSearchWidget"
@@ -14,4 +13,4 @@ export { default as FormRating } from "./FormRating"
 export { default as Communities} from "./Communities"
 export { default as Rating } from "./Rating"
 export { default as Genre } from "./Genre"
-
+export { default as GeneralForm } from "./GeneralForm"

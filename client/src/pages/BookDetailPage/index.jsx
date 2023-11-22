@@ -13,13 +13,44 @@ export default function BookDetailPage(){
   const data  = books["0"]
   console.log(data)
    
-  function handleOwnerClick(bookId, ownerEmail) {
+  async function handleOwnerClick(bookId, ownerEmail) {
       const requesterEmail = localStorage.getItem('email')
       console.log(bookId, ownerEmail, requesterEmail)
-  };
+      
+      try {
+        const response = await fetch('https://nerdwork-server.onrender.com/trade/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            user_email_request: requesterEmail,
+            user_email_requestie: ownerEmail,
+            wanted_item_id : bookId,
+            rejected_by_requestie: false 
+          }),
+        });
   
+        if (!response.ok) {
+          const errorBody = await response.json(); 
+          throw new Error(`HTTP error! status: ${response.status}, Message: ${errorBody.message}`);
+        }
+  } catch(e){
+    console.log(e)
+  }
+}
   
-
+  // #create request instance
+  //       
+  //       user_email_request=user_email_request,
+  //       user_email_requestie=user_email_requestie,
+  //       wanted_item_id=wanted_item_id,
+  //       rejected_by_requestie=rejected_by_requestie                     
+  //   
+              // url: https://nerdwork-server.onrender.com/trade/
+              // method: POST
+              //content-type: 'application/json'
+  
   if (!data) {
     return <div>Loading...</div>;
   }
@@ -46,21 +77,23 @@ export default function BookDetailPage(){
   return (
     <div className="book-detail-page">
       <div className="container">
-        <h1 className="page-title">Book Details</h1>
+        <h1 className="page-title">{data.title}</h1>
+        <h3 className='page-author'> {data.author}</h3>
         <div className="image-container">
-          <img src={data.imageUrl} alt={data.title} className="book-image"/>
+          <img src={data.img} alt={data.title} className="book-image"/>
         </div>
         <div className="text-content">
-          <h2 className="title">{data.title}</h2>
-          <h3 className="author">{data.author}</h3>
-          <p className="description">{data.description}</p>
+          <div className='description'>
+            <h3> Discription : </h3>
+            <p>{data.description}</p>
+          </div>
           <div className="genres">
             <Genre genres={data.genre} />
           </div>
           <div className="rating">
             <Rating value={data.rating} />
           </div>
-          </div>
+        </div>
       </div>
       <div className="owners-section">
       <h2>Owners of this Book</h2>
@@ -73,6 +106,7 @@ export default function BookDetailPage(){
     </div>
   );
 }
+
 
   
 

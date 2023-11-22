@@ -23,7 +23,7 @@ const BookCard = ({ book, isSelected }) => {
     navigate(`/BookDetail/${id}`,{state: { book }})
   }
   return (
-    <Card className={`h-100 w-60 shadow-sm bg-white rounded ${isSelected ? 'selected-book' : ''}`} style={{maxHeight:"300px", maxWidth: "250px"}} onClick={() => displayUser(book.item_id)}>
+    <Card className={`h-100 w-60 shadow-sm bg-white rounded ${isSelected ? 'selected-book' : ''}`} style={{maxHeight:"300px", minHeight: "300px", maxWidth: "250px", minWidth: "250px"}}>
 
     
       <Card.Img variant="top" src={img} alt={`Cover of the book ${title}`} className="p-3" />

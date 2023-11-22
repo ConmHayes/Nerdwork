@@ -13,18 +13,25 @@ export default function BookSearchCard ({ item }){
     console.log("item" , item)
     return (
         <div className="book-card" onClick={() => displayUser(item.item_id)}>
+          <div className='image-frame'>
             <img src={img} alt={title}/> 
-            
-            <h3 style={{borderTop: "20px"}}>{title}</h3>
-            <p>Author: {author}</p>
-            <div className="genres">
+          </div>
+          <div className='info'>
+            <div className='tittle'>
+              <p style={{borderTop: "20px"}}>{title}</p>
+            </div>
+            <div className='aruthor'>
+              <p> {author}</p>
+            </div>
+            {/* <div className="genres">
               {genre.map((genre, index) => (
                 <span key={index} className="genre">{genre}</span>
               ))}
-            </div>
+            </div> */}
             <div className="rating">
               <Rating value={rating} />
             </div>
+          </div>
             
         </div>
     );

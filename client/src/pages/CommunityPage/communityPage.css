@@ -1,0 +1,9 @@
+.community-container{
+    display: flex;
+}
+.community-post{
+    flex-direction: row;
+}
+.create-post{
+    flex-direction: row;
+}

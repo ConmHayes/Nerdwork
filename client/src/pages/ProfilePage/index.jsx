@@ -91,31 +91,16 @@ export default function ProfilePage(){
 
     useEffect(() => {
         fetchRequest();
+        fetchSwap()
+        fetchItems()
+
     }, []);
 
-<<<<<<< HEAD
-=======
-    useEffect(() => {
-        getUsername()
-    }, [])
-
-    useEffect(() => {
-        fetchItems()
-    }, [])
-
-    useEffect(() => {
-      fetchSwap()
-    }, [])
-
-    // useEffect(() =>{
-    //     displayRequests()
-    // }, [requests])
->>>>>>> dced5ea9522cbe6114044091bf6dc2af19514592
   
     const top_rows = ["My Bookshelf", "My Games", "My Comics", "My Friends"]
     const top_icons = ["book", "sports_esports", "import_contacts", "diversity_3"]
     const top_var = ["book", "game", "comic book", ""]
-    const top_links = [`${localURL}profile/bookshelf`, `${localURL}profile/bookshelf`, `${localURL}profile/bookshelf`, "/"]
+    const top_links = [`${siteURL}profile/bookshelf`, `${siteURL}profile/bookshelf`, `${siteURL}profile/bookshelf`, "/"]
 
     const bottom_rows = ["Settings", "Contact Us"]
     const bottom_icons = ["settings", "call"]

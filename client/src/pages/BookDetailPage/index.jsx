@@ -13,10 +13,9 @@ export default function BookDetailPage(){
   
   const location = useLocation();
   const books = location.state;
-  console.log(books)
   const data  = books["0"]
-  console.log(data)
-   
+  const navigate = useNavigate()
+
   async function handleOwnerClick(bookId, ownerEmail) {
       const requesterEmail = localStorage.getItem('email')
       console.log(bookId, ownerEmail, requesterEmail)
@@ -43,7 +42,17 @@ export default function BookDetailPage(){
     console.log(e)
   }
 }
-
+  
+const backArrow = () => {
+  console.log(data.category)
+  if (data.category == 'book') {
+    navigate('/booksearch')
+  } else if (data.category == 'comic book') {
+    navigate('/comicsearch')
+  } else if (data.category == 'game') {
+    navigate('/gamesearch')
+  } 
+}
   
   if (!data) {
     return <div>Loading...</div>;
@@ -74,7 +83,7 @@ export default function BookDetailPage(){
         <div className='flexbox-container'>
           <div className='flexbox-container' style={{justifyContent: "flex-start", width: "50%"}}>
             
-              <i className="material-symbols-outlined bell-ikon" style={{marginRight: "200px"}} >
+              <i className="material-symbols-outlined bell-ikon" style={{marginRight: "200px"}} onClick={() => backArrow()}>
                 arrow_back_ios
               </i>
            
@@ -116,4 +125,3 @@ export default function BookDetailPage(){
 
 
   
-

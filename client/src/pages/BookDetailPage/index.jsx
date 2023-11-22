@@ -39,17 +39,7 @@ export default function BookDetailPage(){
     console.log(e)
   }
 }
-  
-  // #create request instance
-  //       
-  //       user_email_request=user_email_request,
-  //       user_email_requestie=user_email_requestie,
-  //       wanted_item_id=wanted_item_id,
-  //       rejected_by_requestie=rejected_by_requestie                     
-  //   
-              // url: https://nerdwork-server.onrender.com/trade/
-              // method: POST
-              //content-type: 'application/json'
+
   
   if (!data) {
     return <div>Loading...</div>;

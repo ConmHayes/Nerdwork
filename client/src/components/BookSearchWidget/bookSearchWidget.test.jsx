@@ -39,7 +39,6 @@ describe("BookSearchWidget",() => {
       });
 
       it('renders SearchForm', () => {
-       
         const searchForm = screen.getByTestId('search-form');
         expect(searchForm).toBeInTheDocument();
       });

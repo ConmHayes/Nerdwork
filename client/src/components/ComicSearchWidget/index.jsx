@@ -2,7 +2,8 @@ import React,  { useState, useEffect} from "react";
 import SearchForm from "../SearchForm";
 import BookSearchCard from "../BookSearchCard";
 import { useNavigate } from "react-router-dom";
-
+import "../BookSearchWidget/bookSearchWidget.css"
+ 
 
 export default function ComicSearchWidget () {
     const [searchString, setSearchString] = useState("");

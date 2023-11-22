@@ -285,10 +285,16 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended, 
         title = capitalisation()
     }, [page])
 
-    function capitalisation(){
-        const string = localStorage.shelf
-        return string.charAt(0).toUpperCase() + string.slice(1)
-    }
+    function capitalisation() {
+      const shelfType = localStorage.shelf;
+      if (typeof shelfType === 'string') {
+          return shelfType.charAt(0).toUpperCase() + shelfType.slice(1);
+      } else {
+          // Return an empty string or a default value if shelfType is not a string
+          return '';
+      }
+  }
+  
     
     return (
         
@@ -306,12 +312,12 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended, 
                 </div>
 
                 <div className="flexbox-container option-box ">
-                    {top_icons.map((icon, i) => (
-                    <Link to={top_links[i]} className="link" key={i} onClick={() => [setShelf(top_var[i]), closeModal()]}>    
-                        <div className={`flexbox-item profile-box ${i % 2 === 0 ? 'even' : 'odd'}`} onMouseOver={() => hover(i)} onMouseOut={() => setHoveredText(["", "", "", ""])}>
+                    {top_icons?.map((icon, i) => (
+                        <Link to={top_links[i]} className="link" key={i} onClick={() => [setShelf(top_var[i]), closeModal()]}>    
+                            <div className={`flexbox-item profile-box ${i % 2 === 0 ? 'even' : 'odd'}`} onMouseOver={() => hover(i)} onMouseOut={() => setHoveredText(["", "", "", ""])}>
                                 <i className="material-icons " style: color>{icon}</i>{hoveredText[i]}
-                        </div>
-                    </Link>
+                            </div>
+                        </Link>
                     ))}
                 </div>
                 <div className="flexbox-item placeholder-box" style={{border: "transparent"}}>
@@ -365,7 +371,7 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended, 
 
                 </Modal>
                 
-                <div className="flexbox-item bookshelf-container" style={{justifyContent:"flex-start"}}>
+                <div className="flexbox-item bookshelf-container" data-testid="bookshelf-container" style={{justifyContent:"flex-start"}}>
                     {
                     initialBooks.map((book, i) => (
                         <div className="test" key={i} onClick = {() => openModal(book)} id={`Book_${book.item_id}`}>

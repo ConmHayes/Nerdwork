@@ -16,6 +16,7 @@ export default function ProfilePage(){
     const [username, setUsername] = useState("");
     const [requests, setRequests] = useState([]);
     const [item, setItem] = useState([])
+    const [books, setBooks] = useState([])
     const [modalOpen, setModalOpen] = useState(false)
     const [carouselItems, setCarouselItems] = useState([])
     const [userItems, setUserItems] = useState([])
@@ -141,7 +142,22 @@ export default function ProfilePage(){
     const handleViewTrades = async (request) => {
         navigate(`/request/${request.request_id}`)
     }
-
+    function removeDuplicateTitles(data) {
+        const uniqueTitles = new Set();
+        const filteredData = [];
+      
+        data.forEach(item => {
+          if (!uniqueTitles.has(item.title)) {
+            uniqueTitles.add(item.title);
+            filteredData.push(item);
+          }
+        });
+        
+        return filteredData;
+    }
+    function getBooksByTitle(title) {
+        return books.filter(book => book.title === title);
+    }
     async function getCarouselItems(){
         const options = {
             method: "GET",
@@ -153,8 +169,12 @@ export default function ProfilePage(){
         }
         const response = await fetch(`${apiURL}/item/book`, options)
         const data = await response.json()
+        const dataItems = data.items
+        setBooks(dataItems)
         
-        const len = data.items.length
+        const uniqueData = removeDuplicateTitles(dataItems);
+       
+        const len = uniqueData.length
         const randomArray = [];
         const tracking = []
 
@@ -164,7 +184,7 @@ export default function ProfilePage(){
           // Check if the random index is not already in the array
           if (!tracking.includes(randomIndex)) {
             tracking.push(randomIndex)
-            randomArray.push(data.items[randomIndex]);
+            randomArray.push(uniqueData[randomIndex]);
           }
         }
         const filteredBooks = data.items.filter(item => item.email === localStorage.email);
@@ -182,7 +202,7 @@ export default function ProfilePage(){
     function makeCarousel(items){
         return (
             items.map((item) => (
-                <div className="profile-item" key={item.item_id} ><img src={item.img}></img></div>
+                <div className="profile-item" key={item.item_id} ><img src={item.img} onClick={() => displayUser(item.item_id,item)}></img></div>
             ))
         )
     }
@@ -198,7 +218,12 @@ export default function ProfilePage(){
     function closeNotifications(){
         setNotificationsOpen(false)
     }
-
+    function displayUser(id,book){
+        console.log("clicked", id, book)
+        const booksWithTitle = getBooksByTitle(book.title);
+        console.log("naviate", booksWithTitle )
+        navigate(`/BookDetail/${id}`, { state: booksWithTitle  })
+    }
     return(
         <div className="flexbox-container profile-container">
 

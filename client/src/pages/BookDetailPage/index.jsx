@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {Genre,Rating} from '../../components';
 import { useLocation } from 'react-router-dom';
 
 import "./bookDetails.css"
+
+const apiURL = "https://nerdwork-server.onrender.com"
+const siteURL = "https://nerdwork.onrender.com/"
+const localURL = "http://localhost:5173/"
 
 export default function BookDetailPage(){
   
@@ -66,15 +70,28 @@ export default function BookDetailPage(){
   
   return (
     <div className="book-detail-page">
-      <div className="container">
-        <h1 className="page-title">{data.title}</h1>
+      <div className="container" style={{width: "100%"}}>
+        <div className='flexbox-container'>
+          <div className='flexbox-container' style={{justifyContent: "flex-start", width: "50%"}}>
+            
+              <i className="material-symbols-outlined bell-ikon" style={{marginRight: "200px"}} >
+                arrow_back_ios
+              </i>
+           
+            
+          </div>
+          <div className='flexbox-container' style={{width: "600px"}}>
+            <h1 className="page-title">{data.title}</h1>
+          </div>
+
+        </div>
         <h3 className='page-author'> {data.author}</h3>
         <div className="image-container">
           <img src={data.img} alt={data.title} className="book-image"/>
         </div>
         <div className="text-content">
           <div className='description'>
-            <h3> Discription : </h3>
+            <h3> Description : </h3>
             <p>{data.description}</p>
           </div>
           <div className="genres">

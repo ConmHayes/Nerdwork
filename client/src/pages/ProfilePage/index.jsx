@@ -215,7 +215,7 @@ export default function ProfilePage(){
                 });
                 const res = await response.json();
                 const itemList = [swap.wanted_item_id, swap.requestie_item_id]
-                for (item in itemList) { 
+                for (let item in itemList) { 
                 try {
                     const response = await fetch(`https://nerdwork-server.onrender.com/trade/${item}`, {
                     method: 'DELETE',
@@ -224,7 +224,7 @@ export default function ProfilePage(){
                     }
                   });
                   const res = await response.json();
-                  return await res.json()
+                  return res
                 } catch (error) {
                   console.error('Error fetching requests:', error);
                 }

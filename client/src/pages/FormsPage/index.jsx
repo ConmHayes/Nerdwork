@@ -54,7 +54,7 @@ const FormsPage = ({ onAddBook }) => {
 
     const dataToSend = {
       ...formData,
-      genre: selectedgenre, 
+      genre: JSON.stringify(selectedgenre), 
       issue_num: parseInt(formData.issue_num, 10),
       email: formData.email,
       rating: parseFloat(formData.rating) 

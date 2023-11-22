@@ -1,0 +1,72 @@
+.Community-Card {
+    background-color: #ffffff; 
+    border: 1px solid #d8d8d8; 
+    border-radius: 8px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: fit-content; 
+    margin-left: auto; 
+    margin-right: auto;
+    font-family: "Source Sans Pro",Arial,sans-serif;
+    
+  }
+  
+  
+  .community-name {
+    display: flex;
+    justify-content: space-between; /* This will put space between title and button */
+    align-items: center;
+    padding: 10px 15px;
+    border-bottom: 1px solid #d8d8d8; /* Separator */
+    width: 100%; 
+  }
+  
+  .community-name h2 {
+    margin-right: 50px; /* Increase right margin to add space between title and button */
+    color: #333;
+    font-size: 2rem;
+  }
+  
+ 
+  .Join {
+    margin-left: 50px;
+    padding: 6px 20px;
+     background-color: #0079d3; /* Bright blue for the button */
+    color: white;
+    border: none;
+    border-radius: 18px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.875rem;
+  }
+  
+  .Join:hover {
+    background-color: #005fa3; 
+  }
+  
+ 
+  .community-description p {
+    padding: 15px;
+    margin: 0;
+    color: #666;
+    font-size: 0.875rem;
+  }
+  
+  
+  @media (max-width: 768px) {
+    .community-name {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .community-name h2 {
+      margin-left: 0;
+      margin-bottom: 10px;
+    }
+  
+    .Join {
+      align-self: center; 
+    }
+  }

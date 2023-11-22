@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-
+import "./threadspage.css"
 export default function ThreadsPage() {
     const [community, setCommunity] = useState([]);
     const [threads, setThreads] = useState([]);
@@ -46,9 +46,9 @@ export default function ThreadsPage() {
 
     function displayThreads() {
         return threads.map(thread => (
-            <div key={thread.thread_id} onClick={() => handleThreadClick(thread.thread_id)}>
-                <h2>{thread.title}</h2>
-                <p>{thread.description}</p>
+            <div className="thread-card" key={thread.thread_id} onClick={() => handleThreadClick(thread.thread_id)}>
+                <h2 className="thread-title">{thread.title}</h2>
+                <p className="thread-description">{thread.description}</p>
             </div>
         ));
     }
@@ -56,8 +56,8 @@ export default function ThreadsPage() {
 
     return (
         <>
-            <div>
-                <div>{displayThreads()}</div>
+            <div className="thread-container">
+                <div className="threads">{displayThreads()}</div>
             </div>
         </>
     );

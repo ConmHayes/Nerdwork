@@ -20,6 +20,9 @@ export default function ProfilePage(){
     const [modalOpen, setModalOpen] = useState(false)
     const [carouselItems, setCarouselItems] = useState([])
     const [userItems, setUserItems] = useState([])
+    const [notifications, setNotifications] = useState(0)
+    const [notificationsOpen, setNotificationsOpen] = useState(false)
+    const [allUsers, setAllUsers] = useState([])
     const navigate = useNavigate()
 
     async function getUsername(){
@@ -45,7 +48,14 @@ export default function ProfilePage(){
             },
           });
           const data = await response.json();
+<<<<<<< HEAD
           const requestData = data.requests; 
+=======
+          const requestData = data.requests; // Access the Communities array in the response
+          const filteredRequests = requestData.filter(request => request.user_email_request === localStorage.email && request.rejected_by_requestie===false);
+          setNotifications(filteredRequests.length)
+          console.log(filteredRequests)
+>>>>>>> b2c755590e4bdfa7909a6050287d72a87e53c1bd
           setRequests(requestData)
         } catch (error) {
           console.error('Error fetching requests:', error);
@@ -84,14 +94,8 @@ export default function ProfilePage(){
 
     useEffect(() => {
         fetchRequest();
-    }, []);
-
-    useEffect(() => {
-        getUsername()
-    }, [])
-
-    useEffect(() => {
         fetchItems()
+<<<<<<< HEAD
     }, [])
 
     useEffect(() => {
@@ -101,16 +105,20 @@ export default function ProfilePage(){
     // useEffect(() =>{
     //     displayRequests()
     // }, [requests])
+=======
+    }, []);
+>>>>>>> b2c755590e4bdfa7909a6050287d72a87e53c1bd
   
     const top_rows = ["My Bookshelf", "My Games", "My Comics", "My Friends"]
     const top_icons = ["book", "sports_esports", "import_contacts", "diversity_3"]
     const top_var = ["book", "game", "comic book", ""]
-    const top_links = [`${localURL}profile/bookshelf`, `${localURL}profile/bookshelf`, `${localURL}profile/bookshelf`, "/"]
+    const top_links = [`${siteURL}profile/bookshelf`, `${siteURL}profile/bookshelf`, `${siteURL}profile/bookshelf`, "/"]
 
     const bottom_rows = ["Settings", "Contact Us"]
     const bottom_icons = ["settings", "call"]
     const bottom_links = ["/", "/"] 
 
+<<<<<<< HEAD
     function displayApproval() {
       return swap.filter(swaps => swaps.user_email_requester === localStorage.getItem('email') && swaps.accepted == false && swaps.rejected_by_requester == false)
       .map(swap => (
@@ -125,13 +133,28 @@ export default function ProfilePage(){
     } 
 
     function displayRequests() {
+=======
+    function displayRequests() { 
+>>>>>>> b2c755590e4bdfa7909a6050287d72a87e53c1bd
         return requests.filter(requests => requests.user_email_requestie === localStorage.getItem('email') && requests.rejected_by_requestie == false)
         .map(request => (
-            <div key={request.request_id} >
-                <h2>The email who requested: {request.user_email_request}</h2>
-                <p>The item_id that was requested: {item.filter(items => items.item_id == request.wanted_item_id).map(item => item.title)}</p>
-                <button onClick={() => handleViewTrades(request)}>View Trades</button>
-                <button onClick={() => handleReject(request)}>reject</button>
+            <div className="flexbox-container flexbox-requests" key={request.request_id} >
+                <div className="flexbox-container">
+                    <h2>The email who requested: {request.user_email_request}</h2> 
+                    <i className="material-icons close-ikon"
+                        onClick={() => closeNotifications()} 
+                        style={{position:"relative", left: "100px", color: "red"}}>
+                            cancel
+                    </i>
+                </div>
+                
+
+                <p>The user has requested to trade for {item.filter(items => items.item_id == request.wanted_item_id).map(item => item.title)}</p>
+                <div className="flexbox-container">
+                    <button className="login-button" onClick={() => handleViewTrades(request)}>View Trades</button>
+                    <div style={{width: "20px"}}></div>
+                    <button className="login-button" onClick={() => handleReject(request)}>Reject</button>
+                </div>
             </div>
           ));
       } 
@@ -151,6 +174,7 @@ export default function ProfilePage(){
                 })
             });
             const res = await response.json();
+            setNotifications(notifications--)
           } catch (error) {
             console.error('Error fetching requests:', error);
           }
@@ -217,9 +241,16 @@ export default function ProfilePage(){
         getCarouselItems()
     }, [])
 
+    function openNotifications(){
+        setNotificationsOpen(true)
+    }
+    function closeNotifications(){
+        setNotificationsOpen(false)
+    }
 
     return(
         <div className="flexbox-container profile-container">
+
             <div className="flexbox-item profile-sidebar-extended">
                 <div className="flexbox-container profile-bar" style = {{width: "100%"}}>
                     <div className="flexbox-container profile-header">
@@ -231,9 +262,23 @@ export default function ProfilePage(){
                         <div className="flexbox-item" style = {{position: "relative", left: "10px", width: "400px"}}>
                             <h3> Welcome, {username}!</h3>
                         </div>
-                        <div className="flexbox-item bell">
-                            <i className="material-icons bell-ikon">notifications</i>
+                        <div className="flexbox-item bell" >
+                            <i className="material-icons bell-ikon" onClick={() => openNotifications()} >
+                                notifications
+                            </i>
+                            <p className="notification">{notifications != 0 ? notifications : ""}</p>
                         </div>
+                        <Modal
+                                isOpen = {notificationsOpen}
+                                onRequestClose = {closeNotifications}
+                                contentLabel="Book Details"
+                                className="modal-form-profile" 
+                            >
+                                <div className="flexbox-container">
+                                    {displayRequests()}
+                                </div>
+                                
+                            </Modal>
                     </div>
                 </div>
                 <div className="flexbox-container option-row ">
@@ -260,14 +305,6 @@ export default function ProfilePage(){
                 </div>
             </div>
             <div className="flexbox-container flexbox-carousel">
-
-                <div>
-
-                </div>
-                <div>
-                {displayRequests()}
-                </div>
-
                 <div className="flexbox-container" style={{width:"100%"}}>
                         <div className="flexbox-item"style={{width:"50%", justifyContent: "flex-start"}}><p>Suggested for you...</p></div>
                         <div className="flexbox-item add-book" style={{width:"50%", justifyContent: "flex-end"}}>
@@ -282,8 +319,6 @@ export default function ProfilePage(){
                                         onRequestClose={closeModal}
                                         contentLabel="Book Details"
                                         className="modal-form-profile" 
-                                        modalOpen={modalOpen}
-                                        setModalOpen={setModalOpen}
                                     >
                                         <GeneralForm style ={{textAlign: "center"}}
                                         setModalOpen={setModalOpen}
@@ -311,3 +346,4 @@ export default function ProfilePage(){
     </div>
   );
 };
+

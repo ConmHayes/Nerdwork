@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import SearchForm from "../../components/SearchForm";
 import { useNavigate } from "react-router-dom";
+import { CommunityCard } from "../../components";
+import HomePageCard from "../../components/HomepageCompoenet";
+import "./communityPage.css"
 
 export default function CommunityPage() {
   const [searchString, setSearchString] = useState("");
@@ -36,10 +39,7 @@ export default function CommunityPage() {
     return communities
       .filter(community => searchString.length === 0 || community.community_name.toLowerCase().includes(searchString.toLowerCase()))
       .map(community => (
-        <div key={community.community_id} onClick={() => handleCommunityClick(community.community_id)}>
-          <h2>{community.community_name}</h2>
-          <p>{community.description}</p>
-        </div>
+          <CommunityCard  key={community.community_id} community={community} handleCommunityClick={handleCommunityClick}/>
       ));
   }
   
@@ -47,12 +47,17 @@ export default function CommunityPage() {
   return (
     <>
       <SearchForm searchString={searchString} setSearchString={setSearchString} />
-      <div>
-      {communities === null ? (
-        <p>Loading communities...</p>
-      ) : (
-        <div>{displayCommunities()}</div>
-      )}
+      <div className="community-container">
+        <div>
+        {communities === null ? (
+          <p>Loading communities...</p>
+        ) : (
+          <div className="community-post">{displayCommunities()}</div>
+        )}
+        </div>
+        <div className="create-post">
+          <HomePageCard/>
+        </div>
       </div>
     </>
   );

@@ -53,15 +53,15 @@ const FormsPage = ({ onAddBook, setModalOpen, modalOpen }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    
     const dataToSend = {
       ...formData,
-      genre: selectedgenre, 
+      genre: '[' + selectedgenre.join(',') + ']', 
       issue_num: parseInt(formData.issue_num, 10),
       email: formData.email,
       rating: parseFloat(formData.rating) 
     };
-
+    
     try {
       const response = await fetch('https://nerdwork-server.onrender.com/item/', {
         method: 'POST',

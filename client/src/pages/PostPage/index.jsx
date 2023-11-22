@@ -44,11 +44,12 @@ export default function PostPage() {
     navigate(`thread/${thread_id}`)
     }
 
-    function displayThreads() {
+    function displayPost() {
         return posts.map(post => (
             <div key={post.post_id}>
                 <h2>{post.post_title}</h2>
                 <p>{post.body}</p>
+                <p>{post.email}</p>
             </div>
         ));
     }
@@ -57,7 +58,7 @@ export default function PostPage() {
     return (
         <>
             <div>
-                <div>{displayThreads()}</div>
+                <div>{displayPost()}</div>
             </div>
         </>
     );

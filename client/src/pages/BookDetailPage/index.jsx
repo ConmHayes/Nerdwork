@@ -8,7 +8,7 @@ import "./bookDetails.css"
 export default function BookDetailPage(){
   
   const location = useLocation();
-  const books = location.state;
+  const books = location.state || [];
   console.log(books)
   const data  = books["0"]
   console.log(data)

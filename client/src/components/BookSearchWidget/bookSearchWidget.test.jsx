@@ -5,24 +5,28 @@ import { MemoryRouter } from 'react-router-dom';
 import BookSearchWidget from '.';
 
 describe('BookSearchWidget Component', () => {
+  let container = null;
+
   beforeEach(() => {
-    render(
+    const rendered = render(
       <MemoryRouter>
         <BookSearchWidget />
       </MemoryRouter>
     );
+    container = rendered.container;
   });
 
-  afterEach(() => {
-    cleanup();
-  });
+  afterEach(cleanup);
 
   it('renders the search form', () => {
-    // Assuming there is a text input in your SearchForm component
     const searchInput = screen.getByRole('textbox');
     expect(searchInput).toBeDefined();
   });
 
-  // Additional tests can be added here, such as checking for the presence of other static elements.
-  // Dynamic behavior dependent on API calls or navigation can't be tested without mocking.
+  it('renders book cards container', () => {
+    const cardsContainer = container.querySelector('.cards-container');
+    expect(cardsContainer).toBeDefined();
+  });
+
+  // Additional tests can be added here
 });

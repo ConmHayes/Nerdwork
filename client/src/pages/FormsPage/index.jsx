@@ -62,7 +62,6 @@ const FormsPage = ({ onAddBook, setModalOpen, modalOpen }) => {
       rating: parseFloat(formData.rating) 
     };
     
-    console.log(dataToSend)
     try {
       const response = await fetch('https://nerdwork-server.onrender.com/item/', {
         method: 'POST',

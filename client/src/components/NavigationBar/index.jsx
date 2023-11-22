@@ -16,8 +16,8 @@ const NavigationBar = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Link as={NavLink} to="/home" className={({ isActive }) => isActive ? "nav-link-active" : "nav-link"}>
-              Home
+            <Nav.Link as={NavLink} to="/Communities" className={({ isActive }) => isActive ? "nav-link-active" : "nav-link"}>
+              Communities
             </Nav.Link>
             <Nav.Link as={NavLink} to="/booksearch" className={({ isActive }) => isActive ? "nav-link-active" : "nav-link"}>
               Books

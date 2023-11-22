@@ -13,13 +13,44 @@ export default function BookDetailPage(){
   const data  = books["0"]
   console.log(data)
    
-  function handleOwnerClick(bookId, ownerEmail) {
+  async function handleOwnerClick(bookId, ownerEmail) {
       const requesterEmail = localStorage.getItem('email')
       console.log(bookId, ownerEmail, requesterEmail)
-  };
+      
+      try {
+        const response = await fetch('https://nerdwork-server.onrender.com/trade/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            user_email_request: requesterEmail,
+            user_email_requestie: ownerEmail,
+            wanted_item_id : bookId,
+            rejected_by_requestie: false 
+          }),
+        });
   
+        if (!response.ok) {
+          const errorBody = await response.json(); 
+          throw new Error(`HTTP error! status: ${response.status}, Message: ${errorBody.message}`);
+        }
+  } catch(e){
+    console.log(e)
+  }
+}
   
-
+  // #create request instance
+  //       
+  //       user_email_request=user_email_request,
+  //       user_email_requestie=user_email_requestie,
+  //       wanted_item_id=wanted_item_id,
+  //       rejected_by_requestie=rejected_by_requestie                     
+  //   
+              // url: https://nerdwork-server.onrender.com/trade/
+              // method: POST
+              //content-type: 'application/json'
+  
   if (!data) {
     return <div>Loading...</div>;
   }
@@ -75,6 +106,7 @@ export default function BookDetailPage(){
     </div>
   );
 }
+
 
   
 

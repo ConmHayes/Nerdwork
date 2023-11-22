@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 
 db = SQLAlchemy()
 #db.metadata.drop_all(db.engine, checkfirst=True)
@@ -89,6 +90,7 @@ class Swap(db.Model):
     requestie_item_id = db.Column(db.Integer, db.ForeignKey('item.item_id'), nullable=False)
     accepted = db.Column(db.Boolean, default=False)
     rejected_by_requester = db.Column(db.Boolean, default=False)
+    date = db.Column(db.Date, nullable=True, default=datetime.utcnow)
     ##deleted a double date column after db reset
 
     #Foreign Keys

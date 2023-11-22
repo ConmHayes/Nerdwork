@@ -106,7 +106,13 @@ font-size: 20px;
     color: black
 }
 
-.bell-ikon
+.bell-ikon{
+  color: black;
+  width: 30px;
+  height: 30px;
+  margin-bottom: 10px;
+
+}
 .ikon {
     color: black;
     width: 30px;
@@ -128,7 +134,13 @@ font-size: 20px;
   justify-content: center;
   align-items: center;
 }
-
+.flexbox-requests{
+  flex-direction: column;
+  height:auto;
+}
+.notification{
+  color: red
+}
 .flexbox-image-login,
 .flexbox-login-array,
 .flexbox-login-array,
@@ -371,7 +383,7 @@ h3{
     scrollbar-width: thin;
     scrollbar-color: transparent transparent;
     border: black solid 5px;
-    background-color: violet;
+    background-color: lightgray;
 }
 
 
@@ -539,7 +551,7 @@ h3{
 .wrapper {
     display: flex;
     overflow: hidden;
-    background-color: violet;
+    background-color: lightgray;
     height: 350px;
     width: 100%;
     max-width: 100%;

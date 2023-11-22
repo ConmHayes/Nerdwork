@@ -11,7 +11,6 @@ import { useNavigate } from "react-router-dom";
 const apiURL = "https://nerdwork-server.onrender.com"
 const siteURL = "https://nerdwork.onrender.com/"
 const localURL = "http://localhost:5173/"
-
 export default function ProfilePage(){
     const [sidebarExtended, setSidebarExtended] = useState(true)
     const [username, setUsername] = useState("");
@@ -241,12 +240,12 @@ export default function ProfilePage(){
 
     return(
         <div className="flexbox-container profile-container">
-            
+
             <div className="flexbox-item profile-sidebar-extended">
                 <div className="flexbox-container profile-bar" style = {{width: "100%"}}>
                     <div className="flexbox-container profile-header">
                         <div className="flexbox-item">
-                            <span className="dot">  
+                            <span className="dot">
                                 <i className="material-icons ikon">person</i>
                             </span>
                         </div>
@@ -272,7 +271,6 @@ export default function ProfilePage(){
                             </Modal>
                     </div>
                 </div>
-
                 <div className="flexbox-container option-row ">
                     {top_rows.map((title, i) => (
                     <Link to={top_links[i]} className="link" key={i} onClick={() => setShelf(top_var[i])}>    
@@ -284,7 +282,6 @@ export default function ProfilePage(){
                     ))}
                 </div>
                 <div className="flexbox-item placeholder-box">
-
                 </div>
                 <div className="flexbox-item option-row">
                     {bottom_rows.map((title, i) => (
@@ -293,10 +290,9 @@ export default function ProfilePage(){
                                     <i className="material-icons left">{bottom_icons[i]}</i>
                                     {title}
                             </div>
-                        </Link>    
+                        </Link>
                     ))}
                 </div>
-
             </div>
             <div className="flexbox-container flexbox-carousel">
                 <div className="flexbox-container" style={{width:"100%"}}>

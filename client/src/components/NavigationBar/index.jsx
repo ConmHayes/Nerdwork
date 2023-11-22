@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 import { Navbar, Nav } from 'react-bootstrap';
-
+import "./navigationBar.css"
 
 const NavigationBar = () => {
   function clearStorage(){
@@ -10,7 +10,7 @@ const NavigationBar = () => {
   return (
     <div className='main-container mt-5'>
       <Navbar bg="light" expand="lg" className="mb-3" fixed="top">
-        <Navbar.Brand as={NavLink} to="/" style={{marginLeft:"20px"}}>
+        <Navbar.Brand as={NavLink} to="/" style={{marginLeft:"40px", marginRight:"40px"}}>
           Nerdwork
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />

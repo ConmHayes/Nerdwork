@@ -92,6 +92,7 @@ class Swap(db.Model):
     rejected_by_requester = db.Column(db.Boolean, default=False)
     date = db.Column(db.Date, nullable=True, default=datetime.utcnow)
 
+
     #Foreign Keys
     requester = db.relationship('User', foreign_keys=[user_email_requester])
     requestie = db.relationship('User', foreign_keys=[user_email_requestie])

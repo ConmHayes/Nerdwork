@@ -15,7 +15,9 @@ export default function ProfilePage(){
     const [sidebarExtended, setSidebarExtended] = useState(true)
     const [username, setUsername] = useState("");
     const [requests, setRequests] = useState([]);
+    const [swap, setSwap] = useState([]);
     const [item, setItem] = useState([])
+    const [books, setBooks] = useState([])
     const [modalOpen, setModalOpen] = useState(false)
     const [carouselItems, setCarouselItems] = useState([])
     const [userItems, setUserItems] = useState([])
@@ -47,10 +49,10 @@ export default function ProfilePage(){
             },
           });
           const data = await response.json();
-          const requestData = data.requests; // Access the Communities array in the response
+          const requestData = data.requests; 
           const filteredRequests = requestData.filter(request => request.user_email_request === localStorage.email && request.rejected_by_requestie===false);
           setNotifications(filteredRequests.length)
-          console.log(filteredRequests)
+
           setRequests(requestData)
         } catch (error) {
           console.error('Error fetching requests:', error);
@@ -65,18 +67,50 @@ export default function ProfilePage(){
             },
           });
           const data = await response.json();
-          const itemData = data.Items; // Access the Communities array in the response
+          const itemData = data.Items; 
           setItem(itemData)
         } catch (error) {
           console.error('Error fetching item:', error);
         }
       };
 
+    const fetchSwap = async () => {
+        try {
+          const response = await fetch('https://nerdwork-server.onrender.com/trade/swap', {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
+          const data = await response.json();
+          const swapData = data.swaps;
+          setSwap(swapData)
+        } catch (error) {
+          console.error('Error fetching requests:', error);
+        }
+    };
+
     useEffect(() => {
         fetchRequest();
-        fetchItems()
     }, []);
 
+<<<<<<< HEAD
+=======
+    useEffect(() => {
+        getUsername()
+    }, [])
+
+    useEffect(() => {
+        fetchItems()
+    }, [])
+
+    useEffect(() => {
+      fetchSwap()
+    }, [])
+
+    // useEffect(() =>{
+    //     displayRequests()
+    // }, [requests])
+>>>>>>> dced5ea9522cbe6114044091bf6dc2af19514592
   
     const top_rows = ["My Bookshelf", "My Games", "My Comics", "My Friends"]
     const top_icons = ["book", "sports_esports", "import_contacts", "diversity_3"]
@@ -147,6 +181,18 @@ export default function ProfilePage(){
             </div>
         );
     }
+    function displayApproval() {
+        return swap.filter(swaps => swaps.user_email_requester === localStorage.getItem('email') && swaps.accepted == false && swaps.rejected_by_requester == false)
+        .map(swap => (
+            <div key={swap.swap_id} >
+                <h2>The email who requested: {swap.user_email_swap}</h2>
+                <p>The item that you requested: {item.filter(items => items.item_id == swap.wanted_item_id).map(item => item.title)}</p>
+                <p>The item that they requested: {item.filter(items => items.item_id == swap.requestie_item_id).map(item => item.title)}</p>
+                <button onClick={() => handleApproval(swap)}>Confirm</button>
+                <button onClick={() => handleRejectSwap(swap)}>reject</button>
+            </div>
+          ));
+      } 
 
 
     const handleReject = async (request) => {
@@ -170,6 +216,66 @@ export default function ProfilePage(){
           }
         }
 
+        const handleRejectSwap = async (swap) => {
+          try {
+              const response = await fetch('https://nerdwork-server.onrender.com/trade/swap', {
+                method: 'PATCH',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  user_email_requester: swap.user_email_requester,
+                  user_email_requestie: swap.user_email_requestie,
+                  wanted_item_id: swap.wanted_item_id,
+                  requestie_item_id: swap.requestie_item_id,                
+                  accepted: false,
+                  rejected_by_requester: true                  
+                  })
+              });
+              const res = await response.json();
+            } catch (error) {
+              console.error('Error fetching requests:', error);
+            }
+          }
+
+          const handleApproval = async (swap) => {
+            try {
+                const response = await fetch('https://nerdwork-server.onrender.com/trade/swap', {
+                  method: 'PATCH',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    user_email_requester: swap.user_email_requester,
+                    user_email_requestie: swap.user_email_requestie,
+                    wanted_item_id: swap.wanted_item_id,
+                    requestie_item_id: swap.requestie_item_id,                
+                    accepted: true,
+                    rejected_by_requester: false                  
+                    })
+                });
+                const res = await response.json();
+                const itemList = [swap.wanted_item_id, swap.requestie_item_id]
+                for (let item in itemList) { 
+                try {
+                    const response = await fetch(`https://nerdwork-server.onrender.com/trade/${item}`, {
+                    method: 'DELETE',
+                    headers: {
+                      'Content-Type': 'application/json',
+                    }
+                  });
+                  const res = await response.json();
+                  return res
+                } catch (error) {
+                  console.error('Error fetching requests:', error);
+                }
+              }
+
+              } catch (error) {
+                console.error('Error fetching requests:', error);
+              }
+            }
+
     function openModal(){
         setModalOpen(true)
     }
@@ -180,7 +286,22 @@ export default function ProfilePage(){
     const handleViewTrades = async (request) => {
         navigate(`/request/${request.request_id}`)
     }
-
+    function removeDuplicateTitles(data) {
+        const uniqueTitles = new Set();
+        const filteredData = [];
+      
+        data.forEach(item => {
+          if (!uniqueTitles.has(item.title)) {
+            uniqueTitles.add(item.title);
+            filteredData.push(item);
+          }
+        });
+        
+        return filteredData;
+    }
+    function getBooksByTitle(title) {
+        return books.filter(book => book.title === title);
+    }
     async function getCarouselItems(){
         const options = {
             method: "GET",
@@ -192,8 +313,12 @@ export default function ProfilePage(){
         }
         const response = await fetch(`${apiURL}/item/book`, options)
         const data = await response.json()
+        const dataItems = data.items
+        setBooks(dataItems)
         
-        const len = data.items.length
+        const uniqueData = removeDuplicateTitles(dataItems);
+       
+        const len = uniqueData.length
         const randomArray = [];
         const tracking = []
 
@@ -203,7 +328,7 @@ export default function ProfilePage(){
           // Check if the random index is not already in the array
           if (!tracking.includes(randomIndex)) {
             tracking.push(randomIndex)
-            randomArray.push(data.items[randomIndex]);
+            randomArray.push(uniqueData[randomIndex]);
           }
         }
         const filteredBooks = data.items.filter(item => item.email === localStorage.email);
@@ -221,7 +346,7 @@ export default function ProfilePage(){
     function makeCarousel(items){
         return (
             items.map((item) => (
-                <div className="profile-item" key={item.item_id} ><img src={item.img}></img></div>
+                <div className="profile-item" key={item.item_id} ><img src={item.img} onClick={() => displayUser(item.item_id,item)}></img></div>
             ))
         )
     }
@@ -237,7 +362,12 @@ export default function ProfilePage(){
     function closeNotifications(){
         setNotificationsOpen(false)
     }
-
+    function displayUser(id,book){
+        console.log("clicked", id, book)
+        const booksWithTitle = getBooksByTitle(book.title);
+        console.log("naviate", booksWithTitle )
+        navigate(`/BookDetail/${id}`, { state: booksWithTitle  })
+    }
     return(
         <div className="flexbox-container profile-container">
 
@@ -296,7 +426,7 @@ export default function ProfilePage(){
             </div>
             <div className="flexbox-container flexbox-carousel">
                 <div className="flexbox-container" style={{width:"100%"}}>
-                        <div className="flexbox-item"style={{width:"50%", justifyContent: "flex-start"}}><p>Suggested for you...</p></div>
+                        <div className="flexbox-item"style={{width:"50%", justifyContent: "flex-start"}}><p>Suggested for you...</p><div>{displayApproval()}</div></div>
                         <div className="flexbox-item add-book" style={{width:"50%", justifyContent: "flex-end"}}>
                                 <p>Add an item to your account</p>
                                     <i className="material-icons"

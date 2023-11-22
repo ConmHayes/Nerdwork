@@ -3,6 +3,7 @@ import SearchForm from "../../components/SearchForm";
 import { useNavigate } from "react-router-dom";
 import { CommunityCard } from "../../components";
 import HomePageCard from "../../components/HomepageCompoenet";
+import "./communityPage.css"
 
 export default function CommunityPage() {
   const [searchString, setSearchString] = useState("");

@@ -48,14 +48,10 @@ export default function ProfilePage(){
             },
           });
           const data = await response.json();
-<<<<<<< HEAD
           const requestData = data.requests; 
-=======
-          const requestData = data.requests; // Access the Communities array in the response
           const filteredRequests = requestData.filter(request => request.user_email_request === localStorage.email && request.rejected_by_requestie===false);
           setNotifications(filteredRequests.length)
-          console.log(filteredRequests)
->>>>>>> b2c755590e4bdfa7909a6050287d72a87e53c1bd
+
           setRequests(requestData)
         } catch (error) {
           console.error('Error fetching requests:', error);
@@ -85,7 +81,7 @@ export default function ProfilePage(){
             },
           });
           const data = await response.json();
-          const swapData = data.swaps; 
+          const swapData = data.swaps;
           setSwap(swapData)
         } catch (error) {
           console.error('Error fetching requests:', error);
@@ -94,20 +90,23 @@ export default function ProfilePage(){
 
     useEffect(() => {
         fetchRequest();
+    }, []);
+
+    useEffect(() => {
+        getUsername()
+    }, [])
+
+    useEffect(() => {
         fetchItems()
-<<<<<<< HEAD
     }, [])
 
     useEffect(() => {
       fetchSwap()
-  }, [])
+    }, [])
 
     // useEffect(() =>{
     //     displayRequests()
     // }, [requests])
-=======
-    }, []);
->>>>>>> b2c755590e4bdfa7909a6050287d72a87e53c1bd
   
     const top_rows = ["My Bookshelf", "My Games", "My Comics", "My Friends"]
     const top_icons = ["book", "sports_esports", "import_contacts", "diversity_3"]
@@ -118,7 +117,6 @@ export default function ProfilePage(){
     const bottom_icons = ["settings", "call"]
     const bottom_links = ["/", "/"] 
 
-<<<<<<< HEAD
     function displayApproval() {
       return swap.filter(swaps => swaps.user_email_requester === localStorage.getItem('email') && swaps.accepted == false && swaps.rejected_by_requester == false)
       .map(swap => (
@@ -126,16 +124,13 @@ export default function ProfilePage(){
               <h2>The email who requested: {swap.user_email_swap}</h2>
               <p>The item that you requested: {item.filter(items => items.item_id == swap.wanted_item_id).map(item => item.title)}</p>
               <p>The item that they requested: {item.filter(items => items.item_id == swap.requestie_item_id).map(item => item.title)}</p>
-              <button onClick={() => handleViewTrades(swap)}>View Trades</button>
-              <button onClick={() => handleReject(swap)}>reject</button>
+              <button onClick={() => handleApproval(swap)}>Confirm</button>
+              <button onClick={() => handleRejectSwap(swap)}>reject</button>
           </div>
         ));
     } 
 
-    function displayRequests() {
-=======
     function displayRequests() { 
->>>>>>> b2c755590e4bdfa7909a6050287d72a87e53c1bd
         return requests.filter(requests => requests.user_email_requestie === localStorage.getItem('email') && requests.rejected_by_requestie == false)
         .map(request => (
             <div className="flexbox-container flexbox-requests" key={request.request_id} >
@@ -179,6 +174,66 @@ export default function ProfilePage(){
             console.error('Error fetching requests:', error);
           }
         }
+
+        const handleRejectSwap = async (swap) => {
+          try {
+              const response = await fetch('https://nerdwork-server.onrender.com/trade/swap', {
+                method: 'PATCH',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  user_email_requester: swap.user_email_requester,
+                  user_email_requestie: swap.user_email_requestie,
+                  wanted_item_id: swap.wanted_item_id,
+                  requestie_item_id: swap.requestie_item_id,                
+                  accepted: false,
+                  rejected_by_requester: true                  
+                  })
+              });
+              const res = await response.json();
+            } catch (error) {
+              console.error('Error fetching requests:', error);
+            }
+          }
+
+          const handleApproval = async (swap) => {
+            try {
+                const response = await fetch('https://nerdwork-server.onrender.com/trade/swap', {
+                  method: 'PATCH',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    user_email_requester: swap.user_email_requester,
+                    user_email_requestie: swap.user_email_requestie,
+                    wanted_item_id: swap.wanted_item_id,
+                    requestie_item_id: swap.requestie_item_id,                
+                    accepted: true,
+                    rejected_by_requester: false                  
+                    })
+                });
+                const res = await response.json();
+                const itemList = [swap.wanted_item_id, swap.requestie_item_id]
+                for (item in itemList) { 
+                try {
+                    const response = await fetch(`https://nerdwork-server.onrender.com/trade/${item}`, {
+                    method: 'DELETE',
+                    headers: {
+                      'Content-Type': 'application/json',
+                    }
+                  });
+                  const res = await response.json();
+                  return await res.json()
+                } catch (error) {
+                  console.error('Error fetching requests:', error);
+                }
+              }
+
+              } catch (error) {
+                console.error('Error fetching requests:', error);
+              }
+            }
 
     function openModal(){
         setModalOpen(true)
@@ -306,7 +361,7 @@ export default function ProfilePage(){
             </div>
             <div className="flexbox-container flexbox-carousel">
                 <div className="flexbox-container" style={{width:"100%"}}>
-                        <div className="flexbox-item"style={{width:"50%", justifyContent: "flex-start"}}><p>Suggested for you...</p></div>
+                        <div className="flexbox-item"style={{width:"50%", justifyContent: "flex-start"}}><p>Suggested for you...</p><div>{displayApproval()}</div></div>
                         <div className="flexbox-item add-book" style={{width:"50%", justifyContent: "flex-end"}}>
                                 <p>Add an item to your account</p>
                                     <i className="material-icons"

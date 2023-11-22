@@ -270,7 +270,28 @@ h3{
     border: black solid 5px;
 }
 
+.profile-box:hover{
+  width:300px;
+  cursor: pointer;
+  color: black;
+  filter: hue-rotate(120deg);
+  translate: 125px;
+  transition: 0.5s
+}
 
+.profile-box:hover i{
+  position:absolute;
+  left: 10px
+}
+
+.profile-box i{
+  position: absolute;  
+  left: 45px;
+  margin-top: 0px;
+  line-height: 0;
+  color: black;
+  font-size: 25px;
+}
 
 .profile-option i{
     position: absolute;  
@@ -280,7 +301,7 @@ h3{
     color: black;
     font-size: 25px;
 }
-.profile-box:hover,
+
 .profile-option:hover{
     cursor: pointer;
     filter: hue-rotate(120deg);
@@ -343,7 +364,7 @@ h3{
 }
 
 .bookshelf-container {
-    width: 1900px;
+    width: 100%;
     overflow-x: auto;
     overflow-y: hidden;
     margin-bottom: 50px;

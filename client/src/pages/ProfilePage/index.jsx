@@ -77,39 +77,77 @@ export default function ProfilePage(){
         fetchRequest();
         fetchItems()
     }, []);
+
   
     const top_rows = ["My Bookshelf", "My Games", "My Comics", "My Friends"]
     const top_icons = ["book", "sports_esports", "import_contacts", "diversity_3"]
     const top_var = ["book", "game", "comic book", ""]
-    const top_links = [`${siteURL}profile/bookshelf`, `${siteURL}profile/bookshelf`, `${siteURL}profile/bookshelf`, "/"]
+    const top_links = [`${localURL}profile/bookshelf`, `${localURL}profile/bookshelf`, `${localURL}profile/bookshelf`, "/"]
 
     const bottom_rows = ["Settings", "Contact Us"]
     const bottom_icons = ["settings", "call"]
     const bottom_links = ["/", "/"] 
 
-    function displayRequests() { 
-        return requests.filter(requests => requests.user_email_requestie === localStorage.getItem('email') && requests.rejected_by_requestie == false)
-        .map(request => (
-            <div className="flexbox-container flexbox-requests" key={request.request_id} >
-                <div className="flexbox-container">
-                    <h2>The email who requested: {request.user_email_request}</h2> 
-                    <i className="material-icons close-ikon"
-                        onClick={() => closeNotifications()} 
-                        style={{position:"relative", left: "100px", color: "red"}}>
-                            cancel
+    function displayRequests() {
+        const filteredRequests = requests.filter(
+            (request) =>
+                request.user_email_requestie === localStorage.getItem('email') &&
+                request.rejected_by_requestie === false
+        );
+        console.log(`Filtered: `); console.log(filteredRequests)
+        if (filteredRequests.length === 0) {
+            return <div className="flexbox-container">
+            <p>No Notifications!</p>
+            <div className="flexbox-item" style={{justifyContent:"flex-end"}}>
+                <i
+                    className="material-icons close-ikon"
+                    onClick={() => closeNotifications()}
+                    style={{ position: 'relative', left: '470px', color: 'red' }}
+                >
+                    cancel
+                </i>
+            </div>
+        </div>;
+        }
+    
+        return (
+            <div>
+                <div className="flexbox-container" style={{justifyContent: "flex-end"}}>
+                    <i
+                        className="material-icons close-ikon"
+                        onClick={() => closeNotifications()}
+                        style={{ color: 'red' }}
+                    >
+                        cancel
                     </i>
                 </div>
-                
+                {filteredRequests.map((request) => (
+                    <div className="flexbox-container flexbox-requests" key={request.request_id} style={{marginBottom: "40px"}}>
+                        <div className="flexbox-container">
+                            <h2>{request.user_email_request} has requested a swap!</h2>
+                            
+                        </div>
+    
+                        <p>
+                            The user has requested to trade for{' '}
+                            {item.filter((items) => items.item_id === request.wanted_item_id).map((item) => item.title)}
+                        </p>
+                        <div className="flexbox-container">
+                            <button className="login-button" onClick={() => handleViewTrades(request)}>
+                                View Trades
+                            </button>
+                            <div style={{ width: '20px' }}></div>
+                            <button className="login-button" onClick={() => handleReject(request)}>
+                                Reject
+                            </button>
 
-                <p>The user has requested to trade for {item.filter(items => items.item_id == request.wanted_item_id).map(item => item.title)}</p>
-                <div className="flexbox-container">
-                    <button className="login-button" onClick={() => handleViewTrades(request)}>View Trades</button>
-                    <div style={{width: "20px"}}></div>
-                    <button className="login-button" onClick={() => handleReject(request)}>Reject</button>
-                </div>
+                        </div>
+                    </div>
+                    
+                ))}
             </div>
-          ));
-      } 
+        );
+    }
 
 
     const handleReject = async (request) => {
@@ -126,7 +164,8 @@ export default function ProfilePage(){
                 })
             });
             const res = await response.json();
-            setNotifications(notifications--)
+            
+            setNotifications(notifications - 1)
           } catch (error) {
             console.error('Error fetching requests:', error);
           }

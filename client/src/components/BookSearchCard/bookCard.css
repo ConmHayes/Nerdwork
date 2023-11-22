@@ -7,10 +7,18 @@
     font-family: "Source Sans Pro",Arial,sans-serif;
     padding: 16px;
     margin-bottom: 20px;
-    border-radius: 4px;
+    border-radius: 8px;
     overflow: hidden;
+    background-color: antiquewhite;
+    border: black solid 3px
 }
 
+.book-card:hover{
+    cursor: pointer;
+    scale: 1.05;
+    opacity: 1.1;
+    transition: 0.2s;
+}
 
 .image-frame {
     width: 100%; /* Full width of the card */

@@ -1,10 +1,14 @@
 import React,  { useState, useEffect} from "react";
 import SearchForm from "../SearchForm";
 import BookSearchCard from "../BookSearchCard";
+import { useNavigate } from "react-router-dom";
+import "../BookSearchWidget/bookSearchWidget.css"
+ 
 
 export default function ComicSearchWidget () {
     const [searchString, setSearchString] = useState("");
     const [comics, setComics] = useState([]);
+    const navigate = useNavigate()
 
     useEffect(() => {
         fetchComics();
@@ -46,7 +50,7 @@ export default function ComicSearchWidget () {
         return uniqueData
             .filter(comic => searchString.length == 0 || comic.title.toLowerCase().includes(searchString.toLowerCase()))
             .map(comic => ( 
-            <div key={comic.item_id} onClick={() => displayUser(comic.item_id,book)} >
+            <div key={comic.item_id} onClick={() => displayUser(comic.item_id,comic)} >
             <BookSearchCard item={comic} />
             </div>
         ))

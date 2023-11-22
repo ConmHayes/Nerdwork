@@ -24,6 +24,7 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended, 
     const [selectedGenres, setSelectedGenres] = useState([]);
     const [error, setError] = useState('');
     const [initialBooks, setInitialBooks] = useState([])
+    const [hoveredText, setHoveredText] = useState(["", "", "", ""])
     const [formData, setFormData] = useState({
         title: "",
         img: "",
@@ -38,23 +39,26 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended, 
       });
       const [page, setPage] = useState(localStorage.shelf)
       const [username, setUsername] = useState("")
-      let top_icons; let top_var; let top_links
+      let top_icons; let top_var; let top_strings
+      const top_links = [`${localURL}profile`, `${localURL}profile/bookshelf`, `${localURL}profile/bookshelf`, "/"]
+
       if (localStorage.shelf ==="book"){
-         top_icons = ["home", "sports_esports", "import_contacts", "diversity_3"]
-         top_links = [`${siteURL}profile`, `${siteURL}profile/bookshelf`, `${siteURL}profile/bookshelf`, "/"]
-         top_var = ["", "game", "comic book", ""]  
+        top_strings=["Profile", "Your Games", "Your Comics", "Your Friends"]
+        top_icons = ["home", "sports_esports", "import_contacts", "diversity_3"]
+        top_var = ["", "game", "comic book", ""]  
       }else if (localStorage.shelf ==="game"){
-        top_icons = ["book", "home", "import_contacts", "diversity_3"]
-        top_var = ["book", "", "comic book", ""] 
-        top_links = [`${siteURL}profile/bookshelf`, `${siteURL}profile`, `${siteURL}profile/bookshelf`, "/"]
+        top_strings=["Profile", "Your Bookshelf", "Your Comics", "Your Friends"]
+        top_icons = ["home", "book", "import_contacts", "diversity_3"]
+        top_var = ["", "book", "comic book", ""] 
  
       }else if (localStorage.shelf==="comic book"){
-        top_icons = ["book", "sports_esports", "home", "diversity_3"]
-        top_var = ["book", "game", "", ""] 
-        top_links = [`${siteURL}profile/bookshelf`, `${siteURL}profile/bookshelf`, `${siteURL}profile`, "/"]
+        top_strings=["Profile", "Your Bookshelf", "Your Games", "Your Friends"]
+        top_icons = ["home", "book", "sports_esports", "diversity_3"]
+        top_var = ["", "book", "game", ""] 
  
 
       }
+      const bottom_strings = ["Settings", "Contact Us"]
       const bottom_icons = ["settings", "call"]
       const bottom_links = ["/", "/"]
   
@@ -182,7 +186,6 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended, 
         };
     
         try {
-            console.log(FormData)
           const response = await fetch('https://nerdwork-server.onrender.com/item/', {
             method: 'POST',
             headers: {
@@ -260,11 +263,22 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended, 
     
         // Filter books based on the condition
         const filteredBooks = data.items.filter(book => book.email === localStorage.email);
-        console.log(filteredBooks)
 
         setInitialBooks(filteredBooks)
 
     }
+    function hover(i){
+      let initArray = ["", "", "", ""]
+      initArray[i] = top_strings[i]
+      setHoveredText(initArray)
+    }
+    function hover2(i){
+      let initArray = ["", "", "", ""]
+      initArray[i] = bottom_strings[i]
+      setHoveredText(initArray)
+
+    }
+
     let title
     useEffect(() => {
         getBooksAndFilter()
@@ -294,8 +308,8 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended, 
                 <div className="flexbox-container option-box ">
                     {top_icons.map((icon, i) => (
                     <Link to={top_links[i]} className="link" key={i} onClick={() => [setShelf(top_var[i]), closeModal()]}>    
-                        <div className={`flexbox-item profile-box ${i % 2 === 0 ? 'even' : 'odd'}`}>
-                                <i className="material-icons ">{icon}</i>
+                        <div className={`flexbox-item profile-box ${i % 2 === 0 ? 'even' : 'odd'}`} onMouseOver={() => hover(i)} onMouseOut={() => setHoveredText(["", "", "", ""])}>
+                                <i className="material-icons " style: color>{icon}</i>{hoveredText[i]}
                         </div>
                     </Link>
                     ))}
@@ -306,8 +320,8 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended, 
                 <div className="flexbox-item option-row">
                     {bottom_icons.map((icon, i) => (
                         <Link to={bottom_links[i]} className="link" key={i} >
-                            <div className={`flexbox-item profile-box ${i % 2 === 0 ? 'even' : 'odd'}`} >
-                                    <i className="material-icons">{icon}</i> 
+                            <div className={`flexbox-item profile-box ${i % 2 === 0 ? 'even' : 'odd'}`} onMouseOver={() => hover2(i)} onMouseOut={() => setHoveredText(["", "", "", ""])} >
+                                    <i className="material-icons">{icon}</i> {hoveredText[i]}
                             </div>
                         </Link>
                     ))}

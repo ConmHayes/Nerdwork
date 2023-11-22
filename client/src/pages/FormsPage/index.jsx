@@ -56,7 +56,7 @@ const FormsPage = ({ onAddBook, setModalOpen, modalOpen }) => {
     
     const dataToSend = {
       ...formData,
-      genre: '[' + selectedgenre.join(',') + ']', 
+      genre: JSON.stringify(selectedgenre), 
       issue_num: parseInt(formData.issue_num, 10),
       email: formData.email,
       rating: parseFloat(formData.rating) 

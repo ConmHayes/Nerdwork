@@ -68,6 +68,7 @@ def get_user_and_items(email, category):
                 'issue_num': item.issue_num,
                 'img': item.img,
                 'rating': item.rating,
+                'description': item.description
             }
             for item in items
         ]

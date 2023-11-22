@@ -1,26 +1,39 @@
 .book-card {
-    max-width: 240px;
-    height: 550px; /* Adjust max-width for a larger card */
+    max-width: 300px;
+    height: 350px; /* Adjust max-width for a larger card */
     display: flex;
     flex-direction: column;
+    align-items: center;
     font-family: "Source Sans Pro",Arial,sans-serif;
-    background-color: aliceblue;
     padding: 16px;
     margin-bottom: 20px;
     border-radius: 4px;
     overflow: hidden;
 }
- 
-.book-card img {
+
+
+.image-frame {
     width: 100%; /* Full width of the card */
-    height: 280px; /* Adjust height automatically */
-    object-fit: cover;
+    height: 200px; /* Adjust height automatically */
+    display: flex; /* Uses flex to center the image inside */
+    align-items: center; /* Vertical alignment */
+    justify-content: center; /* Horizontal alignment */
+    overflow: hidden; /* Ensures the image doesn't overflow */
     margin-bottom: 10px;
-    border-radius: 4px; /* Rounded corners for images */
+    
+  }
+  .book-card .img {
+    max-width: 100%; /* Ensures the image doesn't exceed its container */
+    max-height: 100%; /* Ensures the image doesn't exceed its container */
+    object-fit: contain;
   }
 
 .book-card .info{
+    width: 100%; /* Aligns the info section with the image frame */
     padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
 }
 .book-card .title,
 .book-card .author,
@@ -41,7 +54,8 @@
     font-size: 0.75rem; /* Adjust font size for genre tags */
 }
 .book-card .rating {
-    /* Style for star ratings, can be implemented with SVGs, icons, or Unicode stars */
+    color: gold; /* This will apply the gold color to the stars */
+    font-size: 1rem; /* Adjust the size as necessary */
     margin-bottom: 8px; /* Spacing below the rating */
 }
   /* Add responsive design as needed with media queries */

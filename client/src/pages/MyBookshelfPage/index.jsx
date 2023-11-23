@@ -313,7 +313,7 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended, 
                     {top_icons.map((icon, i) => (
                     <Link to={top_links[i]} className="link" key={i} onClick={() => [setShelf(top_var[i]), closeModal()]}>    
                         <div className={`flexbox-item profile-box ${i % 2 === 0 ? 'even' : 'odd'}`} onMouseOver={() => hover(i)} onMouseOut={() => setHoveredText(["", "", "", ""])}>
-                                <i className="material-icons " style: color>{icon}</i>{hoveredText[i]}
+                                <i className="material-icons " style={{color: "whitesmoke"}}>{icon}</i>{hoveredText[i]}
                         </div>
                     </Link>
                     ))}
@@ -325,7 +325,7 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended, 
                     {bottom_icons.map((icon, i) => (
                         <Link to={bottom_links[i]} className="link" key={i} >
                             <div className={`flexbox-item profile-box ${i % 2 === 0 ? 'even' : 'odd'}`} onMouseOver={() => hover2(i)} onMouseOut={() => setLowerText(["", ""])} >
-                                    <i className="material-icons">{icon}</i> {lowerText[i]}
+                                    <i className="material-icons" style={{color: "whitesmoke"}}>{icon}</i> {lowerText[i]}
                             </div>
                         </Link>
                     ))}

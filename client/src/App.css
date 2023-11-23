@@ -293,6 +293,7 @@ h3{
     margin-top: 20px;
     height: 50px;
     border-radius: 20px;
+    color: whitesmoke
 }
 
 .profile-box{
@@ -332,7 +333,7 @@ h3{
     left: 10vh;
     margin-top: 0px;
     line-height: 0;
-    color: black;
+    color: white;
     font-size: 25px;
 }
 
@@ -600,7 +601,9 @@ h3{
     border-radius: 10px;
     animation-iteration-count: infinite;
     animation-timing-function: linear;
+    transition: transform 0.5s ease;
   }
+  
   
   #permas .profile-item {
     height: 300px;
@@ -626,6 +629,8 @@ h3{
     border: 5px transparent solid;
     transition:0.3s
   }
+
+  
 .test img{
     width: 200px;
     height:300px;

@@ -92,16 +92,16 @@ const RequestPage = () => {
     for (let i = 0; i < item.length; i += booksPerRow) {
       const row = item.slice(i, i + booksPerRow);
   
-      // Add empty columns on each side
+      // Adjusted the empty column width
       const emptyColumnLeft = <div className="col-1"></div>;
       const emptyColumnRight = <div className="col-1"></div>;
   
       const booksInRow = row.map((book) => (
         <div className="col-2" key={book.item_id}>
-          <button className="btn-container" onClick={() => handleBookClick(book)}>
+          <div className="book-card" onClick={() => handleBookClick(book)}>
             <h5>{book.title}</h5>
             <img src={book.img} alt="" />
-          </button>
+          </div>
         </div>
       ));
   
@@ -118,6 +118,7 @@ const RequestPage = () => {
   }
   
   
+  
 
   const handleBookClick = (i) => {
       setSelectedBook(i)
@@ -131,7 +132,7 @@ const RequestPage = () => {
       <>
       <p className="title"> <strong>Book Selected: </strong><br /> {selectedBook.title}</p>
       <img src={selectedBook.img} alt="" />
-      <p className="description"> book selected: {selectedBook.description}</p>
+      <p className="description">{selectedBook.description}</p>
       <button onClick={() => handleSwapRequest(selectedBook)} className="confirm-or-reject">Confirm Trade </button>
       <button onClick={() => handleReject()} className="confirm-or-reject">Reject Trade</button>
       </>

@@ -1,4 +1,6 @@
-
+body{
+    background-color: #E0F5F3;
+}
 
 
 .btn-container{
@@ -29,7 +31,26 @@ h1{
 }
 
 .selected-book{
-    border: black solid 10px;
     border-radius: 20px;
     padding: 15px;
+    background-color: antiquewhite;
 }
+
+.book-card {
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: "Source Sans Pro", Arial, sans-serif;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 20   px;
+    overflow: hidden;
+    background-color: antiquewhite;
+  } 
+  
+  /* Set a fixed height for the book cards */
+  .book-card img {
+    max-height: 200px; /* Adjust as needed */
+  }
+  

@@ -1,6 +1,22 @@
 body {
-    background-color: aliceblue;
+    background-color: #e0f5f3;
     font-family: 'Jost', sans-serif;
+}
+.navbar{
+  background-color: #0A2246;
+}
+.nav-link{
+  color: white;
+
+}
+#bootstrap-overrides .nav-link.active{
+  color: #f5574e
+}
+.navbar-brand{
+  color: #FDB724;
+}
+#book-card{
+  background-color: #f1ebd9;
 }
 
 body.login-page{

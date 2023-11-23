@@ -41,7 +41,7 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended, 
       const [page, setPage] = useState(localStorage.shelf)
       const [username, setUsername] = useState("")
       let top_icons; let top_var; let top_strings
-      const top_links = [`${siteURL}profile`, `${siteURL}profile/bookshelf`, `${siteURL}profile/bookshelf`, "/"]
+      const top_links = [`${localURL}profile`, `${localURL}profile/bookshelf`, `${localURL}profile/bookshelf`, "/"]
 
       if (localStorage.shelf ==="book"){
         top_strings=["Profile", "Your Games", "Your Comics", "Your Friends"]
@@ -330,12 +330,12 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended, 
             </div>
             <div className="flexbox-container profile-bookshelf">
                 <div className="flexbox-container" style={{width:"100%"}}>
-                    <div className="flexbox-item"style={{width:"50%", justifyContent: "flex-start"}}><p>Your {capitalisation()}s</p></div>
+                    <div className="flexbox-item"style={{width:"50%", justifyContent: "flex-start"}}><h3>Your {capitalisation()}s</h3></div>
                     <div className="flexbox-item add-book" style={{width:"50%", justifyContent: "flex-end"}}>
-                            <p>Add another {localStorage.shelf}</p>
+                            <h3>Add another {localStorage.shelf}</h3>
                                 <i className="material-icons"
                                     onClick={openAdd} 
-                                    style={{marginRight: "50px", marginLeft: "20px", marginBottom:"20px"}}>
+                                    style={{marginRight: "50px", marginLeft: "20px", marginBottom:"10px"}}>
                                         add_circle
                                 </i>
                         </div>
@@ -370,7 +370,7 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended, 
                     {
                     initialBooks.map((book, i) => (
                         <div className="test" key={i} onClick = {() => openModal(book)} id={`Book_${book.item_id}`}>
-                            <img src={book.img} className={selectedBook?.item_id=== book.item_id ? "selected-book" : ""}
+                            <img src={book.img} className= {selectedBook?.item_id=== book.item_id ? "selected-book insert-image" : "insert-image"}
                             />
                         </div>
                     ))}

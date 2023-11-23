@@ -332,8 +332,8 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended, 
                 </div>
             </div>
             <div className="flexbox-container profile-bookshelf">
-                <div className="flexbox-container" style={{width:"100%"}}>
-                    <div className="flexbox-item"style={{width:"50%", justifyContent: "flex-start"}}><h3>Your {capitalisation()}s</h3></div>
+                <div className="flexbox-container box-header" style={{width:"100%"}}>
+                    <div className="flexbox-item"style={{width:"50%", justifyContent: "flex-start"}}><h3 style ={{marginLeft: "20px"}}>Your {capitalisation()}s</h3></div>
                     <div className="flexbox-item add-book" style={{width:"50%", justifyContent: "flex-end"}}>
                             <h3>Add another {localStorage.shelf}</h3>
                                 <i className="material-icons"

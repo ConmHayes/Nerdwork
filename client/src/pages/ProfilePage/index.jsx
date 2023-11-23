@@ -97,10 +97,7 @@ export default function ProfilePage(){
     useEffect(() => {
         fetchRequest();
         fetchSwap()
-        fetchItems()
-        
-
-    }, []);
+    }, [notifications]);
 
     useEffect(() => {
       notificationLength()
@@ -119,6 +116,7 @@ export default function ProfilePage(){
 
     useEffect(() => {
       getUsername()
+      fetchItems()
     }, []); 
   
 
@@ -224,6 +222,7 @@ export default function ProfilePage(){
             const res = await response.json();
             
             setNotifications(notifications - 1)
+            closeNotifications()
           } catch (error) {
             console.error('Error fetching requests:', error);
           }
@@ -440,8 +439,8 @@ export default function ProfilePage(){
                 </div>
             </div>
             <div className="flexbox-container flexbox-carousel">
-                <div className="flexbox-container" style={{width:"100%"}}>
-                        <div className="flexbox-item"style={{width:"50%", justifyContent: "flex-start"}}><h3>Suggested for you...</h3></div>
+                <div className="flexbox-container box-header" style={{width:"100%", height: "50px"}}>
+                        <div className="flexbox-item"style={{width:"50%", justifyContent: "flex-start"}}><h3 style={{marginLeft:"20px"}}>Suggested for you...</h3></div>
                         <div className="flexbox-item add-book" style={{width:"50%", justifyContent: "flex-end"}}>
                                 <h3>Add an item to your account</h3>
                                     <i className="material-icons"
@@ -468,8 +467,8 @@ export default function ProfilePage(){
                         {makeCarousel(item)}
                     </div>
                 </div>
-                <div className="flexbox-item " style={{marginTop:"50px", width: "100%", flexDirection: "column", alignItems: "flex-start"}}>
-                    <h3>Your Items</h3>
+                <div className="flexbox-item box-header bottom-margin" style={{marginTop:"50px", width: "100%", flexDirection: "column", alignItems: "flex-start"}}>
+                    <h3 style={{marginLeft: "20px"}}>Your Items</h3>
                     <div className="wrapper">
                         <div id="permas">
                             {makeCarousel(userItems)}

@@ -151,6 +151,8 @@ const RequestPage = () => {
             <Rating value={selectedBook.rating} />
           </div>
         </div>
+        <button onClick={handleSwapRequest} className="login-button">Confirm Trade</button>
+        <button onClick={handleReject} className="login-button">Decline Trade</button>
       </div>
     )}
   }
@@ -180,11 +182,11 @@ const RequestPage = () => {
           }),
         });
   
+        navigate('/profile')
         if (!response.ok) {
           const errorBody = await response.json(); 
           throw new Error(`HTTP error! status: ${response.status}, Message: ${errorBody.message}`);
         }
-        navigate('/profile')
       } catch(e){
     console.log(e)
   }
@@ -219,7 +221,7 @@ const handleReject = async () => {
       { selectedBook !== "" ? (
         <div className="row">
           <div className="col-4"></div>
-          <div className="col-4 selected-book">
+          <div className="col-4 selected-book mt-5">
             {printBook()}
           </div>
           <div className="col-4"></div>

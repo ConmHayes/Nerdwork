@@ -40,7 +40,9 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended, 
       });
       const [page, setPage] = useState(localStorage.shelf)
       const [username, setUsername] = useState("")
+
       let top_icons; let top_var; let top_strings
+
       const top_links = [`${localURL}profile`, `${localURL}profile/bookshelf`, `${localURL}profile/bookshelf`, "/"]
 
       if (localStorage.shelf ==="book"){
@@ -286,10 +288,11 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended, 
         title = capitalisation()
     }, [page])
 
-    function capitalisation(){
-        const string = localStorage.shelf
-        return string.charAt(0).toUpperCase() + string.slice(1)
+    function capitalisation() {
+      const shelf = localStorage.getItem('shelf') || '';
+      return shelf.charAt(0).toUpperCase() + shelf.slice(1);
     }
+    
     
     return (
         
@@ -366,7 +369,7 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended, 
 
                 </Modal>
                 
-                <div className="flexbox-item bookshelf-container" style={{justifyContent:"flex-start"}}>
+                <div className="flexbox-item bookshelf-container" data-testid="bookshelf-container" style={{justifyContent:"flex-start"}}>
                     {
                     initialBooks.map((book, i) => (
                         <div className="test" key={i} onClick = {() => openModal(book)} id={`Book_${book.item_id}`}>
@@ -417,4 +420,3 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended, 
         </div>
     )
 }
-

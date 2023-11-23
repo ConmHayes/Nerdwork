@@ -4,6 +4,8 @@ import "./postPage.css"
 export default function PostPage() {
     const [thread, setThread] = useState([]);
     const [posts, setPosts] = useState([]);
+    const [comment, setComment] = useState('');
+
     let { thread_id } = useParams()
     thread_id = parseInt(thread_id)
     console.log("ok")
@@ -39,11 +41,10 @@ export default function PostPage() {
         console.error('Error fetching threads:', error);
     }
     };
-
-    const handleThreadClick = async (thread_id) => {
-    navigate(`thread/${thread_id}`)
-    }
-    console.log(posts)
+    const handleCommentChange = (event) => {
+        setComment(event.target.value);
+      };
+    
     function displayPost() {
         return posts.map(post => (
             <article className="post-card" key={post.post_id}>
@@ -61,7 +62,37 @@ export default function PostPage() {
             </article>
         ));
     }
+    const postComment = () => {
+        const url = `https://nerdwork-server.onrender.com/post/`; // Replace with your actual endpoint
+        const email = localStorage.getItem('email'); // Assuming email is stored in localStorage
+        console.log("ok2")
+        fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            // Add any other headers your API requires
+          },
+          body: JSON.stringify({
+            thread_id : 1,
+            post_title : "nothing",
+            email: email, // Include email if needed
+            comment: comment, // The comment text from the input
+            vote: 0
+          }),
+        })
 
+        .then(response => {
+          if (response.ok) {
+            console.log("ok2")
+            return response.json();
+          }
+          throw new Error('Network response was not ok.');
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+          // Handle errors here
+        });
+      };
 
     return (
         
@@ -70,6 +101,18 @@ export default function PostPage() {
                 <h1 className="thread-title">{thread.title}</h1>
                 <p className="thread-description">{thread.description}</p>
             </header>
+            <div className="comment-section">
+                <div className="comment-header">
+                    <span> comment as {localStorage.getItem("email")} </span>
+                </div>
+                <div className="comment-body">
+                    <textarea className="comment-input" type="text" value={comment} onChange={handleCommentChange}>
+                    </textarea> 
+                </div>
+                <div className="cooment-footer">
+                    <button  onClick={ postComment }> Post </button>
+                </div>
+            </div>
             <div className="sorter">
                 <label htmlFor="sort-select">Sort by:</label>
                 <select id="sort-select">

@@ -103,11 +103,23 @@ export default function ProfilePage(){
 
     }, []);
 
+
+    useEffect(() => {
+      fetchSwap()
+    }, []);
+
+
     function notificationLength(){
       const n = swapNum + requestNum
       console.log(`Notifications: ${n}`)
       setNotifications(n)
     }
+
+    useEffect(() => {
+      getUsername()
+    }, []); 
+  
+
     const top_rows = ["My Bookshelf", "My Games", "My Comics", "My Friends"]
     const top_icons = ["book", "sports_esports", "import_contacts", "diversity_3"]
     const top_var = ["book", "game", "comic book", ""]
@@ -318,7 +330,7 @@ export default function ProfilePage(){
         const randomArray = [];
         const tracking = []
 
-        while (randomArray.length < 21) {
+        while (randomArray.length <= 15) {
           const randomIndex = Math.floor(Math.random() * len);
         
           // Check if the random index is not already in the array
@@ -350,7 +362,6 @@ export default function ProfilePage(){
     }
 
     useEffect(() => {
-        getUsername()
         getCarouselItems()
     }, [])
 

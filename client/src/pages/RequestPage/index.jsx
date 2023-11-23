@@ -85,10 +85,13 @@ const RequestPage = () => {
 
   function itemShelf() {
     return item.map(i => (
-        <button key={i.item_id} onClick={() => handleBookClick(i)}>
-                <h5>{i.title}</h5>
-                <img src={i.img} alt="" />
-        </button>
+      <img className="insert-image request-image" 
+           src={i.img}
+           alt="" 
+           key={i.item_id} 
+           onClick={() => handleBookClick(i)}
+           style={{marginRight: "20px"}}/>
+        
       ));
   } 
 
@@ -98,15 +101,18 @@ const RequestPage = () => {
 
   const printBook = () => {
     if (selectedBook === "") {
-      return <p> book selected:</p>
+      return <p style={{marginTop: "30px"}}> Item selected:</p>
     } else {
       return (
       <>
-      <p> book selected: {selectedBook.title}</p>
-      <img src={selectedBook.img} alt="" />
-      <p> book selected: {selectedBook.description}</p>
-      <button onClick={() => handleSwapRequest(selectedBook)}>Confirm Trade </button>
-      <button onClick={() => handleReject()}>Reject Trade</button>
+      <p> Item selected: {selectedBook.title}</p>
+      <img className="insert-image request-image" src={selectedBook.img} alt="" />
+      <p> Description: {selectedBook.description}</p>
+      <div className="flexbox-container">
+        <button className="login-button" onClick={() => handleSwapRequest(selectedBook)}>Confirm Trade </button>
+        <div style={{ width: '20px' }}></div>
+        <button className="login-button" onClick={() => handleReject()}>Reject Trade</button>
+      </div>
       </>
     )}
   }
@@ -168,8 +174,8 @@ const handleReject = async () => {
   return (
     <div>
       <NavigationBar />
-      <div>{itemShelf(item)}</div>
-      <div>{printBook()}</div>
+      <div style={{position: "relative", top:"50px"}}>{itemShelf(item)}</div>
+      <div style={{position: "relative", top:"150px"}}>{printBook()}</div>
     </div>
   );
 };

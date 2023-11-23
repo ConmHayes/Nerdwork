@@ -74,7 +74,7 @@
     cursor: pointer;
     position: absolute;
     bottom: 10px; 
-    left: 52px; 
+    right: -30px; 
     transform: translateX(-50%); 
     transition: background-color 0.3s ease, box-shadow 0.3s ease; 
   }

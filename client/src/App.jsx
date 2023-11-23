@@ -4,7 +4,7 @@ import * as Pages from "./pages";
 
 import { Routes, Route, useNavigate } from "react-router-dom";
 
-import { NavigationBar, Bookshelf, Communities } from "./components";
+import { NavigationBar, Bookshelf } from "./components";
 
 import React from "react";
 

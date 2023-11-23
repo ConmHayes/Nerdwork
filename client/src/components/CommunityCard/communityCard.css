@@ -1,72 +1,65 @@
 .Community-Card {
-    background-color: #ffffff; 
-    border: 1px solid #d8d8d8; 
-    border-radius: 8px;
-    margin-bottom: 20px;
+  background-color: #ffffff;
+  border: 1px solid #d8d8d8;
+  border-radius: .25rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
+  margin-bottom: 1rem;
+  font-family: "Source Sans Pro", Arial, sans-serif;
+  transition: box-shadow 0.3s ease, transform 0.3s ease; 
+}
+
+.Community-Card:hover {
+  transform: translateY(-5px); 
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2); 
+}
+
+.community-name {
+  padding: .75rem 1.25rem;
+  border-bottom: 1px solid #d8d8d8;
+  background-color: #f8f9fa; 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.community-name h2 {
+  font-size: 1.25rem;
+  color: #333;
+  font-weight: 600; 
+}
+
+.Join {
+  padding: .375rem .75rem;
+  background-color: #007bff;
+  color: white;
+  border-radius: .25rem;
+  font-weight: bold;
+  font-size: .875rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
+}
+
+.Join:hover {
+  background-color: #0056b3;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.community-description p {
+  margin: 0;
+  padding: .75rem 1.25rem;
+  color: #666;
+  font-size: .875rem;
+  background-color: #ffffff;
+  text-align: left;
+}
+
+@media (max-width: 768px) {
+  .community-container {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    width: fit-content; 
-    margin-left: auto; 
-    margin-right: auto;
-    font-family: "Source Sans Pro",Arial,sans-serif;
-    
   }
-  
-  
-  .community-name {
-    display: flex;
-    justify-content: space-between; /* This will put space between title and button */
-    align-items: center;
-    padding: 10px 15px;
-    border-bottom: 1px solid #d8d8d8; /* Separator */
-    width: 100%; 
+
+  .Community-Card {
+    margin-left: 15px;
+    margin-right: 15px; 
   }
-  
-  .community-name h2 {
-    margin-right: 50px; /* Increase right margin to add space between title and button */
-    color: #333;
-    font-size: 2rem;
-  }
-  
- 
-  .Join {
-    margin-left: 50px;
-    padding: 6px 20px;
-     background-color: #0079d3; /* Bright blue for the button */
-    color: white;
-    border: none;
-    border-radius: 18px;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 0.875rem;
-  }
-  
-  .Join:hover {
-    background-color: #005fa3; 
-  }
-  
- 
-  .community-description p {
-    padding: 15px;
-    margin: 0;
-    color: #666;
-    font-size: 0.875rem;
-  }
-  
-  
-  @media (max-width: 768px) {
-    .community-name {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-  
-    .community-name h2 {
-      margin-left: 0;
-      margin-bottom: 10px;
-    }
-  
-    .Join {
-      align-self: center; 
-    }
-  }
+}

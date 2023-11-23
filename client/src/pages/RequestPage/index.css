@@ -1,0 +1,35 @@
+
+
+
+.btn-container{
+    width: 300px;
+    height: 300px;
+    padding: 10px;
+    margin: 20px;
+
+    /* Border */
+    border-radius: 20px;
+}
+
+h1{
+    padding: 10px;
+    margin-top: 20px;
+}
+
+/* Selected Book */
+.description{
+    margin: 20px;
+}
+
+.confirm-or-reject{
+    margin: 10px;
+    width: 150px;
+    height: 55px;
+    border-radius: 20px;
+}
+
+.selected-book{
+    border: black solid 10px;
+    border-radius: 20px;
+    padding: 15px;
+}

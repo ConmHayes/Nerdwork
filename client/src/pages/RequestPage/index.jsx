@@ -2,13 +2,14 @@ import { useState, useEffect } from "react"
 import { NavigationBar, TradeRequest, BookCard } from '../../components';
 // Initial hardcoded data
 import { useParams, useNavigate } from "react-router-dom";
+import "./index.css"
 
 const RequestPage = () => {
   // State to keep track of books
   const [requests, setRequests] = useState([])
   const [item, setItem] = useState([])
   const [books, setBooks] = useState([]);
-  const [selectedBook, setSelectedBook] = useState('')
+  const [selectedBook, setSelectedBook] = useState("")
   const [tradeRequest, setTradeRequest] = useState({})
   const navigate = useNavigate()
   let { id } = useParams()
@@ -84,13 +85,39 @@ const RequestPage = () => {
   }
 
   function itemShelf() {
-    return item.map(i => (
-        <button key={i.item_id} onClick={() => handleBookClick(i)}>
-                <h5>{i.title}</h5>
-                <img src={i.img} alt="" />
-        </button>
+    const booksPerRow = 5;
+  
+    const rows = [];
+  
+    for (let i = 0; i < item.length; i += booksPerRow) {
+      const row = item.slice(i, i + booksPerRow);
+  
+      // Add empty columns on each side
+      const emptyColumnLeft = <div className="col-1"></div>;
+      const emptyColumnRight = <div className="col-1"></div>;
+  
+      const booksInRow = row.map((book) => (
+        <div className="col-2" key={book.item_id}>
+          <button className="btn-container" onClick={() => handleBookClick(book)}>
+            <h5>{book.title}</h5>
+            <img src={book.img} alt="" />
+          </button>
+        </div>
       ));
-  } 
+  
+      rows.push(
+        <div className="row" key={i}>
+          {emptyColumnLeft}
+          {booksInRow}
+          {emptyColumnRight}
+        </div>
+      );
+    }
+  
+    return rows;
+  }
+  
+  
 
   const handleBookClick = (i) => {
       setSelectedBook(i)
@@ -102,11 +129,11 @@ const RequestPage = () => {
     } else {
       return (
       <>
-      <p> book selected: {selectedBook.title}</p>
+      <p className="title"> <strong>Book Selected: </strong><br /> {selectedBook.title}</p>
       <img src={selectedBook.img} alt="" />
-      <p> book selected: {selectedBook.description}</p>
-      <button onClick={() => handleSwapRequest(selectedBook)}>Confirm Trade </button>
-      <button onClick={() => handleReject()}>Reject Trade</button>
+      <p className="description"> book selected: {selectedBook.description}</p>
+      <button onClick={() => handleSwapRequest(selectedBook)} className="confirm-or-reject">Confirm Trade </button>
+      <button onClick={() => handleReject()} className="confirm-or-reject">Reject Trade</button>
       </>
     )}
   }
@@ -140,6 +167,7 @@ const RequestPage = () => {
           const errorBody = await response.json(); 
           throw new Error(`HTTP error! status: ${response.status}, Message: ${errorBody.message}`);
         }
+        navigate('/profile')
       } catch(e){
     console.log(e)
   }
@@ -166,11 +194,21 @@ const handleReject = async () => {
   }
 
   return (
-    <div>
+    <>
       <NavigationBar />
-      <div>{itemShelf(item)}</div>
-      <div>{printBook()}</div>
-    </div>
+      <h1>Your Requests</h1>
+        <div>{itemShelf(item)}</div>
+
+      { selectedBook !== "" ? (
+        <div className="row">
+          <div className="col-4"></div>
+          <div className="col-4 selected-book">
+            {printBook()}
+          </div>
+          <div className="col-4"></div>
+        </div> ) : <></>
+      }
+    </>
   );
 };
 

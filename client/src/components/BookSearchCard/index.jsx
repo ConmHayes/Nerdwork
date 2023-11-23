@@ -12,15 +12,15 @@ export default function BookSearchCard ({ item }){
     }
     console.log("item" , item)
     return (
-        <div id= "book-card" className="book-card" onClick={() => displayUser(item.item_id)}>
+        <div id="book-card" className="book-card" onClick={() => displayUser(item.item_id)}>
           <div className='image-frame'>
-            <img src={img} alt={title}/> 
+            <img src={img} alt={title} className='insert-image'/> 
           </div>
           <div className='info'>
-            <div className='tittle'>
+            <div className='title'>
               <p style={{borderTop: "20px"}}>{title}</p>
             </div>
-            <div className='aruthor'>
+            <div className='author'>
               <p> {author}</p>
             </div>
             {/* <div className="genres">

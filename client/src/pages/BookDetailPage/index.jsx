@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {Genre,Rating} from '../../components';
 import { useLocation } from 'react-router-dom';
+import penguin from "../../assest/icons/penguin.png"
+
 
 import "./bookDetails.css"
 
@@ -65,7 +67,7 @@ const backArrow = () => {
     };
     return (
       <div className="user-card" onClick={toggleRequestButton}>
-        <img src={user.profileImageUrl || 'default-profile-icon.jpg'} alt={`${user.email}'s profile`} className="profile-icon" />
+        <img src={user.profileImageUrl || penguin} alt={`${user.email}'s profile`} className="profile-icon" />
         <div>{user.email}</div>
         {showRequestButton && (
           <button className="send-request-btn" onClick={() => handleOwnerClick(user.item_id, user.email)}>

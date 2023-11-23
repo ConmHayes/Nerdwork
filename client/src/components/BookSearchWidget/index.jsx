@@ -62,7 +62,12 @@ export default function BookSearchWidget () {
     }
     return(
         <div>
-            <SearchForm searchString={searchString} setSearchString={setSearchString}/>
+            <div className="bookHeading">
+                <h1>Search Books</h1>
+            </div>
+            <div className="searchbar">
+                <SearchForm searchString={searchString} setSearchString={setSearchString}/>
+            </div>
             <div className="cards-container" >
                {displayBooks() }
             </div> 

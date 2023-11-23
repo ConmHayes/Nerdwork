@@ -64,10 +64,15 @@ export default function ComicSearchWidget () {
     
     return(
         <div>
-        <SearchForm searchString={searchString} setSearchString={setSearchString}/>
-        <div className="cards-container" >
-           {displayComics() }
-        </div> 
-    </div>
+            <div className="bookHeading">
+                <h1>Search Comics</h1>
+            </div>
+            <div className="searchbar">
+                <SearchForm searchString={searchString} setSearchString={setSearchString}/>
+            </div>
+            <div className="cards-container" >
+                {displayComics() }
+            </div> 
+        </div>
     )
 }

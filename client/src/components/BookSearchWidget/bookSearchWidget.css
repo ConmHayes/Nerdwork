@@ -5,3 +5,8 @@
     padding: 50px; /* Padding around the entire grid */
     justify-content: center;
 }
+
+.bookHeading h1{
+    padding-top: 20px;
+    font-style: Bold;
+}

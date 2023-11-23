@@ -101,8 +101,8 @@ const backArrow = () => {
           <img src={data.img} alt={data.title} className="book-image"/>
         </div>
         <div className="text-content">
+          <h3 className='description-title'> Description : </h3>
           <div className='description'>
-            <h3> Description : </h3>
             <p>{data.description}</p>
           </div>
           <div className="genres">
@@ -114,7 +114,7 @@ const backArrow = () => {
         </div>
       </div>
       <div className="owners-section">
-      <h2>Owners of this Book</h2>
+      <h2>Users Email</h2>
       <div className="owners-list">
         {books?.map((user, index) => (
           <UserCard key={index} user={user} />

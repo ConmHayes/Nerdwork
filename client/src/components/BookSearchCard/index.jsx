@@ -17,10 +17,10 @@ export default function BookSearchCard ({ item }){
             <img src={img} alt={title}/> 
           </div>
           <div className='info'>
-            <div className='tittle'>
+            <div className='title'>
               <p style={{borderTop: "20px"}}>{title}</p>
             </div>
-            <div className='aruthor'>
+            <div className='author'>
               <p> {author}</p>
             </div>
             {/* <div className="genres">

@@ -194,9 +194,9 @@ export default function ProfilePage(){
         return swap.filter(swaps => swaps.user_email_requester === localStorage.getItem('email') && swaps.accepted == false && swaps.rejected_by_requester == false)
         .map(swap => (
             <div key={swap.swap_id} >
-                <h2>The email who requested: {swap.user_email_swap}</h2>
-                <p>The item that you requested: {item.filter(items => items.item_id == swap.wanted_item_id).map(item => item.title)}</p>
-                <p>The item that they requested: {item.filter(items => items.item_id == swap.requestie_item_id).map(item => item.title)}</p>
+                <h2>{swap.user_email_swap} requested to trade</h2>
+                <p>You asked to trade for {item.filter(items => items.item_id == swap.wanted_item_id).map(item => item.title)}</p>
+                <p>They wanted to trade for {item.filter(items => items.item_id == swap.requestie_item_id).map(item => item.title)}</p>
                 <div className="flexbox-container">
                   <button className="login-button" onClick={() => handleApproval(swap)}>Confirm</button>
                   <div style={{ width: '20px' }}></div>

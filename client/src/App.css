@@ -686,6 +686,14 @@ h3{
     border-radius: 10px;
   }
 
+  .request-image{
+    height: 200px;
+    width:130px
+  }
+  .request-image:hover{
+    scale: 1.15;
+    transition: 0.3s;
+  }
   .insert-image:hover{
     cursor: pointer;
   }

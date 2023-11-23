@@ -33,7 +33,7 @@ export default function LoginPage(){
                     button_Text={button_Text}
                     setButtonText={setButtonText}
                 />
-                <p data-testid="no-account">Not have an account yet? <Link to="/signup" className = "inline">Create one here!</Link></p>
+                <p data-testid="no-account">Not have an account yet? <Link to="/signup" className = "inline link" style={{color:"#34A299"}}>Create one here!</Link></p>
            </div>
            <div className="flexboxItem"></div>
         </div>

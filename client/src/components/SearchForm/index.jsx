@@ -11,7 +11,7 @@ export default function SearchForm({ searchString, setSearchString }) {
     return (
         <>
             <form id='buttonsearch' className='search-form '>
-                <label><input type="text" placeholder= "Find Your Favourite "value={searchString} onChange={updateTextFilter} /></label>
+                <label><input type="text" placeholder= "Search "value={searchString} onChange={updateTextFilter} /></label>
             </form>
         </>
 

@@ -10,6 +10,8 @@
     border-radius: 20px;
     overflow: hidden;
     background-color: antiquewhite;
+    border: none; /* Removes the border */
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.15);
 
 }
 
@@ -21,57 +23,48 @@
 }
 
 .image-frame {
-    width: 100%; /* Full width of the card */
-    height: 200px; /* Adjust height automatically */
-    display: flex; /* Uses flex to center the image inside */
-    align-items: center; /* Vertical alignment */
-    justify-content: center; /* Horizontal alignment */
-    overflow: hidden; /* Ensures the image doesn't overflow */
-    margin-bottom: 10px;
+    width: 100%; 
+    height: 200px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
     
   }
-  .book-card .img {
-    max-width: 100%; /* Ensures the image doesn't exceed its container */
-    max-height: 100%; /* Ensures the image doesn't exceed its container */
-    object-fit: contain;
-  }
+.book-card .image-frame img {
+    width: 50%; 
+    height: auto; 
+    border-radius: 10px;
+}
 
-.book-card .info{
-    width: 100%; /* Aligns the info section with the image frame */
-    padding-top: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center; 
+.book-card .info {
+    padding: 10px; /* Adjust padding to your liking */
+  }
+  
+  .book-card .info .title p{
+    margin: 0; /* Removes default paragraph margin */
+    font-weight: bold; /* Optional: if you want the title to be bold */
+    font-style: italic;
+  }
+  
+  .book-card .info .author p{
+    margin: 0; /* Removes default paragraph margin */
+    /* Optional: styles the author text color */
+    color: #003366;
+  }
+  
+
+
+.book-card .info .rating {
+    color: gold; 
+    font-size: 1rem; 
+    margin-bottom: 8px; 
 }
-.book-card .title,
-.book-card .author,
-.book-card .genre {
-    width: 100%; /* Ensures text does not overflow the card width */
-    white-space: nowrap; /* Prevents text from wrapping */
-    overflow: hidden; /* Keeps text within the card bounds */
-    text-overflow: ellipsis; /* Adds an ellipsis to text that overflows */
-    margin-bottom: 4px; /* Spacing between text elements */
-    line-height: 1.2; /* Adjust line height for better text fit and readability */
-}
-.book-card .genre {
-    background-color: #fff; /* Background color for genre tags */
-    padding: 2px 6px; /* Padding inside tags */
-    border-radius: 2px; /* Rounded corners for tags */
-    margin-right: 2px; /* Spacing between tags */
-    display: inline-block; /* Allows multiple tags in a row */
-    font-size: 0.75rem; /* Adjust font size for genre tags */
-}
-.book-card .rating {
-    color: gold; /* This will apply the gold color to the stars */
-    font-size: 1rem; /* Adjust the size as necessary */
-    margin-bottom: 8px; /* Spacing below the rating */
-}
-  /* Add responsive design as needed with media queries */
+  
   @media (max-width: 768px) {
     .books-grid {
         grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     }
     .book-card {
-        width: 150px; /* Adjust width on smaller screens */
+        width: 100px; /* Adjust width on smaller screens */
     }
 }

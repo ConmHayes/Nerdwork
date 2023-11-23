@@ -16,7 +16,7 @@ describe('NavigationBar Component', () => {
   afterEach(cleanup);
 
   const links = [
-    { to: '/home', text: 'Home' },
+    { to: '/Communities', text: 'Communities' },
     { to: '/booksearch', text: 'Books' },
     { to: '/comicsearch', text: 'Comics' },
     { to: '/gamesearch', text: 'Games' },

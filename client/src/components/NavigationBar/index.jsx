@@ -8,8 +8,8 @@ const NavigationBar = () => {
     localStorage.clear()
   }
   return (
-    <div className='main-container mt-5'>
-      <Navbar bg="light" expand="lg" className="mb-3" fixed="top">
+    <div id='bootstrap-overrides' className='main-container mt-5 '>
+      <Navbar expand="lg" className="mb-3" fixed="top">
         <Navbar.Brand as={NavLink} to="/" style={{marginLeft:"40px", marginRight:"40px"}}>
           Nerdwork
         </Navbar.Brand>

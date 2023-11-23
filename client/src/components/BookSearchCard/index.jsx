@@ -14,7 +14,7 @@ export default function BookSearchCard ({ item }){
     return (
         <div className="book-card" onClick={() => displayUser(item.item_id)}>
           <div className='image-frame'>
-            <img src={img} alt={title}/> 
+            <img src={img} alt={title} className='insert-image'/> 
           </div>
           <div className='info'>
             <div className='tittle'>

@@ -12,7 +12,6 @@ const apiURL = "https://nerdwork-server.onrender.com"
 const siteURL = "https://nerdwork.onrender.com/"
 const localURL = "http://localhost:5173/"
 export default function ProfilePage(){
-    const [sidebarExtended, setSidebarExtended] = useState(true)
     const [username, setUsername] = useState("");
     const [requests, setRequests] = useState([]);
     const [swap, setSwap] = useState([]);
@@ -23,7 +22,8 @@ export default function ProfilePage(){
     const [userItems, setUserItems] = useState([])
     const [notifications, setNotifications] = useState(0)
     const [notificationsOpen, setNotificationsOpen] = useState(false)
-    const [allUsers, setAllUsers] = useState([])
+    const [requestNum, setRequestNum] = useState(0)
+    const [swapNum, setSwapNum] = useState(0)
     const navigate = useNavigate()
 
     async function getUsername(){
@@ -50,9 +50,10 @@ export default function ProfilePage(){
           });
           const data = await response.json();
           const requestData = data.requests; 
-          const filteredRequests = requestData.filter(request => request.user_email_request === localStorage.email && request.rejected_by_requestie===false);
-          setNotifications(filteredRequests.length)
-
+          console.log(requestData)
+          const filteredRequests = requestData.filter(request => request.user_email_requestie === localStorage.email && request.rejected_by_requestie===false);
+          
+          setRequestNum(filteredRequests.length)
           setRequests(requestData)
         } catch (error) {
           console.error('Error fetching requests:', error);
@@ -68,7 +69,9 @@ export default function ProfilePage(){
           });
           const data = await response.json();
           const itemData = data.Items; 
-          setItem(itemData)
+          const uniqueData = removeDuplicateTitles(itemData);
+
+          setItem(uniqueData)
         } catch (error) {
           console.error('Error fetching item:', error);
         }
@@ -83,6 +86,9 @@ export default function ProfilePage(){
           });
           const data = await response.json();
           const swapData = data.swaps;
+          const filteredSwaps = swapData.filter(swap => swap.user_email_requester === localStorage.email && swap.accepted == false && swap.rejected_by_requester == false)
+          console.log(notifications)
+          setSwapNum(filteredSwaps.length)
           setSwap(swapData)
         } catch (error) {
           console.error('Error fetching requests:', error);
@@ -93,14 +99,19 @@ export default function ProfilePage(){
         fetchRequest();
         fetchSwap()
         fetchItems()
+        notificationLength()
 
     }, []);
 
-  
+    function notificationLength(){
+      const n = swapNum + requestNum
+      console.log(`Notifications: ${n}`)
+      setNotifications(n)
+    }
     const top_rows = ["My Bookshelf", "My Games", "My Comics", "My Friends"]
     const top_icons = ["book", "sports_esports", "import_contacts", "diversity_3"]
     const top_var = ["book", "game", "comic book", ""]
-    const top_links = [`${siteURL}profile/bookshelf`, `${siteURL}profile/bookshelf`, `${siteURL}profile/bookshelf`, "/"]
+    const top_links = [`${localURL}profile/bookshelf`, `${localURL}profile/bookshelf`, `${localURL}profile/bookshelf`, "/"]
 
     const bottom_rows = ["Settings", "Contact Us"]
     const bottom_icons = ["settings", "call"]
@@ -129,8 +140,8 @@ export default function ProfilePage(){
         }
     
         return (
-            <div>
-                <div className="flexbox-container" style={{justifyContent: "flex-end"}}>
+            <div style={{width: "100%"}}>
+                <div className="flexbox-container" style={{justifyContent: "flex-end", marginRight: "20px"}}>
                     <i
                         className="material-icons close-ikon"
                         onClick={() => closeNotifications()}
@@ -331,7 +342,9 @@ export default function ProfilePage(){
     function makeCarousel(items){
         return (
             items.map((item) => (
-                <div className="profile-item" key={item.item_id} ><img src={item.img} onClick={() => displayUser(item.item_id,item)}></img></div>
+                <div className="profile-item" key={item.item_id} >
+                  <img src={item.img} onClick={() => displayUser(item.item_id,item)} className="insert-image"></img>
+                  </div>
             ))
         )
     }
@@ -411,12 +424,12 @@ export default function ProfilePage(){
             </div>
             <div className="flexbox-container flexbox-carousel">
                 <div className="flexbox-container" style={{width:"100%"}}>
-                        <div className="flexbox-item"style={{width:"50%", justifyContent: "flex-start"}}><p>Suggested for you...</p><div>{displayApproval()}</div></div>
+                        <div className="flexbox-item"style={{width:"50%", justifyContent: "flex-start"}}><h3>Suggested for you...</h3><div>{displayApproval()}</div></div>
                         <div className="flexbox-item add-book" style={{width:"50%", justifyContent: "flex-end"}}>
-                                <p>Add an item to your account</p>
+                                <h3>Add an item to your account</h3>
                                     <i className="material-icons"
                                         onClick={openModal} 
-                                        style={{marginRight: "50px", marginLeft: "20px", marginBottom:"20px"}}>
+                                        style={{marginRight: "50px", marginLeft: "20px", marginBottom:"10px"}}>
                                             add_circle
                                     </i>
                                     <Modal
@@ -435,10 +448,10 @@ export default function ProfilePage(){
         
                 <div className="wrapper">
                     <div id="permas" style={{flexDirection: "row"}}>
-                        {makeCarousel(carouselItems)}
+                        {makeCarousel(item)}
                     </div>
                 </div>
-                <div className="flexbox-item flexbox-carousel" style={{marginTop:"50px", width: "100%"}}>
+                <div className="flexbox-item " style={{marginTop:"50px", width: "100%", flexDirection: "column", alignItems: "flex-start"}}>
                     <h3>Your Items</h3>
                     <div className="wrapper">
                         <div id="permas">

@@ -105,7 +105,7 @@ export default function ProfilePage(){
     useEffect(() => {
       notificationLength()
     }, [swapNum, requestNum])
-
+    
     useEffect(() => {
       fetchSwap()
     }, []);
@@ -197,8 +197,12 @@ export default function ProfilePage(){
                 <h2>The email who requested: {swap.user_email_swap}</h2>
                 <p>The item that you requested: {item.filter(items => items.item_id == swap.wanted_item_id).map(item => item.title)}</p>
                 <p>The item that they requested: {item.filter(items => items.item_id == swap.requestie_item_id).map(item => item.title)}</p>
-                <button onClick={() => handleApproval(swap)}>Confirm</button>
-                <button onClick={() => handleRejectSwap(swap)}>reject</button>
+                <div className="flexbox-container">
+                  <button className="login-button" onClick={() => handleApproval(swap)}>Confirm</button>
+                  <div style={{ width: '20px' }}></div>
+                  <button className="login-button" onClick={() => handleRejectSwap(swap)}>Reject</button>
+                </div>
+                
             </div>
           ));
       } 
@@ -402,10 +406,11 @@ export default function ProfilePage(){
                                 isOpen = {notificationsOpen}
                                 onRequestClose = {closeNotifications}
                                 contentLabel="Book Details"
-                                className="modal-form-profile" 
+                                className="modal-notifications" 
                             >
-                                <div className="flexbox-container">
+                                <div className="flexbox-container" style={{flexDirection: "column"}}>
                                     {displayRequests()}
+                                    {displayApproval()}
                                 </div>
                                 
                             </Modal>
@@ -436,7 +441,7 @@ export default function ProfilePage(){
             </div>
             <div className="flexbox-container flexbox-carousel">
                 <div className="flexbox-container" style={{width:"100%"}}>
-                        <div className="flexbox-item"style={{width:"50%", justifyContent: "flex-start"}}><h3>Suggested for you...</h3><div>{displayApproval()}</div></div>
+                        <div className="flexbox-item"style={{width:"50%", justifyContent: "flex-start"}}><h3>Suggested for you...</h3></div>
                         <div className="flexbox-item add-book" style={{width:"50%", justifyContent: "flex-end"}}>
                                 <h3>Add an item to your account</h3>
                                     <i className="material-icons"

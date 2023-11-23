@@ -10,7 +10,7 @@ post_bp = Blueprint("post_bp", __name__, url_prefix='/post')
 def format_post(post): 
     return {
         "post_id": post.post_id,
-        "user_id": post.user_id,
+        "email": post.email,
         "thread_id": post.thread_id,
         "post_title": post.post_title,
         "body": post.body,
@@ -31,12 +31,12 @@ def get_all():
     if request.method == "POST":
         data = request.get_json()
         if data:
-            user_id, thread_id, post_title, body, votes = data["user_id"], data["thread_id"], data["post_title"], data["body"], data["votes"]
+            email, thread_id, post_title, body, votes = data["email"], data["thread_id"], data["post_title"], data["body"], data["votes"]
 
-            if user_id and thread_id and post_title and body:
+            if email and thread_id and post_title and body:
                 try:
                     post_to_add = Post(
-                        user_id = user_id,
+                        email = email,
                         thread_id = thread_id,
                         post_title = post_title,
                         body = body,
@@ -109,7 +109,3 @@ def post_by_id(post_id):
 
         # ? If no post is found for the id notify the user
         return jsonify(message=f'No post found with id {post_id}'), 400
-
-
-
-

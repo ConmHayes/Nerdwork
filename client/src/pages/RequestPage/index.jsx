@@ -1,92 +1,175 @@
-import React, { useState } from 'react';
-import { NavigationBar, TradeRequest, Bookshelf } from '../../components';
-
+import { useState, useEffect } from "react"
+import { NavigationBar, TradeRequest, BookCard } from '../../components';
 // Initial hardcoded data
-const initialBooks = [
-  // give me random books
-  {
-    id: 1,
-    title: 'The Hobbit',
-    img: '',
-    author: 'J.R.R. Tolkien',
-    genres: '[Fantasy]',
-    owner: 'John Doe',
-    rating: 4.5,
-    category: 'book'
-  },
-  {
-    id: 2,
-    title: 'Sonic the Hedgehog',
-    img: '',
-    author: 'SEGA',
-    genres: '[Adventure, Boss Fight]',
-    owner: 'John Doe',
-    rating: 4.5,
-    category: 'game'
-  },
-  {
-    id: 3,
-    title: 'Spiderman',
-    img: '',
-    author: 'Stan Lee',
-    genres: '[Fantasy, Superhero]',
-    owner: 'John Doe',
-    rating: 4.5,
-    category: 'comic book'
-  },
-  {
-    id: 4,
-    title: 'Harry Potter and the Prisoner of Azkaban',
-    img: '',
-    author: 'J.K. Rowling',
-    genres: ['Fantasy'],
-    owner: 'John Doe',
-    rating: 4.5
-  },
-  {
-    id: 5,
-    title: 'Harry Potter and the Goblet of Fire',
-    img: '',
-    author: 'J.K. Rowling',
-    genres: ['Fantasy'],
-    owner: 'John Doe',
-    rating: 4.5
-  },
-  {
-    id: 6,
-    title: 'Harry Potter and the Order of the Phoenix',
-    img: '',
-    author: 'J.K. Rowling',
-    genres: ['Fantasy'],
-    owner: 'John Doe',
-    rating: 4.5
-  },
-];
+import { useParams, useNavigate } from "react-router-dom";
 
 const RequestPage = () => {
   // State to keep track of books
-  const [books, setBooks] = useState(initialBooks);
-
-  const handleTradeRequest = (selectedBookId, selectedDate) => {
-    // Find the book in the books array
-    const bookToTrade = books.find(book => book.id === selectedBookId);
-    if (bookToTrade) {
-      // Perform trade logic here, for example, mark the book as traded
-      bookToTrade.traded = true;
-
-      // For simplicity, we'll just log the trade details
-      console.log(`Book traded: ${bookToTrade.title} on date: ${selectedDate}`);
-      // If you want to update the state with the trade details, you'd
-      // set a new state here
-      setBooks([...books]);
+  const [requests, setRequests] = useState([])
+  const [item, setItem] = useState([])
+  const [books, setBooks] = useState([]);
+  const [selectedBook, setSelectedBook] = useState('')
+  const [tradeRequest, setTradeRequest] = useState({})
+  const navigate = useNavigate()
+  let { id } = useParams()
+  id = parseInt(id)
+  const fetchRequest = async () => {
+    try {
+      const response = await fetch('https://nerdwork-server.onrender.com/trade/', {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      const data = await response.json();
+      const requestData = data.requests; // Access the Communities array in the response
+      setRequests(requestData)
+    } catch (error) {
+      console.error('Error fetching requests:', error);
     }
   };
+
+  useEffect(() => {
+    fetchRequest();
+  }, []);
+
+  const requestProfile = async (id, requests) => {
+    const desiredRequestId = id;
+    const singleRequest = findItemByRequestId(desiredRequestId, requests);
+    setTradeRequest(singleRequest)
+    const requestEmail = singleRequest.user_email_request
+    const item_id = singleRequest.wanted_item_id
+    let ourCategory = undefined
+    try {
+      const response = await fetch('https://nerdwork-server.onrender.com/item/', {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      const data = await response.json();
+      const itemData = data.Items; 
+      const ourItem = itemData.filter(item => item_id == item.item_id)
+      ourCategory = ourItem[0].category
+
+      try {
+        const response = await fetch(`https://nerdwork-server.onrender.com/user/${requestEmail}/${ourCategory}`, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        const userData = await response.json();
+        const itemDetail = userData.items; 
+        setItem(itemDetail)
+      } catch (error) {
+        console.error('Error fetching item:', error);
+      }
+    } catch (error) {
+      console.error('Error fetching item:', error);
+    }
+  }
+
+
+
+  useEffect(() => {
+      requestProfile(id, requests);
+  }, [id, requests]);
+
+  function findItemByRequestId(requestId, data) {
+    for (const item of data) {
+        // console.log(item)
+        if (item.request_id === requestId) {
+            return item;
+        }
+    }
+    return null;
+  }
+
+  function itemShelf() {
+    return item.map(i => (
+        <button key={i.item_id} onClick={() => handleBookClick(i)}>
+                <h5>{i.title}</h5>
+                <img src={i.img} alt="" />
+        </button>
+      ));
+  } 
+
+  const handleBookClick = (i) => {
+      setSelectedBook(i)
+  }
+
+  const printBook = () => {
+    if (selectedBook === "") {
+      return <p> book selected:</p>
+    } else {
+      return (
+      <>
+      <p> book selected: {selectedBook.title}</p>
+      <img src={selectedBook.img} alt="" />
+      <p> book selected: {selectedBook.description}</p>
+      <button onClick={() => handleSwapRequest(selectedBook)}>Confirm Trade </button>
+      <button onClick={() => handleReject()}>Reject Trade</button>
+      </>
+    )}
+  }
+
+
+    async function handleSwapRequest(selectedBook) {
+      const book_id = selectedBook.item_id
+      // console.log(tradeRequest)
+      // console.log(book_id)
+      // console.log(tradeRequest.user_email_request)
+      // console.log(tradeRequest.user_email_requestie)
+      // console.log(tradeRequest.wanted_item_id)
+      try {
+        const response = await fetch('https://nerdwork-server.onrender.com/trade/swap', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            user_email_requester: tradeRequest.user_email_request,
+            user_email_requestie: tradeRequest.user_email_requestie,
+            wanted_item_id : tradeRequest.wanted_item_id,
+            requestie_item_id: book_id,
+            accepted: false,
+            rejected_by_requester: false,
+            date: null
+          }),
+        });
+  
+        if (!response.ok) {
+          const errorBody = await response.json(); 
+          throw new Error(`HTTP error! status: ${response.status}, Message: ${errorBody.message}`);
+        }
+      } catch(e){
+    console.log(e)
+  }
+}
+
+const handleReject = async () => {
+  try {
+      const response = await fetch('https://nerdwork-server.onrender.com/trade/', {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          user_email_request : tradeRequest.user_email_request,
+          user_email_requestie : tradeRequest.user_email_requestie,
+          wanted_item_id : tradeRequest.wanted_item_id
+          })
+      });
+      const res = await response.json();
+      navigate('/profile')
+    } catch (error) {
+      console.error('Error fetching requests:', error);
+    }
+  }
 
   return (
     <div>
       <NavigationBar />
-      <Bookshelf items={books} />
-      <TradeRequest books={books} onTradeRequest={handleTradeRequest} />
+      <div>{itemShelf(item)}</div>
+      <div>{printBook()}</div>
     </div>
   );
 };

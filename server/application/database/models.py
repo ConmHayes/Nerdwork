@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 
 db = SQLAlchemy()
 
@@ -73,7 +74,8 @@ class Swap(db.Model):
     requestie_item_id = db.Column(db.Integer, db.ForeignKey('item.item_id'), nullable=False)
     accepted = db.Column(db.Boolean, default=False)
     rejected_by_requester = db.Column(db.Boolean, default=False)
-    ##deleted a double date column after db reset
+    date = db.Column(db.Date, nullable=True, default=datetime.utcnow)
+
 
     #Foreign Keys
     requester = db.relationship('User', foreign_keys=[user_email_requester])
@@ -134,9 +136,9 @@ class Post(db.Model):
     thread_id_FK = db.relationship('Thread', foreign_keys=[thread_id])
 
     # Initialization 
-    def __init__(self, post_title, user_id, thread_id, body, votes=0):
+    def __init__(self, post_title, email, thread_id, body, votes=0):
         self.post_title = post_title
-        self.user_id = user_id
+        self.email = email
         self.thread_id = thread_id
         self.body = body
         self.votes = votes

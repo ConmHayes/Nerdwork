@@ -9,7 +9,14 @@ export default function LoginPage(){
     const [button_Text, setButtonText] = useState("Login")
   
 
-    document.body.classList.add("login-page")
+    useEffect(() => {
+        document.body.classList.add("login-page");
+        document.body.classList.remove("signup-page")
+    
+        return () => {
+          document.body.classList.remove("login-page");
+        };
+      }, []);
 
     return (
         <div className="flexbox-container login-container" >

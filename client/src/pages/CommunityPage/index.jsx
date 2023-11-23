@@ -1,41 +1,64 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
-import { Container, Row, Col, Card, ListGroup } from 'react-bootstrap';
+import React, { useState, useEffect } from "react";
+import SearchForm from "../../components/SearchForm";
+import { useNavigate } from "react-router-dom";
+import { CommunityCard } from "../../components";
+import HomePageCard from "../../components/HomepageCompoenet";
+import "./communityPage.css"
 
-const CommunityPage = () => {
-  let { communityId } = useParams();
-  // You would fetch community details based on communityId or pass it as a prop
-  // For this example, we'll assume static data
-  const communityDetails = {
-    id: 'harry-potter',
-    name: 'Harry Potter Fans',
-    description: 'Discuss all things Harry Potter here!',
-    topics: [
-      { id: 1, title: 'Favorite Harry Potter book?' },
-      { id: 2, title: 'Predictions for the next movie' },
-      // ... more topics
-    ],
+export default function CommunityPage() {
+  const [searchString, setSearchString] = useState("");
+  const [communities, setCommunities] = useState(null);
+  const [communityId, setCommunityId] = useState(1)
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    fetchCommunities();
+  }, []);
+
+  const fetchCommunities = async () => {
+    try {
+      const response = await fetch('https://nerdwork-server.onrender.com/community/', {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      const data = await response.json();
+      const communityData = data.Communities; // Access the Communities array in the response
+      setCommunities(communityData)
+    } catch (error) {
+      console.error('Error fetching communities:', error);
+    }
   };
 
-  return (
-    <Container>
-      <Row className="justify-content-center">
-        <Col xs={12}>
-          <Card>
-            <Card.Body>
-              <Card.Title>{communityDetails.name}</Card.Title>
-              <Card.Text>{communityDetails.description}</Card.Text>
-            </Card.Body>
-            <ListGroup variant="flush">
-              {communityDetails.topics.map((topic) => (
-                <ListGroup.Item key={topic.id}>{topic.title}</ListGroup.Item>
-              ))}
-            </ListGroup>
-          </Card>
-        </Col>
-      </Row>
-    </Container>
-  );
-};
+  const handleCommunityClick = async (id) => {
+    await setCommunityId(id)
+    navigate(`threads/${id}`)
+  }
 
-export default CommunityPage;
+  function displayCommunities() {
+    return communities
+      .filter(community => searchString.length === 0 || community.community_name.toLowerCase().includes(searchString.toLowerCase()))
+      .map(community => (
+          <CommunityCard  key={community.community_id} community={community} handleCommunityClick={handleCommunityClick}/>
+      ));
+  }
+  
+
+  return (
+    <>
+      <SearchForm searchString={searchString} setSearchString={setSearchString} />
+      <div className="community-container">
+        <div>
+        {communities === null ? (
+          <p>Loading communities...</p>
+        ) : (
+          <div className="community-post">{displayCommunities()}</div>
+        )}
+        </div>
+        <div className="create-post">
+          <HomePageCard/>
+        </div>
+      </div>
+    </>
+  );
+}

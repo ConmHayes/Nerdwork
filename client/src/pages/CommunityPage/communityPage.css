@@ -1,0 +1,15 @@
+.community-container {
+    display: flex;
+    align-items: flex-start; /* This aligns children to the top */
+    justify-content: center;
+  }
+  
+  .community-posts {
+    flex: 1; /* This allows the commun  ty posts section to grow and take up available space */
+    padding-right: 20px; /* Add some spacing between the posts and the card */
+  }
+  
+  .create-post {
+    flex-basis: 300px; /* This gives a fixed width to the HomePageCard, adjust as necessary */
+    
+  }

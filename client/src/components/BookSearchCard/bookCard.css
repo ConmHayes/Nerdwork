@@ -1,28 +1,78 @@
 .book-card {
-    background-color: #f7f1e3; 
-    border: 1px solid #d1ccc0;
-    box-shadow: 5px 5px 10px #ccc; 
-    border-radius: 8px; 
-    padding: 20px;
+    max-width: 300px;
+    height: 350px; /* Adjust max-width for a larger card */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: "Source Sans Pro",Arial,sans-serif;
+    padding: 16px;
     margin-bottom: 20px;
-    width: 400px;
-    height: 700px;
-    border: 2px solid #ffcc00;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: antiquewhite;
+    border: black solid 3px
+
 }
-#book-card{
-  
+
+.book-card:hover{
+    cursor: pointer;
+    scale: 1.05;
+    opacity: 1.1;
+    transition: 0.2s;
+}
+
+.image-frame {
+    width: 100%; /* Full width of the card */
+    height: 200px; /* Adjust height automatically */
+    display: flex; /* Uses flex to center the image inside */
+    align-items: center; /* Vertical alignment */
+    justify-content: center; /* Horizontal alignment */
+    overflow: hidden; /* Ensures the image doesn't overflow */
+    margin-bottom: 10px;
     
-    width: 400px;
-    height: 700px;
-}
+  }
+  .book-card .img {
+    max-width: 100%; /* Ensures the image doesn't exceed its container */
+    max-height: 100%; /* Ensures the image doesn't exceed its container */
+    object-fit: contain;
+  }
 
-.book-card h3 {
-    color: #34ace0; 
-    margin-top: 20px;
+.book-card .info{
+    width: 100%; /* Aligns the info section with the image frame */
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
 }
-
-.book-card p {
-    color: #555; 
-    margin-bottom: 8px;
-    line-height: 1.4; 
+.book-card .title,
+.book-card .author,
+.book-card .genre {
+    width: 100%; /* Ensures text does not overflow the card width */
+    white-space: nowrap; /* Prevents text from wrapping */
+    overflow: hidden; /* Keeps text within the card bounds */
+    text-overflow: ellipsis; /* Adds an ellipsis to text that overflows */
+    margin-bottom: 4px; /* Spacing between text elements */
+    line-height: 1.2; /* Adjust line height for better text fit and readability */
+}
+.book-card .genre {
+    background-color: #fff; /* Background color for genre tags */
+    padding: 2px 6px; /* Padding inside tags */
+    border-radius: 2px; /* Rounded corners for tags */
+    margin-right: 2px; /* Spacing between tags */
+    display: inline-block; /* Allows multiple tags in a row */
+    font-size: 0.75rem; /* Adjust font size for genre tags */
+}
+.book-card .rating {
+    color: gold; /* This will apply the gold color to the stars */
+    font-size: 1rem; /* Adjust the size as necessary */
+    margin-bottom: 8px; /* Spacing below the rating */
+}
+  /* Add responsive design as needed with media queries */
+  @media (max-width: 768px) {
+    .books-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+    .book-card {
+        width: 150px; /* Adjust width on smaller screens */
+    }
 }

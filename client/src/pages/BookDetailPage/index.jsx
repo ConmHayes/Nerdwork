@@ -1,84 +1,127 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {Genre,Rating} from '../../components';
 import { useLocation } from 'react-router-dom';
 
 import "./bookDetails.css"
 
+const apiURL = "https://nerdwork-server.onrender.com"
+const siteURL = "https://nerdwork.onrender.com/"
+const localURL = "http://localhost:5173/"
+
 export default function BookDetailPage(){
   
-  const mockUserOwners = [
-    {
-      id: 1,
-      name: "Alice Johnson",
-      profileImageUrl: "https://example.com/profiles/alice.jpg",
-      // Additional user details can be added here
-    },
-    {
-      id: 2,
-      name: "Bob Smith",
-      profileImageUrl: "https://example.com/profiles/bob.jpg",
-      // Additional user details can be added here
-    },
-    {
-      id: 3,
-      name: "Carol Williams",
-      profileImageUrl: "https://example.com/profiles/carol.jpg",
-      // Additional user details can be added here
-    },
-    // Add more users as needed
-  ];
-   const location = useLocation();
-   const books = location.state;
-   console.log(books)
-   const data  = books["0"]
-   console.log(data)
-   
-   
-  
+  const location = useLocation();
+  const books = location.state;
+  const data  = books["0"]
+  const navigate = useNavigate()
 
-    if (!data) {
-      return <div>Loading...</div>;
-    }
-    const UserCard = ({ user }) => {
-      return (
-        <div className="user-card">
-          <img src={user.profileImageUrl || 'default-profile-icon.jpg'} alt={`${user.email}'s profile`} className="profile-icon" />
-          <Link to={`/profile`}>{user.email}</Link>
-        </div>
-      );
-    };
+  async function handleOwnerClick(bookId, ownerEmail) {
+      const requesterEmail = localStorage.getItem('email')
+      console.log(bookId, ownerEmail, requesterEmail)
+      
+      try {
+        const response = await fetch('https://nerdwork-server.onrender.com/trade/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            user_email_request: requesterEmail,
+            user_email_requestie: ownerEmail,
+            wanted_item_id : bookId,
+            rejected_by_requestie: false 
+          }),
+        });
   
-    return (
-      <div className="book-detail-page">
-        <div className="container">
-          <h1 className="page-title">Book Details</h1>
-          <div className="image-container">
-            <img src={data.imageUrl} alt={data.title} className="book-image"/>
-          </div>
-          <div className="text-content">
-            <h2 className="title">{data.title}</h2>
-            <h3 className="author">{data.author}</h3>
-            <p className="description">{data.description}</p>
-            <div className="genres">
-              <Genre genres={data.genre} />
-            </div>
-            <div className="rating">
-              <Rating value={data.rating} />
-            </div>
-            </div>
-        </div>
-        <div className="owners-section">
-        <h2>Owners of this Book</h2>
-        <div className="owners-list">
-          {books?.map((user, index) => (
-            <UserCard key={index} user={user} />
-          ))}
-        </div>
-      </div>
-      </div>
-    );
+        if (!response.ok) {
+          const errorBody = await response.json(); 
+          throw new Error(`HTTP error! status: ${response.status}, Message: ${errorBody.message}`);
+        }
+  } catch(e){
+    console.log(e)
   }
+}
+  
+const backArrow = () => {
+  console.log(data.category)
+  if (data.category == 'book') {
+    navigate('/booksearch')
+  } else if (data.category == 'comic book') {
+    navigate('/comicsearch')
+  } else if (data.category == 'game') {
+    navigate('/gamesearch')
+  } 
+}
+  
+  if (!data) {
+    return <div>Loading...</div>;
+  }
+  const UserCard = ({ user }) => {
+    const [showRequestButton, setShowRequestButton] = useState(false);
+
+    const toggleRequestButton = () => {
+      setShowRequestButton(!showRequestButton);
+    };
+    return (
+      <div className="user-card" onClick={toggleRequestButton}>
+        <img src={user.profileImageUrl || 'default-profile-icon.jpg'} alt={`${user.email}'s profile`} className="profile-icon" />
+        <div>{user.email}</div>
+        {showRequestButton && (
+          <button className="send-request-btn" onClick={() => handleOwnerClick(user.item_id, user.email)}>
+            Send Request
+          </button>
+        )}
+      </div>
+      
+    );
+  };
+  
+  return (
+    <div className="book-detail-page">
+      <div className="container" style={{width: "100%"}}>
+        <div className='flexbox-container'>
+          <div className='flexbox-container' style={{justifyContent: "flex-start", width: "50%"}}>
+            
+              <i className="material-symbols-outlined bell-ikon" style={{marginRight: "200px"}} onClick={() => backArrow()}>
+                arrow_back_ios
+              </i>
+           
+            
+          </div>
+          <div className='flexbox-container' style={{width: "600px"}}>
+            <h1 className="page-title">{data.title}</h1>
+          </div>
+
+        </div>
+        <h3 className='page-author'> {data.author}</h3>
+        <div className="image-container">
+          <img src={data.img} alt={data.title} className="book-image"/>
+        </div>
+        <div className="text-content">
+          <div className='description'>
+            <h3> Description : </h3>
+            <p>{data.description}</p>
+          </div>
+          <div className="genres">
+            <Genre genres={data.genre} />
+          </div>
+          <div className="rating">
+            <Rating value={data.rating} />
+          </div>
+        </div>
+      </div>
+      <div className="owners-section">
+      <h2>Owners of this Book</h2>
+      <div className="owners-list">
+        {books?.map((user, index) => (
+          <UserCard key={index} user={user} />
+        ))}
+      </div>
+    </div>
+    </div>
+  );
+}
+
 
   
-

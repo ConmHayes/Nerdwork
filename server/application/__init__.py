@@ -10,6 +10,7 @@ load_dotenv()
 # from application import routes
 from application.routes import auth, user, item, find_data, community, thread, trade, post
 
+>>>>>>> 438c03eb3883c41f44c8d11fa08ba3bfdfb379b9
 
 app = Flask(__name__)
 CORS(app)
@@ -27,6 +28,11 @@ db.init_app(app)
 app.register_blueprint(auth.auth_bp)
 app.register_blueprint(user.user_bp)
 app.register_blueprint(item.item_bp)
+<<<<<<< HEAD
+app.register_blueprint(community.community_bp)
+app.register_blueprint(thread.thread_bp)
+app.register_blueprint(post.post_bp)
+=======
 app.register_blueprint(find_data.google_bp)
 app.register_blueprint(trade.trade_bp)
 app.register_blueprint(community.community_bp)
@@ -34,3 +40,4 @@ app.register_blueprint(thread.thread_bp)
 app.register_blueprint(post.post_bp)
 
 
+>>>>>>> 438c03eb3883c41f44c8d11fa08ba3bfdfb379b9

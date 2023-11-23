@@ -69,8 +69,6 @@ def create_thread():
     else:
         return jsonify(message='No data passed in'), 400
 
-
-
 # Retrieve all threads for a specific community
 @thread_bp.route("/community/<community_id>", methods=['GET'])
 def threads_by_community(community_id):

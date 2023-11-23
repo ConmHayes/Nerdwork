@@ -66,7 +66,9 @@ const FormsPage = ({ onAddBook, setModalOpen, modalOpen }) => {
       const response = await fetch('https://nerdwork-server.onrender.com/item/', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization : localStorage.token,
         },
         body: JSON.stringify(dataToSend),
       });

@@ -2,13 +2,15 @@ import { useState, useEffect } from "react"
 import { NavigationBar, TradeRequest, BookCard } from '../../components';
 // Initial hardcoded data
 import { useParams, useNavigate } from "react-router-dom";
+import "./index.css"
+import {Genre,Rating} from '../../components';
 
 const RequestPage = () => {
   // State to keep track of books
   const [requests, setRequests] = useState([])
   const [item, setItem] = useState([])
   const [books, setBooks] = useState([]);
-  const [selectedBook, setSelectedBook] = useState('')
+  const [selectedBook, setSelectedBook] = useState("")
   const [tradeRequest, setTradeRequest] = useState({})
   const navigate = useNavigate()
   let { id } = useParams()
@@ -84,16 +86,40 @@ const RequestPage = () => {
   }
 
   function itemShelf() {
-    return item.map(i => (
-      <img className="insert-image request-image" 
-           src={i.img}
-           alt="" 
-           key={i.item_id} 
-           onClick={() => handleBookClick(i)}
-           style={{marginRight: "20px"}}/>
-        
+    const booksPerRow = 5;
+  
+    const rows = [];
+  
+    for (let i = 0; i < item.length; i += booksPerRow) {
+      const row = item.slice(i, i + booksPerRow);
+  
+      // Adjusted the empty column width
+      const emptyColumnLeft = <div className="col-1"></div>;
+      const emptyColumnRight = <div className="col-1"></div>;
+  
+      const booksInRow = row.map((book) => (
+        <div className="col-2 mb-3 mt-3" key={book.item_id}>
+          <div className="book-card" onClick={() => handleBookClick(book)}>
+            <h5>{book.title}</h5>
+            <img src={book.img} alt="" />
+          </div>
+        </div>
       ));
-  } 
+  
+      rows.push(
+        <div className="row" key={i}>
+          {emptyColumnLeft}
+          {booksInRow}
+          {emptyColumnRight}
+        </div>
+      );
+    }
+  
+    return rows;
+  }
+  
+  
+  
 
   const handleBookClick = (i) => {
       setSelectedBook(i)
@@ -104,27 +130,38 @@ const RequestPage = () => {
       return <p style={{marginTop: "30px"}}> Item selected:</p>
     } else {
       return (
-      <>
-      <p> Item selected: {selectedBook.title}</p>
-      <img className="insert-image request-image" src={selectedBook.img} alt="" />
-      <p> Description: {selectedBook.description}</p>
-      <div className="flexbox-container">
-        <button className="login-button" onClick={() => handleSwapRequest(selectedBook)}>Confirm Trade </button>
-        <div style={{ width: '20px' }}></div>
-        <button className="login-button" onClick={() => handleReject()}>Reject Trade</button>
+      <div className="container" style={{width: "100%"}} >
+        <div className='flexbox-container'>
+          <div className='flexbox-container' style={{width: "600px"}}>
+          </div>
+
+        </div>
+        <div className="title">
+        </div>
+        <h1 className="page-title">{selectedBook.title}</h1>
+        <h4 className='page-author'> {selectedBook.author}</h4>
+        <div className="image-container">
+          <img src={selectedBook.img} alt={selectedBook.title} className="book-image"/>
+        </div>
+        <div className="text-content">
+          <div className='description'>
+            <h3> Description : </h3>
+            <p className="selected-book-description">{selectedBook.description}</p>
+          </div>
+          <div className="rating">
+            <Rating value={selectedBook.rating} />
+          </div>
+          <button onClick={handleSwapRequest} className="login-button">Confirm Trade</button>
+        <button onClick={handleReject} className="login-button">Decline Trade</button>
+        </div>
+
       </div>
-      </>
     )}
   }
 
 
     async function handleSwapRequest(selectedBook) {
       const book_id = selectedBook.item_id
-      // console.log(tradeRequest)
-      // console.log(book_id)
-      // console.log(tradeRequest.user_email_request)
-      // console.log(tradeRequest.user_email_requestie)
-      // console.log(tradeRequest.wanted_item_id)
       try {
         const response = await fetch('https://nerdwork-server.onrender.com/trade/swap', {
           method: 'POST',
@@ -142,6 +179,7 @@ const RequestPage = () => {
           }),
         });
   
+        navigate('/profile')
         if (!response.ok) {
           const errorBody = await response.json(); 
           throw new Error(`HTTP error! status: ${response.status}, Message: ${errorBody.message}`);
@@ -164,7 +202,6 @@ const handleReject = async () => {
           wanted_item_id : tradeRequest.wanted_item_id
           })
       });
-      const res = await response.json();
       navigate('/profile')
     } catch (error) {
       console.error('Error fetching requests:', error);
@@ -172,11 +209,19 @@ const handleReject = async () => {
   }
 
   return (
-    <div>
+    <>
       <NavigationBar />
-      <div style={{position: "relative", top:"50px"}}>{itemShelf(item)}</div>
-      <div style={{position: "relative", top:"150px"}}>{printBook()}</div>
-    </div>
+      <h1>Your Requests</h1>
+        <div>{itemShelf(item)}</div>
+
+      { selectedBook !== "" ? (
+
+          <div className="selected-book mt-5">
+            {printBook()}
+          </div>) :  <></>
+
+      }
+    </>
   );
 };
 

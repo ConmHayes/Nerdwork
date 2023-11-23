@@ -2,7 +2,6 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
 db = SQLAlchemy()
-#db.metadata.drop_all(db.engine, checkfirst=True)
 
 #User Table
 class User(db.Model):
@@ -11,26 +10,11 @@ class User(db.Model):
     email = db.Column(db.String(255), unique=True, nullable=False)
     address = db.Column(db.String(255))
     password = db.Column(db.String(255), nullable=False)
-    
     def __init__(self, username, email, address, password):
         self.username = username
         self.email = email
         self.address = address
         self.password = password
-
-#Friends Table  
-class Friend(db.Model):
-    friend_id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'), nullable=False)
-    friend_user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'), nullable=False)
-
-    #Foreign Keys
-    user = db.relationship('User', foreign_keys=[user_id])
-    friend_user = db.relationship('User', foreign_keys=[friend_user_id])
-
-    def __init__(self, user_id, friend_user_id):
-        self.user_id = user_id
-        self.friend_user_id = friend_user_id
 
 #Item Table
 class Item(db.Model):
@@ -112,7 +96,7 @@ class Swap(db.Model):
 class Community(db.Model):
     community_id = db.Column(db.Integer, primary_key=True)
     community_name = db.Column(db.String(255), nullable=False)
-    description = db.Column(db.String(255))
+    description = db.Column(db.String(255), nullable=True)
 
     # Initialization
     def __init__(self, community_name, description):

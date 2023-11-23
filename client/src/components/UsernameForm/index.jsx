@@ -154,7 +154,7 @@ export default function UsernameForm({
           <i className="material-icons ikon left">mail</i>
           <input
             className="Input"
-            type="text"
+            type="email"
             id="email"
             name="email"
             placeholder={inputEmail}

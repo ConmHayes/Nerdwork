@@ -125,7 +125,7 @@ export default function ProfilePage(){
     const top_rows = ["My Bookshelf", "My Games", "My Comics", "My Friends"]
     const top_icons = ["book", "sports_esports", "import_contacts", "diversity_3"]
     const top_var = ["book", "game", "comic book", ""]
-    const top_links = [`${localURL}profile/bookshelf`, `${localURL}profile/bookshelf`, `${localURL}profile/bookshelf`, "/"]
+    const top_links = [`${siteURL}profile/bookshelf`, `${siteURL}profile/bookshelf`, `${siteURL}profile/bookshelf`, "/"]
 
     const bottom_rows = ["Settings", "Contact Us"]
     const bottom_icons = ["settings", "call"]
@@ -194,11 +194,15 @@ export default function ProfilePage(){
         return swap.filter(swaps => swaps.user_email_requester === localStorage.getItem('email') && swaps.accepted == false && swaps.rejected_by_requester == false)
         .map(swap => (
             <div key={swap.swap_id} >
-                <h2>The email who requested: {swap.user_email_swap}</h2>
-                <p>The item that you requested: {item.filter(items => items.item_id == swap.wanted_item_id).map(item => item.title)}</p>
-                <p>The item that they requested: {item.filter(items => items.item_id == swap.requestie_item_id).map(item => item.title)}</p>
-                <button onClick={() => handleApproval(swap)}>Confirm</button>
-                <button onClick={() => handleRejectSwap(swap)}>reject</button>
+                <h2>{swap.user_email_swap} requested to trade</h2>
+                <p>You asked to trade for {item.filter(items => items.item_id == swap.wanted_item_id).map(item => item.title)}</p>
+                <p>They wanted to trade for {item.filter(items => items.item_id == swap.requestie_item_id).map(item => item.title)}</p>
+                <div className="flexbox-container">
+                  <button className="login-button" onClick={() => handleApproval(swap)}>Confirm</button>
+                  <div style={{ width: '20px' }}></div>
+                  <button className="login-button" onClick={() => handleRejectSwap(swap)}>Reject</button>
+                </div>
+                
             </div>
           ));
       } 
@@ -386,13 +390,13 @@ export default function ProfilePage(){
                     <div className="flexbox-container profile-header">
                         <div className="flexbox-item">
                             <span className="dot">
-                                <i className="material-icons ikon">person</i>
+                                <i className="material-icons ikon" style={{marginLeft: "4px"}}>person</i>
                             </span>
                         </div>
-                        <div className="flexbox-item" style = {{position: "relative", left: "10px", width: "400px"}}>
+                        <div className="flexbox-item" style = {{position: "relative", left: "10px", width: "350px"}}>
                             <h3> Welcome, {username}!</h3>
                         </div>
-                        <div className="flexbox-item bell" >
+                        <div className="flexbox-item bell"  >
                             <i className="material-icons bell-ikon" onClick={() => openNotifications()} >
                                 notifications
                             </i>
@@ -402,10 +406,11 @@ export default function ProfilePage(){
                                 isOpen = {notificationsOpen}
                                 onRequestClose = {closeNotifications}
                                 contentLabel="Book Details"
-                                className="modal-form-profile" 
+                                className="modal-notifications" 
                             >
-                                <div className="flexbox-container">
+                                <div className="flexbox-container" style={{flexDirection: "column"}}>
                                     {displayRequests()}
+                                    {displayApproval()}
                                 </div>
                                 
                             </Modal>
@@ -436,7 +441,7 @@ export default function ProfilePage(){
             </div>
             <div className="flexbox-container flexbox-carousel">
                 <div className="flexbox-container" style={{width:"100%"}}>
-                        <div className="flexbox-item"style={{width:"50%", justifyContent: "flex-start"}}><h3>Suggested for you...</h3><div>{displayApproval()}</div></div>
+                        <div className="flexbox-item"style={{width:"50%", justifyContent: "flex-start"}}><h3>Suggested for you...</h3></div>
                         <div className="flexbox-item add-book" style={{width:"50%", justifyContent: "flex-end"}}>
                                 <h3>Add an item to your account</h3>
                                     <i className="material-icons"

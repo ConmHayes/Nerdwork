@@ -127,7 +127,7 @@ const RequestPage = () => {
 
   const printBook = () => {
     if (selectedBook === "") {
-      return <p> book selected:</p>
+      return <p style={{marginTop: "30px"}}> Item selected:</p>
     } else {
       return (
       <div className="container" style={{width: "100%"}} >

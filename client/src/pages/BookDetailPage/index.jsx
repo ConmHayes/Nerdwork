@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {Genre,Rating} from '../../components';
 import { useLocation } from 'react-router-dom';
+import penguin from "../../assest/icons/penguin.png"
+
 
 import "./bookDetails.css"
 
@@ -65,7 +67,7 @@ const backArrow = () => {
     };
     return (
       <div className="user-card" onClick={toggleRequestButton}>
-        <img src={user.profileImageUrl || 'default-profile-icon.jpg'} alt={`${user.email}'s profile`} className="profile-icon" />
+        <img src={user.profileImageUrl || penguin} alt={`${user.email}'s profile`} className="profile-icon" />
         <div>{user.email}</div>
         {showRequestButton && (
           <button className="send-request-btn" onClick={() => handleOwnerClick(user.item_id, user.email)}>
@@ -99,8 +101,8 @@ const backArrow = () => {
           <img src={data.img} alt={data.title} className="book-image"/>
         </div>
         <div className="text-content">
+          <h3 className='description-title'> Description : </h3>
           <div className='description'>
-            <h3> Description : </h3>
             <p>{data.description}</p>
           </div>
           <div className="genres">
@@ -112,7 +114,7 @@ const backArrow = () => {
         </div>
       </div>
       <div className="owners-section">
-      <h2>Owners of this Book</h2>
+      <h2>Users Email</h2>
       <div className="owners-list">
         {books?.map((user, index) => (
           <UserCard key={index} user={user} />

@@ -46,10 +46,11 @@ export default function ThreadsPage() {
 
     function displayThreads() {
         return threads.map(thread => (
-            <div className="thread-card" key={thread.thread_id} onClick={() => handleThreadClick(thread.thread_id)}>
-                <h2 className="thread-title">{thread.title}</h2>
-                <p className="thread-description">{thread.description}</p>
-            </div>
+            <div className="thread-card" key={thread.thread_id}>
+            <h2 className="thread-title">{thread.title}</h2>
+            <p className="thread-description">{thread.description}</p>
+            <button className="view-button" onClick={() => handleThreadClick(thread.thread_id)}>View</button>
+        </div>
         ));
     }
 

@@ -403,7 +403,7 @@ export default function ProfilePage(){
                     {top_rows.map((title, i) => (
                     <Link to={top_links[i]} className="link" key={i} onClick={() => setShelf(top_var[i])}>    
                         <div className={`flexbox-item profile-option ${i % 2 === 0 ? 'even' : 'odd'}`}>
-                                <i className="material-icons left">{top_icons[i]}</i>
+                                <i className="material-icons left" style={{color: "whitesmoke"}}>{top_icons[i]}</i>
                                 {title}
                         </div>
                         </Link>
@@ -415,7 +415,7 @@ export default function ProfilePage(){
                     {bottom_rows.map((title, i) => (
                         <Link to={bottom_links[i]} className="link" key={i}>
                             <div className={`flexbox-item profile-option ${i % 2 === 0 ? 'even' : 'odd'}`}>
-                                    <i className="material-icons left">{bottom_icons[i]}</i>
+                                    <i className="material-icons left" style={{color: "whitesmoke"}}>{bottom_icons[i]}</i>
                                     {title}
                             </div>
                         </Link>

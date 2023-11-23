@@ -40,7 +40,7 @@ h1{
 }
 
 .book-card {
-    height: 275px;
+    height: 300px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -71,7 +71,7 @@ h1{
     background-color: #E0F5F3
   }
   
-  .page-title {
+  .page-title-new {
     font-size: 2.5rem;
     color: #333;
     width: 100%;
@@ -100,6 +100,7 @@ h1{
     height: auto;
     margin-right: 2rem; 
     border: 5px solid #d2b48c;
+    border-radius: 10px;
   }
   
   .text-content {

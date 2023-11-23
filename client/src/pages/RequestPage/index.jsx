@@ -138,7 +138,7 @@ const RequestPage = () => {
         </div>
         <div className="title">
         </div>
-        <h1 className="page-title">{selectedBook.title}</h1>
+        <h1 className="page-title-new">{selectedBook.title}</h1>
         <h4 className='page-author'> {selectedBook.author}</h4>
         <div className="image-container">
           <img src={selectedBook.img} alt={selectedBook.title} className="book-image"/>

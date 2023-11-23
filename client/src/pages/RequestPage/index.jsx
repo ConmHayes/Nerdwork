@@ -98,7 +98,7 @@ const RequestPage = () => {
       const emptyColumnRight = <div className="col-1"></div>;
   
       const booksInRow = row.map((book) => (
-        <div className="col-2" key={book.item_id}>
+        <div className="col-2 mb-3 mt-3" key={book.item_id}>
           <div className="book-card" onClick={() => handleBookClick(book)}>
             <h5>{book.title}</h5>
             <img src={book.img} alt="" />
@@ -133,26 +133,28 @@ const RequestPage = () => {
       <div className="container" style={{width: "100%"}} >
         <div className='flexbox-container'>
           <div className='flexbox-container' style={{width: "600px"}}>
-            <h1 className="page-title">{selectedBook.title}</h1>
+           
           </div>
 
         </div>
         <div className="title"></div>
-        <h3 className='page-author'> {selectedBook.author}</h3>
+        <h1 className="page-title">{selectedBook.title}</h1>
+        <h1 className='page-author'> {selectedBook.author}</h1>
         <div className="image-container">
           <img src={selectedBook.img} alt={selectedBook.title} className="book-image"/>
         </div>
         <div className="text-content">
           <div className='description'>
             <h3> Description : </h3>
-            <p>{selectedBook.description}</p>
+            <p className="selected-book-description">{selectedBook.description}</p>
           </div>
           <div className="rating">
             <Rating value={selectedBook.rating} />
           </div>
-        </div>
-        <button onClick={handleSwapRequest} className="login-button">Confirm Trade</button>
+          <button onClick={handleSwapRequest} className="login-button">Confirm Trade</button>
         <button onClick={handleReject} className="login-button">Decline Trade</button>
+        </div>
+
       </div>
     )}
   }
@@ -160,11 +162,6 @@ const RequestPage = () => {
 
     async function handleSwapRequest(selectedBook) {
       const book_id = selectedBook.item_id
-      // console.log(tradeRequest)
-      // console.log(book_id)
-      // console.log(tradeRequest.user_email_request)
-      // console.log(tradeRequest.user_email_requestie)
-      // console.log(tradeRequest.wanted_item_id)
       try {
         const response = await fetch('https://nerdwork-server.onrender.com/trade/swap', {
           method: 'POST',
@@ -205,7 +202,6 @@ const handleReject = async () => {
           wanted_item_id : tradeRequest.wanted_item_id
           })
       });
-      const res = await response.json();
       navigate('/profile')
     } catch (error) {
       console.error('Error fetching requests:', error);
@@ -219,53 +215,14 @@ const handleReject = async () => {
         <div>{itemShelf(item)}</div>
 
       { selectedBook !== "" ? (
-        <div className="row">
-          <div className="col-4"></div>
-          <div className="col-4 selected-book mt-5">
+
+          <div className="selected-book mt-5">
             {printBook()}
-          </div>
-          <div className="col-4"></div>
-        </div> ) : <></>
+          </div>) :  <></>
+
       }
     </>
   );
 };
 
 export default RequestPage;
-
-/* 
-
-  const printBook = () => {
-    if (selectedBook === "") {
-      return <p> book selected:</p>
-    } else {
-      return (
-      <div className="container" style={{width: "100%"}}>
-        <div className='flexbox-container'>
-          <div className='flexbox-container' style={{width: "600px"}}>
-            <h1 className="page-title">{selectedBook.title}</h1>
-          </div>
-
-        </div>
-        <h3 className='page-author'> {selectedBook.author}</h3>
-        <div className="image-container">
-          <img src={selectedBook.img} alt={selectedBook.title} className="book-image"/>
-        </div>
-        <div className="text-content">
-          <div className='description'>
-            <h3> Description : </h3>
-            <p>{data.description}</p>
-          </div>
-          <div className="genres">
-            <Genre genres={selectedBook.genre} />
-          </div>
-          <div className="rating">
-            <Rating value={selectedBook.rating} />
-          </div>
-        </div>
-      </div>
-    )}
-  }
-
-
-*/

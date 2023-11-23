@@ -50,11 +50,11 @@ export default function ProfilePage(){
           });
           const data = await response.json();
           const requestData = data.requests; 
-          console.log(requestData)
           const filteredRequests = requestData.filter(request => request.user_email_requestie === localStorage.email && request.rejected_by_requestie===false);
-          
+          console.log(filteredRequests.length)
+
           setRequestNum(filteredRequests.length)
-          setRequests(requestData)
+          setRequests(filteredRequests)
         } catch (error) {
           console.error('Error fetching requests:', error);
         }
@@ -87,7 +87,6 @@ export default function ProfilePage(){
           const data = await response.json();
           const swapData = data.swaps;
           const filteredSwaps = swapData.filter(swap => swap.user_email_requester === localStorage.email && swap.accepted == false && swap.rejected_by_requester == false)
-          console.log(notifications)
           setSwapNum(filteredSwaps.length)
           setSwap(swapData)
         } catch (error) {
@@ -99,11 +98,14 @@ export default function ProfilePage(){
         fetchRequest();
         fetchSwap()
         fetchItems()
-        notificationLength()
+        
 
     }, []);
 
-
+    useEffect(() => {
+      notificationLength()
+    }, [swapNum, requestNum])
+    
     useEffect(() => {
       fetchSwap()
     }, []);
@@ -135,7 +137,6 @@ export default function ProfilePage(){
                 request.user_email_requestie === localStorage.getItem('email') &&
                 request.rejected_by_requestie === false
         );
-        console.log(`Filtered: `); console.log(filteredRequests)
         if (filteredRequests.length === 0) {
             return <div className="flexbox-container">
             <p>No Notifications!</p>

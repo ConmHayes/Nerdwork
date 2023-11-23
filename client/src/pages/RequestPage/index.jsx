@@ -3,6 +3,7 @@ import { NavigationBar, TradeRequest, BookCard } from '../../components';
 // Initial hardcoded data
 import { useParams, useNavigate } from "react-router-dom";
 import "./index.css"
+import {Genre,Rating} from '../../components';
 
 const RequestPage = () => {
   // State to keep track of books
@@ -129,13 +130,28 @@ const RequestPage = () => {
       return <p> book selected:</p>
     } else {
       return (
-      <>
-      <p className="title"> <strong>Book Selected: </strong><br /> {selectedBook.title}</p>
-      <img src={selectedBook.img} alt="" />
-      <p className="description">{selectedBook.description}</p>
-      <button onClick={() => handleSwapRequest(selectedBook)} className="confirm-or-reject">Confirm Trade </button>
-      <button onClick={() => handleReject()} className="confirm-or-reject">Reject Trade</button>
-      </>
+      <div className="container" style={{width: "100%"}} >
+        <div className='flexbox-container'>
+          <div className='flexbox-container' style={{width: "600px"}}>
+            <h1 className="page-title">{selectedBook.title}</h1>
+          </div>
+
+        </div>
+        <div className="title"></div>
+        <h3 className='page-author'> {selectedBook.author}</h3>
+        <div className="image-container">
+          <img src={selectedBook.img} alt={selectedBook.title} className="book-image"/>
+        </div>
+        <div className="text-content">
+          <div className='description'>
+            <h3> Description : </h3>
+            <p>{selectedBook.description}</p>
+          </div>
+          <div className="rating">
+            <Rating value={selectedBook.rating} />
+          </div>
+        </div>
+      </div>
     )}
   }
 
@@ -214,3 +230,40 @@ const handleReject = async () => {
 };
 
 export default RequestPage;
+
+/* 
+
+  const printBook = () => {
+    if (selectedBook === "") {
+      return <p> book selected:</p>
+    } else {
+      return (
+      <div className="container" style={{width: "100%"}}>
+        <div className='flexbox-container'>
+          <div className='flexbox-container' style={{width: "600px"}}>
+            <h1 className="page-title">{selectedBook.title}</h1>
+          </div>
+
+        </div>
+        <h3 className='page-author'> {selectedBook.author}</h3>
+        <div className="image-container">
+          <img src={selectedBook.img} alt={selectedBook.title} className="book-image"/>
+        </div>
+        <div className="text-content">
+          <div className='description'>
+            <h3> Description : </h3>
+            <p>{data.description}</p>
+          </div>
+          <div className="genres">
+            <Genre genres={selectedBook.genre} />
+          </div>
+          <div className="rating">
+            <Rating value={selectedBook.rating} />
+          </div>
+        </div>
+      </div>
+    )}
+  }
+
+
+*/

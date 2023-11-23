@@ -1,5 +1,9 @@
 body{
     background-color: #E0F5F3;
+    font-family: 'Courier New', Courier, monospace;
+    color: #333;
+    min-height: 100vh;
+    padding: 2rem 0;
 }
 
 
@@ -15,13 +19,9 @@ body{
 
 h1{
     padding: 10px;
-    margin-top: 20px;
+    margin-top: 30px;
 }
 
-/* Selected Book */
-.description{
-    margin: 20px;
-}
 
 .confirm-or-reject{
     margin: 10px;
@@ -33,7 +33,6 @@ h1{
 .selected-book{
     border-radius: 20px;
     padding: 15px;
-    background-color: antiquewhite;
 }
 
 .book-card {
@@ -53,4 +52,62 @@ h1{
   .book-card img {
     max-height: 200px; /* Adjust as needed */
   }
+
+  .container {
+    max-width: auto;
+    margin: 0 auto;
+    
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: stretch;
+    padding: 2rem;
+    background-color: antiquewhite;
+  }
   
+  .page-title {
+    font-size: 2.5rem;
+    color: #333;
+    width: 100%;
+    text-align: center; 
+    margin-bottom: 1rem;
+  }
+  
+  .page-author {
+    font-size: 1.5rem;
+    color: #333;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  
+  
+  .image-container {
+    flex-basis: 40%; 
+    align-self: left;
+  }
+  
+  .book-image {
+    width: 100%;
+    max-width: 250px;
+    height: auto;
+    margin-right: 2rem; 
+    border: 5px solid #d2b48c;
+  }
+  
+  .text-content {
+    flex-basis: 60%; 
+    align-self: center;
+  }
+  .description {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  .rating {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }

@@ -216,7 +216,7 @@ const handleReject = async () => {
 
       { selectedBook !== "" ? (
 
-          <div className="selected-book mt-5">
+          <div className="selected-book-new mt-5">
             {printBook()}
           </div>) :  <></>
 

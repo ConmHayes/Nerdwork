@@ -86,14 +86,6 @@ def get_by_category(category):
 
     return jsonify(items=matching_items)
 
-# @item_bp.route('/<category>/<item_id>', methods=['GET'])
-# def get_items_by_user(category, item_id):
-#     item = Item.query.filter(category ==str(category), item_id= item_id).first()
-#     if not item:
-#         return jsonify(message=f'No items found with the item_id: {item_id} and the type as: {category}'), 404
-#     else:
-#         return jsonify(item= item)
-
 #rework
 @item_bp.route('/<item_id>', methods=['PATCH'])
 def update_item(item_id):
@@ -114,3 +106,11 @@ def update_item(item_id):
             item_to_update.email = new_user_email
             db.session.commit()
             return jsonify(message=f'Item {item_id} updated successfully ')
+
+# @item_bp.route('/<category>/<item_id>', methods=['GET'])
+# def get_items_by_user(category, item_id):
+#     item = Item.query.filter(category ==str(category), item_id= item_id).first()
+#     if not item:
+#         return jsonify(message=f'No items found with the item_id: {item_id} and the type as: {category}'), 404
+#     else:
+#         return jsonify(item= item)

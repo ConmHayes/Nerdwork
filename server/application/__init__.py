@@ -10,7 +10,6 @@ load_dotenv()
 # from application import routes
 from application.routes import auth, user, item, find_data, community, thread, trade, post
 
-
 app = Flask(__name__)
 CORS(app)
 app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
@@ -32,5 +31,3 @@ app.register_blueprint(trade.trade_bp)
 app.register_blueprint(community.community_bp)
 app.register_blueprint(thread.thread_bp)
 app.register_blueprint(post.post_bp)
-
-

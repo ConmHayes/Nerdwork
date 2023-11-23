@@ -43,7 +43,7 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended, 
 
       let top_icons; let top_var; let top_strings
 
-      const top_links = [`${localURL}profile`, `${localURL}profile/bookshelf`, `${localURL}profile/bookshelf`, "/"]
+      const top_links = [`${siteURL}profile`, `${siteURL}profile/bookshelf`, `${siteURL}profile/bookshelf`, "/"]
 
       if (localStorage.shelf ==="book"){
         top_strings=["Profile", "Your Games", "Your Comics", "Your Friends"]

@@ -133,13 +133,13 @@ const RequestPage = () => {
       <div className="container" style={{width: "100%"}} >
         <div className='flexbox-container'>
           <div className='flexbox-container' style={{width: "600px"}}>
-           
           </div>
 
         </div>
-        <div className="title"></div>
+        <div className="title">
+        </div>
         <h1 className="page-title">{selectedBook.title}</h1>
-        <h1 className='page-author'> {selectedBook.author}</h1>
+        <h4 className='page-author'> {selectedBook.author}</h4>
         <div className="image-container">
           <img src={selectedBook.img} alt={selectedBook.title} className="book-image"/>
         </div>

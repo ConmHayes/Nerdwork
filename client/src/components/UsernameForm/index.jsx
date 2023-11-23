@@ -86,7 +86,7 @@ export default function UsernameForm({
     if (response.status == 200 || response.status == 201){
       localStorage.setItem("token", data.token)
       localStorage.setItem("email", inputEmail)
-      navigate('/home')
+      navigate('/profile')
     }else{
       setLoginStatus('Email and/or password is invalid')
     }

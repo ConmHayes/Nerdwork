@@ -51,7 +51,7 @@ export default function BookSearchWidget () {
                 .filter(book => searchString.length == 0 || book.title.toLowerCase().includes(searchString.toLowerCase()))
                 .map(book => ( 
                 <div key={book.item_id} onClick={() => displayUser(book.item_id,book)} >
-                <BookSearchCard item={book} />
+                    <BookSearchCard item={book} />
                 </div>
             ))
     }

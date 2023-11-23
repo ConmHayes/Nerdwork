@@ -25,6 +25,7 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended, 
     const [error, setError] = useState('');
     const [initialBooks, setInitialBooks] = useState([])
     const [hoveredText, setHoveredText] = useState(["", "", "", ""])
+    const [lowerText, setLowerText] = useState(["", ""])
     const [formData, setFormData] = useState({
         title: "",
         img: "",
@@ -47,12 +48,12 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended, 
         top_icons = ["home", "sports_esports", "import_contacts", "diversity_3"]
         top_var = ["", "game", "comic book", ""]  
       }else if (localStorage.shelf ==="game"){
-        top_strings=["Profile", "Your Bookshelf", "Your Comics", "Your Friends"]
+        top_strings=["Profile", "Your Books", "Your Comics", "Your Friends"]
         top_icons = ["home", "book", "import_contacts", "diversity_3"]
         top_var = ["", "book", "comic book", ""] 
  
       }else if (localStorage.shelf==="comic book"){
-        top_strings=["Profile", "Your Bookshelf", "Your Games", "Your Friends"]
+        top_strings=["Profile", "Your Books", "Your Games", "Your Friends"]
         top_icons = ["home", "book", "sports_esports", "diversity_3"]
         top_var = ["", "book", "game", ""] 
  
@@ -273,9 +274,9 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended, 
       setHoveredText(initArray)
     }
     function hover2(i){
-      let initArray = ["", "", "", ""]
+      let initArray = ["", ""]
       initArray[i] = bottom_strings[i]
-      setHoveredText(initArray)
+      setLowerText(initArray)
 
     }
 
@@ -320,8 +321,8 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended, 
                 <div className="flexbox-item option-row">
                     {bottom_icons.map((icon, i) => (
                         <Link to={bottom_links[i]} className="link" key={i} >
-                            <div className={`flexbox-item profile-box ${i % 2 === 0 ? 'even' : 'odd'}`} onMouseOver={() => hover2(i)} onMouseOut={() => setHoveredText(["", "", "", ""])} >
-                                    <i className="material-icons">{icon}</i> {hoveredText[i]}
+                            <div className={`flexbox-item profile-box ${i % 2 === 0 ? 'even' : 'odd'}`} onMouseOver={() => hover2(i)} onMouseOut={() => setLowerText(["", ""])} >
+                                    <i className="material-icons">{icon}</i> {lowerText[i]}
                             </div>
                         </Link>
                     ))}

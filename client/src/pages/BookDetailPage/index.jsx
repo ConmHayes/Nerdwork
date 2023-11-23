@@ -1,18 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {Genre,Rating} from '../../components';
 import { useLocation } from 'react-router-dom';
 
 import "./bookDetails.css"
 
+const apiURL = "https://nerdwork-server.onrender.com"
+const siteURL = "https://nerdwork.onrender.com/"
+const localURL = "http://localhost:5173/"
+
 export default function BookDetailPage(){
   
   const location = useLocation();
   const books = location.state;
-  console.log(books)
   const data  = books["0"]
-  console.log(data)
-   
+  const navigate = useNavigate()
+
   async function handleOwnerClick(bookId, ownerEmail) {
       const requesterEmail = localStorage.getItem('email')
       console.log(bookId, ownerEmail, requesterEmail)
@@ -40,16 +43,16 @@ export default function BookDetailPage(){
   }
 }
   
-  // #create request instance
-  //       
-  //       user_email_request=user_email_request,
-  //       user_email_requestie=user_email_requestie,
-  //       wanted_item_id=wanted_item_id,
-  //       rejected_by_requestie=rejected_by_requestie                     
-  //   
-              // url: https://nerdwork-server.onrender.com/trade/
-              // method: POST
-              //content-type: 'application/json'
+const backArrow = () => {
+  console.log(data.category)
+  if (data.category == 'book') {
+    navigate('/booksearch')
+  } else if (data.category == 'comic book') {
+    navigate('/comicsearch')
+  } else if (data.category == 'game') {
+    navigate('/gamesearch')
+  } 
+}
   
   if (!data) {
     return <div>Loading...</div>;
@@ -76,15 +79,28 @@ export default function BookDetailPage(){
   
   return (
     <div className="book-detail-page">
-      <div className="container">
-        <h1 className="page-title">{data.title}</h1>
+      <div className="container" style={{width: "100%"}}>
+        <div className='flexbox-container'>
+          <div className='flexbox-container' style={{justifyContent: "flex-start", width: "50%"}}>
+            
+              <i className="material-symbols-outlined bell-ikon" style={{marginRight: "200px"}} onClick={() => backArrow()}>
+                arrow_back_ios
+              </i>
+           
+            
+          </div>
+          <div className='flexbox-container' style={{width: "600px"}}>
+            <h1 className="page-title">{data.title}</h1>
+          </div>
+
+        </div>
         <h3 className='page-author'> {data.author}</h3>
         <div className="image-container">
           <img src={data.img} alt={data.title} className="book-image"/>
         </div>
         <div className="text-content">
           <div className='description'>
-            <h3> Discription : </h3>
+            <h3> Description : </h3>
             <p>{data.description}</p>
           </div>
           <div className="genres">
@@ -109,4 +125,3 @@ export default function BookDetailPage(){
 
 
   
-

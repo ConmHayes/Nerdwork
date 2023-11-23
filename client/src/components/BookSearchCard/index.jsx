@@ -12,7 +12,7 @@ export default function BookSearchCard ({ item }){
     }
     console.log("item" , item)
     return (
-        <div id= "book-card" className="book-card" onClick={() => displayUser(item.item_id)}>
+        <div id="book-card" className="book-card" onClick={() => displayUser(item.item_id)}>
           <div className='image-frame'>
             <img src={img} alt={title}/> 
           </div>

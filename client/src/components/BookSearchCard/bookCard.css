@@ -1,6 +1,6 @@
 .book-card {
     max-width: 300px;
-    height: 350px; /* Adjust max-width for a larger card */
+    height: 350px; 
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -9,10 +9,9 @@
     margin-bottom: 20px;
     border-radius: 20px;
     overflow: hidden;
-    background-color: antiquewhite;
-    border: none; /* Removes the border */
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.15);
-
+    background-color: wheat;
+    border: none; 
+    box-shadow: 0px 5px 5px 10px rgba(0, 0, 0, 0.1);
 }
 
 .book-card:hover{
@@ -34,22 +33,23 @@
     width: 50%; 
     height: auto; 
     border-radius: 10px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.15);
 }
 
 .book-card .info {
-    padding: 10px; /* Adjust padding to your liking */
+    padding: 10px; 
   }
   
   .book-card .info .title p{
-    margin: 0; /* Removes default paragraph margin */
-    font-weight: bold; /* Optional: if you want the title to be bold */
+    margin: 0; 
+    font-weight: bold; 
     font-style: italic;
   }
   
   .book-card .info .author p{
-    margin: 0; /* Removes default paragraph margin */
-    /* Optional: styles the author text color */
-    color: #003366;
+    margin: 0; 
+    
+    color: #800000;
   }
   
 
@@ -65,6 +65,6 @@
         grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     }
     .book-card {
-        width: 100px; /* Adjust width on smaller screens */
+        width: 100px; 
     }
 }

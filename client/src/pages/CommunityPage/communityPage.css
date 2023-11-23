@@ -1,15 +1,60 @@
 .community-container {
-    display: flex;
-    align-items: flex-start; /* This aligns children to the top */
-    justify-content: center;
+  display: flex;
+  align-items: flex-start; 
+  justify-content: space-around; 
+  gap: 30px; 
+  margin: 30px; 
+  padding: 20px; 
+  background-color: #f8f9fa; 
+}
+
+.community-posts {
+  flex: 1; 
+  padding-right: 20px; 
+  background-color: #fff; 
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+  margin-bottom: 20px;
+}
+
+.create-post {
+  flex-basis: 300px;
+  padding: 20px; 
+  background: linear-gradient(145deg, #e6e6e6, #ffffff);
+  border-radius: 8px; 
+  box-shadow: 4px 4px 10px rgba(0,0,0,0.1); 
+  margin-left: 20px; 
+}
+
+.HomePageCard {
+  background: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%); 
+  color: #333;
+  border: none; 
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2); 
+}
+
+.Join {
+  background-color: #007bff; 
+  color: white;
+  border-radius: .25rem;
+  font-weight: bold;
+  font-size: .875rem;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: all 0.2s; 
+}
+
+.Join:hover {
+  background-color: #0056b3;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2); 
+}
+
+@media (max-width: 768px) {
+  .community-container {
+    flex-direction: column; 
   }
-  
-  .community-posts {
-    flex: 1; /* This allows the commun  ty posts section to grow and take up available space */
-    padding-right: 20px; /* Add some spacing between the posts and the card */
-  }
-  
+
   .create-post {
-    flex-basis: 300px; /* This gives a fixed width to the HomePageCard, adjust as necessary */
-    
+    margin-left: 0; 
   }
+}

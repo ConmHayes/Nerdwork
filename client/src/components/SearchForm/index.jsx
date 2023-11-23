@@ -9,10 +9,11 @@ export default function SearchForm({ searchString, setSearchString }) {
     }
 
     return (
-     
-        <form className='search-form'>
-             <label>Search:<input type="text" value={searchString} onChange={updateTextFilter} /></label>
-        </form>
+        <>
+            <form id='buttonsearch' className='search-form '>
+                <label><input type="text" placeholder= "Find Your Favourite "value={searchString} onChange={updateTextFilter} /></label>
+            </form>
+        </>
 
     )   
 };

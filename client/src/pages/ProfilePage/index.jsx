@@ -390,13 +390,13 @@ export default function ProfilePage(){
                     <div className="flexbox-container profile-header">
                         <div className="flexbox-item">
                             <span className="dot">
-                                <i className="material-icons ikon">person</i>
+                                <i className="material-icons ikon" style={{marginLeft: "4px"}}>person</i>
                             </span>
                         </div>
-                        <div className="flexbox-item" style = {{position: "relative", left: "10px", width: "400px"}}>
+                        <div className="flexbox-item" style = {{position: "relative", left: "10px", width: "350px"}}>
                             <h3> Welcome, {username}!</h3>
                         </div>
-                        <div className="flexbox-item bell" >
+                        <div className="flexbox-item bell"  >
                             <i className="material-icons bell-ikon" onClick={() => openNotifications()} >
                                 notifications
                             </i>

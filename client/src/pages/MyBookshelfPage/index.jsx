@@ -39,8 +39,10 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended, 
       });
       const [page, setPage] = useState(localStorage.shelf)
       const [username, setUsername] = useState("")
-      let top_icons; let top_var; let top_strings
-      const top_links = [`${siteURL}profile`, `${siteURL}profile/bookshelf`, `${siteURL}profile/bookshelf`, "/"]
+      let top_icons = ["home", "book", "sports_esports", "diversity_3"] 
+      let top_var = ["", "book", "game", ""]
+      let top_strings = ["Profile", "Your Bookshelf", "Your Games", "Your Friends"]
+      const top_links = [`${localURL}profile`, `${localURL}profile/bookshelf`, `${localURL}profile/bookshelf`, "/"]
 
       if (localStorage.shelf ==="book"){
         top_strings=["Profile", "Your Games", "Your Comics", "Your Friends"]
@@ -286,15 +288,10 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended, 
     }, [page])
 
     function capitalisation() {
-      const shelfType = localStorage.shelf;
-      if (typeof shelfType === 'string') {
-          return shelfType.charAt(0).toUpperCase() + shelfType.slice(1);
-      } else {
-          // Return an empty string or a default value if shelfType is not a string
-          return '';
-      }
-  }
-  
+      const shelf = localStorage.getItem('shelf') || '';
+      return shelf.charAt(0).toUpperCase() + shelf.slice(1);
+    }
+    
     
     return (
         
@@ -312,12 +309,12 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended, 
                 </div>
 
                 <div className="flexbox-container option-box ">
-                    {top_icons?.map((icon, i) => (
-                        <Link to={top_links[i]} className="link" key={i} onClick={() => [setShelf(top_var[i]), closeModal()]}>    
-                            <div className={`flexbox-item profile-box ${i % 2 === 0 ? 'even' : 'odd'}`} onMouseOver={() => hover(i)} onMouseOut={() => setHoveredText(["", "", "", ""])}>
+                    {top_icons.map((icon, i) => (
+                    <Link to={top_links[i]} className="link" key={i} onClick={() => [setShelf(top_var[i]), closeModal()]}>    
+                        <div className={`flexbox-item profile-box ${i % 2 === 0 ? 'even' : 'odd'}`} onMouseOver={() => hover(i)} onMouseOut={() => setHoveredText(["", "", "", ""])}>
                                 <i className="material-icons " style: color>{icon}</i>{hoveredText[i]}
-                            </div>
-                        </Link>
+                        </div>
+                    </Link>
                     ))}
                 </div>
                 <div className="flexbox-item placeholder-box" style={{border: "transparent"}}>
@@ -422,4 +419,3 @@ export default function MyBookshelfPage( { sidebarExtended, setSidebarExtended, 
         </div>
     )
 }
-

@@ -4,9 +4,47 @@ import { render, screen, cleanup, fireEvent, waitFor } from '@testing-library/re
 import { MemoryRouter } from 'react-router-dom';
 import MyBookshelfPage from '.';
 
+// Mock localStorage
+const localStorageMock = (function() {
+  let store = {};
+  return {
+    getItem(key) {
+      return store[key] || null;
+    },
+    setItem(key, value) {
+      store[key] = value.toString();
+    },
+    clear() {
+      store = {};
+    }
+  };
+})();
+
+Object.defineProperty(window, 'localStorage', {
+  value: localStorageMock
+});
+
+// Manual mock for fetch
+function mockFetch(data) {
+  return function(url) {
+    return new Promise((resolve) => {
+      resolve({
+        json: () => Promise.resolve(data)
+      });
+    });
+  };
+}
+
 describe('MyBookshelfPage Component', () => {
   beforeEach(() => {
-    // Mock any necessary data here
+    // Set up necessary localStorage items
+    window.localStorage.setItem('shelf', 'book');
+    window.localStorage.setItem('email', 'test@example.com');
+    window.localStorage.setItem('token', 'fakeToken');
+  
+    // Mock fetch with desired response
+    global.fetch = mockFetch({ username: 'testUser', items: [] });
+  
     render(
       <MemoryRouter>
         <MyBookshelfPage />
@@ -14,29 +52,14 @@ describe('MyBookshelfPage Component', () => {
     );
   });
 
-  afterEach(cleanup);
+  afterEach(() => {
+    cleanup();
+    window.localStorage.clear();
+    delete global.fetch;
+  });
 
   it('renders the bookshelf container', () => {
     const bookshelfContainer = screen.getByTestId('bookshelf-container');
     expect(bookshelfContainer).toBeDefined();
   });
-
-  // it('opens and closes the add book modal', async () => {
-  //   const addBookButton = screen.getByText(/Add another/i);
-  //   fireEvent.click(addBookButton);
-
-  //   await waitFor(() => {
-  //     const modalText = screen.getByText(/Add a new book to your collection!/i);
-  //     expect(modalText).toBeDefined();
-  //   });
-
-  //   const closeButton = screen.getByRole('button', { name: /close/i });
-  //   fireEvent.click(closeButton);
-
-  //   await waitFor(() => {
-  //     expect(screen.queryByText(/Add a new book to your collection!/i)).not.toBeInTheDocument();
-  //   });
-  // });
-
-  // More tests...
 });

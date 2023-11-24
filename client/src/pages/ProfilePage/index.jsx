@@ -334,7 +334,7 @@ export default function ProfilePage(){
         const randomArray = [];
         const tracking = []
 
-        while (randomArray.length <= 15) {
+        while (randomArray.length <= data.length) {
           const randomIndex = Math.floor(Math.random() * len);
         
           // Check if the random index is not already in the array

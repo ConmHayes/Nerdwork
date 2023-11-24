@@ -322,7 +322,7 @@ h3{
 
 .profile-box:hover i{
   position:absolute;
-  left: 10px
+  left: 8px
 }
 
 .profile-box i{
@@ -628,6 +628,7 @@ h3{
     animation-iteration-count: infinite;
     animation-timing-function: linear;
     transition: transform 0.5s ease;
+    background-color: #99D0CC
   }
   
   

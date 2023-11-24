@@ -9,4 +9,14 @@
 .bookHeading h1{
     padding-top: 20px;
     font-style: Bold;
+    background-color: #0A2246;
+    display: inline;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
 }
+.bookHeading{
+    
+    align-items: left;
+    margin-top: 80px;
+}   

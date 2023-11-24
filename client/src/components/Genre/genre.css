@@ -2,5 +2,10 @@
     list-style-type: none; /* Removes bullet points */
     padding: 0;
     display: inline; /* Optional: Removes padding */
-
   }
+.no-bullets span{
+  background-color: gray;
+  padding: 5px;
+  margin: 5px;
+  border-radius: 5px;
+}

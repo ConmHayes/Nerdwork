@@ -17,7 +17,16 @@ export default function BookDetailPage(){
   const books = location.state;
   const data  = books["0"]
   const navigate = useNavigate()
+  console.log(data.genre)
 
+  function cleanGenres(genres) {
+    return genres.map(genre => 
+      genre.replace(/^\{|\}$/g, '') // Remove leading '{' and trailing '}'
+    );
+  }
+
+  const newGenre = cleanGenres(data.genre)
+  console.log(newGenre)
   async function handleOwnerClick(bookId, ownerEmail) {
       const requesterEmail = localStorage.getItem('email')
       console.log(bookId, ownerEmail, requesterEmail)
@@ -84,12 +93,9 @@ const backArrow = () => {
       <div className="container" style={{width: "100%"}}>
         <div className='flexbox-container'>
           <div className='flexbox-container' style={{justifyContent: "flex-start", width: "50%"}}>
-            
               <i className="material-symbols-outlined bell-ikon" style={{marginRight: "200px"}} onClick={() => backArrow()}>
                 arrow_back_ios
               </i>
-           
-            
           </div>
           <div className='flexbox-container' style={{width: "600px"}}>
             <h1 className="page-title">{data.title}</h1>
@@ -106,7 +112,7 @@ const backArrow = () => {
             <p>{data.description}</p>
           </div>
           <div className="genres">
-            <Genre genres={data.genre} />
+            <Genre genres={newGenre} />
           </div>
           <div className="rating">
             <Rating value={data.rating} />

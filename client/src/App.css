@@ -322,12 +322,12 @@ h3{
 
 .profile-box:hover i{
   position:absolute;
-  left: 8px
+  left: 10px
 }
 
 .profile-box i{
   position: absolute;  
-  left: 45px;
+  left: 39px;
   margin-top: 0px;
   line-height: 0;
   color: black;
@@ -422,7 +422,7 @@ h3{
     border-top-left-radius: 0px;
 
     scrollbar-color: transparent transparent;
-    background-color: lightgray;
+    background-color: #99D0CC;
 }
 
 

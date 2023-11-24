@@ -63,20 +63,20 @@ export default function PostPage() {
         ));
     }
     const postComment = () => {
-        const url = `https://nerdwork-server.onrender.com/post/`; // Replace with your actual endpoint
-        const email = localStorage.getItem('email'); // Assuming email is stored in localStorage
+        const url = `https://nerdwork-server.onrender.com/post/`; 
+        const email = localStorage.getItem('email'); 
         console.log("ok2")
         fetch(url, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            // Add any other headers your API requires
+            
           },
           body: JSON.stringify({
             thread_id : 1,
             post_title : "nothing",
-            email: email, // Include email if needed
-            comment: comment, // The comment text from the input
+            email: email, 
+            comment: comment, 
             vote: 0
           }),
         })

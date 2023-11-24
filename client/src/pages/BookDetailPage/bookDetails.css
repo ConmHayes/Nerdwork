@@ -62,7 +62,6 @@
   }
   
   .genres {
-    background-color: #ccc;
     color: #333;
     padding: 0.5rem 1rem;
     margin: 0.25rem;
@@ -76,6 +75,7 @@
   .rating {
     font-size: 1.5rem;
     margin-bottom: 1rem;
+    color: gold;
   }
   
   /* Responsive behavior */

@@ -4,7 +4,7 @@ export default function Genre({ genres }) {
   return (
     <ul className='no-bullets'>
       {genres.map((genre, index) => (
-        <li key={index}>{genre}</li>
+        <span key={index}>{genre}</span>
       ))}
     </ul>
   );

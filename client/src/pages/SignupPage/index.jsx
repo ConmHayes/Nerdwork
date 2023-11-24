@@ -37,7 +37,9 @@ export default function SignupPage() {
               Already have an account?{" "}
               <Link
                 to="/"
-                className="inline-link"
+                className="link inline "
+                style={{color:"#34A299"}}
+                
               >
                 Back to Login
               </Link>

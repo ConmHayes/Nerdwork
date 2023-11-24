@@ -3,24 +3,24 @@ body {
     font-family: "Source Sans Pro",Arial,sans-serif;
 }
 .navbar{
-  background-color: #0A2246;
+  background-color: #404AA9;
 }
 .nav-link{
   color: white;
 
 }
 #bootstrap-overrides .nav-link.active{
-  color: #f5574e
+  color: #34A299
 }
 .navbar-brand{
-  color: #FDB724;
+  color: #34A299;
 }
 #book-card{
   background-color: white;
 }
 
 body.login-page{
-    background-color: lavender;
+    background-color: #e0f5f3;
 }
 hr{
     color: black
@@ -43,7 +43,7 @@ hr{
     justify-content: center;
     align-items: center;
     text-align: center;
-    border: black solid 5px;
+    border: transparent solid 5px;
 
 }
 
@@ -60,11 +60,19 @@ hr{
 
 .login-button{
     height: 40px;
+    width: 150px;
     background-color: #fffbed;
     color: black;
     margin-bottom: 20px;
     justify-content: left;
-    border: black solid 5px
+    border: transparent solid 3px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.login-button:hover{
+  background-color: #d1d1d1;
+  transition: 0.5s;
 }
 
 .login-button.login-page{
@@ -115,7 +123,7 @@ font-size: 20px;
 }
 
 .inline{
-    color: blue
+    color: #B9CCEA
 }
 
 .link{
@@ -178,11 +186,12 @@ font-size: 20px;
 }
 
 .profile-sidebar{
-    width: 100px;
+    width: 4.6%;
     height: 95vh;
     margin-left: 7px;
+    border-radius: 10px;
     margin-top: 25px;
-    background-color: rebeccapurple;
+    background-color: #99D0CC;
     justify-content: flex-start;
     flex-direction: column;
 
@@ -191,9 +200,10 @@ font-size: 20px;
 .profile-sidebar-extended{
     width: 30%;
     height: 95vh;
+    border-radius: 10px;
     margin-left: 7px;
     margin-top: 25px;
-    background-color: rebeccapurple;
+    background-color: #99D0CC;
     justify-content: flex-start;
     flex-direction: column;
 }
@@ -267,7 +277,8 @@ font-size: 20px;
 }
 
 h3{
-    font-size: large;
+    font-size: 20px;
+    font-weight: bold;
 }
 
 .option-row{
@@ -288,6 +299,7 @@ h3{
     margin-top: 20px;
     height: 50px;
     border-radius: 20px;
+    color: whitesmoke
 }
 
 .profile-box{
@@ -295,13 +307,13 @@ h3{
     margin-top: 20px;
     height: 50px;
     border-radius: 50%;
-    border: black solid 3px
+    border: transparent solid 3px
 }
 
 .profile-box:hover{
   width:300px;
   cursor: pointer;
-  color: black;
+  color: whitesmoke;
   filter: hue-rotate(120deg);
   translate: 125px;
   border-radius: 20px;
@@ -327,7 +339,7 @@ h3{
     left: 10vh;
     margin-top: 0px;
     line-height: 0;
-    color: black;
+    color: white;
     font-size: 25px;
 }
 
@@ -356,10 +368,14 @@ h3{
 
 
 .odd{
-    background-color: aqua;
+    background-color: #404AA9;
+    color: whitesmoke;
+}
+.odd .link{
+  color: whitesmoke
 }
 .even{
-    background-color: lightgreen;
+    background-color: #34A299;
 }
 
 .placeholder-box{
@@ -377,6 +393,8 @@ h3{
     display: flex;
     padding-left: 50px;
     width: 60%;
+    border-radius: 10px;
+
     align-items: flex-start;
 }
 
@@ -386,6 +404,7 @@ h3{
     width: 90%;
     align-items: flex-start;
     overflow-x: hidden;
+    border-radius: 10px;
     scrollbar-width: thin;
     scrollbar-color: transparent transparent;
 
@@ -398,6 +417,10 @@ h3{
     overflow-y: hidden;
     margin-bottom: 50px;
     scrollbar-width: thin;
+    border-radius: 10px;
+    border-top-right-radius: 0px;
+    border-top-left-radius: 0px;
+
     scrollbar-color: transparent transparent;
     background-color: lightgray;
 }
@@ -444,6 +467,7 @@ h3{
   overflow-y: auto;
   max-height: 350px;
   z-index: 1;
+  border-radius: 10px;
   
   /* Hide scrollbar for WebKit browsers */
   scrollbar-width: thin;
@@ -551,7 +575,8 @@ h3{
     top: 20%;
     left: 25%;
     background-color: aliceblue;
-    border: black solid 2px
+    border: black solid 2px;
+    border-radius: 10px;
 }
 
 .modal-form-profile{
@@ -559,8 +584,24 @@ h3{
     position: absolute;
     top: 10%;
     left: 25%;
+    border-radius: 10px;
     background-color: aliceblue;
     border: black solid 2px
+}
+
+.modal-notifications{
+  width: 60%;
+  height: 60%;
+  position: absolute;
+  top: 10%;
+  left: 25%;
+  border-radius: 10px;
+  background-color: aliceblue;
+  border: black solid 2px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+
 }
 
 
@@ -571,6 +612,11 @@ h3{
     height: 350px;
     width: 100%;
     max-width: 100%;
+    border-radius: 10px;
+    border-top-right-radius: 0px;
+    border-top-left-radius: 0px;
+
+
   }
   
   #permas {
@@ -578,9 +624,12 @@ h3{
     white-space: nowrap;
     animation-name: scroll;
     animation-duration: 100s;
+    border-radius: 10px;
     animation-iteration-count: infinite;
     animation-timing-function: linear;
+    transition: transform 0.5s ease;
   }
+  
   
   #permas .profile-item {
     height: 300px;
@@ -598,14 +647,16 @@ h3{
   .profile-item img{
     width:200px;
     height:300px;
-    border: 5px black solid
+    border: 5px transparent solid
   }
   .profile-item img:hover{
     scale:1.1;
     opacity:1.5;
-    border: 5px black solid;
+    border: 5px transparent solid;
     transition:0.3s
   }
+
+  
 .test img{
     width: 200px;
     height:300px;
@@ -636,3 +687,33 @@ h3{
     transition: 0.5s;
   }
   
+  .insert-image{
+    border-radius: 10px;
+  }
+
+  .request-image{
+    height: 200px;
+    width:130px
+  }
+  .request-image:hover{
+    scale: 1.15;
+    transition: 0.3s;
+  }
+  .insert-image:hover{
+    cursor: pointer;
+  }
+
+  .box-header{
+    flex-direction: row;
+    background-color: #404AA9;
+    border-radius: 10px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    width:1800px;
+    color:whitesmoke 
+  }
+
+  .bottom-margin{
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+  }

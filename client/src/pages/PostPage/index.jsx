@@ -103,14 +103,14 @@ export default function PostPage() {
             </header>
             <div className="comment-section">
                 <div className="comment-header">
-                    <span> comment as {localStorage.getItem("email")} </span>
+                <span> Comment as {localStorage.getItem("email")} </span>
                 </div>
                 <div className="comment-body">
-                    <textarea className="comment-input" type="text" value={comment} onChange={handleCommentChange}>
-                    </textarea> 
+                <textarea className="comment-input" type="text" value={comment} onChange={handleCommentChange}>
+                </textarea> 
                 </div>
-                <div className="cooment-footer">
-                    <button  onClick={ postComment }> Post </button>
+                <div className="comment-footer"> {/* Wrap the button in a footer div for styling */}
+                <button className="comment-button" onClick={postComment}>Post</button> {/* Corrected className */}
                 </div>
             </div>
             <div className="sorter">
@@ -124,6 +124,7 @@ export default function PostPage() {
                 {displayPost()}
             </div>
         </section>
+
         
     );
 }

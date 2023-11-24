@@ -7,7 +7,7 @@ export default function CommunityCard( {community, handleCommunityClick }){
         <div className="Community-Card">
             <div className="community-name">
                 <h2>{community.community_name}</h2>
-                < button className="Join" onClick={() => handleCommunityClick(community.community_id)}>Join</button>
+                < button className="login-button" onClick={() => handleCommunityClick(community.community_id)}>View</button>
             </div>
             <div className="community-description">
                 <p>{community.description}</p>

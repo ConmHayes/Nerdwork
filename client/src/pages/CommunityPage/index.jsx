@@ -46,6 +46,9 @@ export default function CommunityPage() {
 
   return (
     <>
+      <div className="heading">
+          <h1> Search Community </h1>
+      </div>
       <SearchForm searchString={searchString} setSearchString={setSearchString} />
       <div className="community-container">
         <div>

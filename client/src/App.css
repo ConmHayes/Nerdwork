@@ -322,7 +322,7 @@ h3{
 
 .profile-box:hover i{
   position:absolute;
-  left: 8px
+  left: 10px
 }
 
 .profile-box i{
@@ -608,7 +608,7 @@ h3{
 .wrapper {
     display: flex;
     overflow: hidden;
-    background-color: lightgray;
+    background-color: #99D0CC;
     height: 350px;
     width: 100%;
     max-width: 100%;
